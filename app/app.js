@@ -48,7 +48,7 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
-		.when('/produto/edit/:id',
+		.when('/produto/edit/:idproduto',
 			{ 
 				templateUrl: 'views/produto/formulario.html',
 				controller: 'produtoCtrl',
@@ -63,15 +63,45 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
-		.when('/categoria',
+		.when('/unidademedida',
 			{ 
-				templateUrl: 'views/categoria/list.html',
-				controller: 'CategoriaCtrl',
+				templateUrl: 'views/unidademedida/index.html',
+				controller: 'unidadeMedidaCtrl',
 				resolve: {
 					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/categoria/categoriaCtrl.js']
+                        	files: ['app/controllers/unidademedida/unidadeMedidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/unidademedida/add',
+			{ 
+				templateUrl: 'views/unidademedida/formulario.html',
+				controller: 'unidadeMedidaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/unidademedida/unidadeMedidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/unidademedida/edit/:id',
+			{ 
+				templateUrl: 'views/unidademedida/formulario.html',
+				controller: 'unidadeMedidaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/unidademedida/unidadeMedidaCtrl.js']
                     	});
 					}]
 				}

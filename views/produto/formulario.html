@@ -2,7 +2,7 @@
 
 <form name="createForm" role="form" novalidate>
 
-	<input type="hidden" ng-model="produto.id" name="id">
+	<input type="hidden" ng-model="produto.idproduto" name="idproduto">
 
 	<div class="form-group">
 		<label for="nome" class="control-label">Nome: <span class="red">*</span></label>
@@ -16,15 +16,15 @@
 	</div><!-- END INPUT -->
 
 	<div class="form-group">
-		<label for="preco" class="control-label">Preço: <span class="red">*</span></label>
-		<input type="text" class="form-control" ng-model="produto.preco" name="preco" placeholder="0,00" required>
-		<span class="help-block" ng-show="createForm.preco.$dirty && createForm.preco.$error.required">O campo é obrigatório</span>
+		<label for="preco" class="control-label">Marca: <span class="red">*</span></label>
+		<input type="text" class="form-control" ng-model="produto.marca" name="marca" placeholder="Informe a marca do produto" required>
+		<span class="help-block" ng-show="createForm.marca.$dirty && createForm.marca.$error.required">O campo é obrigatório</span>
 	</div><!-- END INPUT -->
 
 	<div class="form-group">
-		<label for="quantidade" class="control-label">Quantidade: <span class="red">*</span></label>
-		<input type="text" class="form-control" ng-model="produto.quantidade" name="quantidade" placeholder="0" required>
-		<span class="help-block" ng-show="createForm.quantidade.$dirty && createForm.quantidade.$error.required">O campo é obrigatório</span>
+		<label for="quantidade" class="control-label">Unidade de Medida: <span class="red">*</span></label>
+		<input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required>
+		<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
 	</div><!-- END INPUT -->
 
 	<img src="assets/img/ajax-loader.gif" ng-show="isloading">

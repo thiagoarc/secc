@@ -1,5 +1,5 @@
 <?php 
-	
+
 $oConexao = Conexao::getInstance();
 
 //params
@@ -9,14 +9,12 @@ sleep(1);
 
 try{
 
-	if( $params->idproduto != '' ){
+	if( $params->idunidade_medida != '' ){
 
-		$stmt = $oConexao->prepare("UPDATE produto SET nome = :nome, descricao = :descricao, marca = :marca, idunidade_medida = :idunidade_medida WHERE idproduto = :idproduto");  
-		$stmt->bindParam('nome', $params->nome);
+		$stmt = $oConexao->prepare("UPDATE unidade_medida SET sigla = :sigla, descricao = :descricao WHERE idunidade_medida = :id");  
+		$stmt->bindParam('sigla', $params->sigla);
 		$stmt->bindParam('descricao', $params->descricao);
-		$stmt->bindParam('marca', $params->marca);
-		$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
-		$stmt->bindParam('idproduto', $params->idproduto);
+		$stmt->bindParam('id', $params->idunidade_medida);
 		$stmt->execute();
 		$oConexao = null;
 
@@ -26,12 +24,10 @@ try{
 
 	}else{
 
-		$stmt = $oConexao->prepare("INSERT INTO produto (nome, descricao, marca, idunidade_medida) VALUES(:nome, :descricao, :marca, 1)");  
-		$stmt->bindParam('nome', $params->nome);
+		$stmt = $oConexao->prepare("INSERT INTO unidade_medida (sigla, descricao) VALUES(:sigla, :descricao)");  
+		$stmt->bindParam('sigla', $params->sigla);
 		$stmt->bindParam('descricao', $params->descricao);
-		$stmt->bindParam('marca', $params->marca);
 		$stmt->execute();
-
 		$oConexao = null;
 
 		$msg['msg']         = 'success';
@@ -39,7 +35,11 @@ try{
     	echo json_encode($msg);
 	
 	}
-
+	//MENSAGEM DE SUCESSO
+    // $msg['msg']         = 'success';
+    // $msg['msg_success'] = 'Cadastro efetuado com sucesso.';
+    // echo json_encode($msg);
+	// echo json_encode($);
 }catch (PDOException $e){
     $oConexao->rollBack();
     echo '{"error":{"text":'. $e->getMessage() .'}}'; 

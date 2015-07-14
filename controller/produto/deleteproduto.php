@@ -8,12 +8,12 @@ $id = $_GET['id'];
 try{
 
 	if( $id > 0){
-		$stmt = $oConexao->prepare("DELETE FROM produto WHERE id = :id");  
+		$stmt = $oConexao->prepare("DELETE FROM produto WHERE idproduto = :id");  
 		$stmt->bindParam('id', $id);
 		$stmt->execute();
 		$oConexao = null;
 		$msg['msg']         = 'success';
-    	$msg['msg_success'] = 'Cadastro deletado com sucesso.';
+    	$msg['msg_success'] = 'Registro deletado com sucesso.';
     	echo json_encode($msg);
 	}
 

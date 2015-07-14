@@ -12,9 +12,9 @@
 
 
 	<div class="col-sm-12">
-		<h3>Lista de produto</h3>
+		<h3>Lista de Unidades de Medida</h3>
 
-		<a href="#!/produto/add" class="btn btn-success btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
+		<a href="#!/unidademedida/add" class="btn btn-success btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
 	</div>
 
 	<div class="col-sm-12">
@@ -33,27 +33,23 @@
 				<thead>
 					<th>#</th>
 					<th>
-						<a href="#" ng-click="sortType = 'nome'; sortReverse = !sortReverse">
-							Nome
-							<span ng-show="sortType == 'nome' && !sortReverse" class="fa fa-caret-down"></span>
-            				<span ng-show="sortType == 'nome' && sortReverse" class="fa fa-caret-up"></span>
+						<a href="#" ng-click="sortType = 'sigla'; sortReverse = !sortReverse">
+							Sigla
+							<span ng-show="sortType == 'sigla' && !sortReverse" class="fa fa-caret-down"></span>
+            				<span ng-show="sortType == 'sigla' && sortReverse" class="fa fa-caret-up"></span>
 						</a>
 					</th>
 					<th>Descrição</th>
-					<th>Marca</th>
-					<th>UN</th>
 					<th></th>
 					<th></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem">
-						<td>{{produto.idproduto}}</td>
-						<td>{{produto.nome}}</td>
-						<td>{{produto.descricao}}</td>
-						<td>{{produto.marca}}</td>
-						<td>{{produto.idunidade_medida}}</td>
-						<td><a href="#!/produto/edit/{{produto.idproduto}}">Editar</a></td>
-						<td><a href="javascript:;" ng-click="deleteitem(produto.idproduto)">Excluir</a></td>
+					<tr ng-repeat="unidademedida in unidademedidas | orderBy:sortType:sortReverse | filter:searchItem">
+						<td>{{unidademedida.idunidade_medida}}</td>
+						<td>{{unidademedida.sigla}}</td>
+						<td>{{unidademedida.descricao}}</td>
+						<td><a href="#!/unidademedida/edit/{{unidademedida.idunidade_medida}}">Editar</a></td>
+						<td><a href="javascript:;" ng-click="deleteitem(unidademedida.idunidade_medida)">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>

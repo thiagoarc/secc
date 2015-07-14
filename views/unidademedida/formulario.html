@@ -1,0 +1,26 @@
+<h1>Adicionar unidade de medida</h1>
+
+<form name="createForm" role="form" novalidate>
+
+	<input type="hidden" ng-model="unidademedida.idunidade_medida" name="idunidade_medida">
+
+	<div class="form-group">
+		<label for="nome" class="control-label">Sigla: <span class="red">*</span></label>
+		<input type="text" class="form-control" ng-model="unidademedida.sigla" name="sigla" placeholder="Informe a sigla da unidade de medida" required>
+		<span class="help-block" ng-show="createForm.sigla.$dirty && createForm.sigla.$error.required">O campo é obrigatório</span>
+	</div><!-- END INPUT -->
+
+	<div class="form-group">
+		<label for="nome" class="control-label">Descrição: <span class="red">*</span></label>
+		<input type="text" class="form-control" ng-model="unidademedida.descricao" name="descricao" placeholder="Informe a descrição da unidade de medida" required>
+		<span class="help-block" ng-show="createForm.descricao.$dirty && createForm.descricao.$error.required">O campo é obrigatório</span>
+	</div><!-- END INPUT -->
+
+	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+	<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+		<span ng-switch-default>Salvar</span>
+    	<span ng-switch-when="true">Salvando...</span>
+	</button>
+	<a href="#!/unidademedida" class="btn btn-danger">Cancelar</a>
+
+</form>
