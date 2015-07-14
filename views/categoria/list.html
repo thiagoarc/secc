@@ -1,0 +1,45 @@
+<div class="row" ui-view>
+
+	<div class="col-sm-12">
+		<h3>Lista de categorias - {{helloworld}}</h3>
+	</div>
+
+	<div class="col-sm-12">
+
+		<form ng-show="totalItems">
+	    	<div class="form-group">
+		      <div class="input-group">
+		        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+		        <input type="text" class="form-control" placeholder="Busca">
+		      </div>      
+	      	</div>
+	    </form>
+
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<th>#</th>
+					<th>Nome</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<!-- <tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem">
+						<td>{{produto.id}}</td>
+						<td>{{produto.nome}}</td>
+						<td>{{produto.descricao}}</td>
+						<td>{{produto.preco}}</td>
+						<td>{{produto.quantidade}}</td>
+						<td><a href="/produto/form/{{produto.id}}">Editar</a></td>
+						<td><a href="javascript:;" ng-click="deleteitem(produto.id)">Excluir</a></td>
+					</tr> -->
+					<tr>
+						<td>1</td>
+						<td>categoria</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>
