@@ -11,10 +11,10 @@ var app = angular.module('app', [
 app.config(function($routeProvider, $locationProvider){
 
 	$routeProvider
-		.when('/', { templateUrl: 'template/aside.php',  title: 'Dasboard' })
-		.when('/produto', { templateUrl: 'views/produto/index.php', controller: 'produtoCtrl', title: 'Lista de Produto' })
-		.when('/produto/form', { templateUrl: 'views/produto/form.php', controller: 'produtoCtrl', title: 'Adicionar Produto' })
-		.when('/produto/form/:id', { templateUrl: 'views/produto/form.php', controller: 'produtoCtrl', title: 'Editar Produto' })
+		.when('/', { templateUrl: 'template/aside.html',  title: 'Dasboard' })
+		.when('/produto', { templateUrl: 'views/produto/index.html', controller: 'produtoCtrl', title: 'Lista de Produto' })
+		.when('/produto/form', { templateUrl: 'views/produto/form.html', controller: 'produtoCtrl', title: 'Adicionar Produto' })
+		.when('/produto/form/:id', { templateUrl: 'views/produto/form.html', controller: 'produtoCtrl', title: 'Editar Produto' })
 		.otherwise({ redirectTo: '/' });
 
 	//remove the # in URLs
