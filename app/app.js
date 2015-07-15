@@ -107,6 +107,51 @@ app.config( function($routeProvider, $locationProvider){
 				}
 			}
 		)
+
+		.when('/fornecedor',
+			{ 
+				templateUrl: 'views/fornecedor/index.html',
+				controller: 'fornecedorCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/fornecedor/fornecedorCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/fornecedor/add',
+			{ 
+				templateUrl: 'views/fornecedor/formulario.html',
+				controller: 'fornecedorCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/fornecedor/fornecedorCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/fornecedor/edit/:id',
+			{ 
+				templateUrl: 'views/fornecedor/formulario.html',
+				controller: 'fornecedorCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/fornecedor/fornecedor	Ctrl.js']
+                    	});
+					}]
+				}
+			}
+		)
 		.otherwise({ redirectTo: '/' });
 
 	//remove the # in URLs

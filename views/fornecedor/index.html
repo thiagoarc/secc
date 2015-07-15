@@ -12,9 +12,9 @@
 
 
 	<div class="col-sm-12">
-		<h3>Lista de Unidades de Medida</h3>
+		<h3>Lista de Fornecedores</h3>
 
-		<a href="#!/unidademedida/add" class="btn btn-success btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
+		<a href="#!/fornecedor/add" class="btn btn-success btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
 	</div>
 
 	<div class="col-sm-12">
@@ -33,23 +33,27 @@
 				<thead>
 					<th>#</th>
 					<th>
-						<a href="#" ng-click="sortType = 'sigla'; sortReverse = !sortReverse">
-							Sigla
-							<span ng-show="sortType == 'sigla' && !sortReverse" class="fa fa-caret-down"></span>
-            				<span ng-show="sortType == 'sigla' && sortReverse" class="fa fa-caret-up"></span>
+						<a href="#" ng-click="sortType = 'razaosocial'; sortReverse = !sortReverse">
+							Razão Social
+							<span ng-show="sortType == 'razaosocial' && !sortReverse" class="fa fa-caret-down"></span>
+            				<span ng-show="sortType == 'razaosocial' && sortReverse" class="fa fa-caret-up"></span>
 						</a>
 					</th>
-					<th>Descrição</th>
+					<th>CNPJ</th>
+					<th>Celular</th>
+					<th>Responsável</th>
 					<th></th>
 					<th></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="unidademedida in unidademedidas | orderBy:sortType:sortReverse | filter:searchItem  | filter : paginate">
-						<td>{{unidademedida.idunidade_medida}}</td>
-						<td>{{unidademedida.sigla}}</td>
-						<td>{{unidademedida.descricao}}</td>
-						<td><a href="#!/unidademedida/edit/{{unidademedida.idunidade_medida}}">Editar</a></td>
-						<td><a href="javascript:;" ng-click="deleteitem(unidademedida.idunidade_medida)">Excluir</a></td>
+					<tr ng-repeat="fornecedor in fornecedores | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+						<td>{{fornecedor.idfornecedor}}</td>
+						<td>{{fornecedor.razaosocial}}</td>
+						<td>{{fornecedor.cnpj}}</td>
+						<td>{{fornecedor.celular}}</td>
+						<td>{{fornecedor.responsavel}}</td>
+						<td><a href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">Editar</a></td>
+						<td><a href="javascript:;" ng-click="deleteitem(fornecedor.idfornecedor)">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>

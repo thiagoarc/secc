@@ -1,21 +1,22 @@
 'use strict';
 
 app
-	.controller('unidadeMedidaCtrl', 
+	.controller('fornecedorCtrl', 
 		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
 			function($scope, $resource, $routeParams, $location, $modal, $http) {
 				
-				$scope.unidademedida 				= {};
+				$scope.fornecedor 				= {};
 				$scope.isloading 			= false;
 				$scope.feedback				= false;
 				$scope.feedbackMessage		= {};
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
+			  	
 
 			  	$scope.submitting = false;	// set label btn for false then save
 
-				var itemid = $routeParams.id;
+				var itemid = $routeParams.idproduto;
 
 				if( itemid && itemid > 0){
 					// via resource
@@ -25,10 +26,10 @@ app
 					//via http
 					$http({
 						method: 'POST',
-						url: '/controller/unidademedida/getUnidadeMedida',
+						url: '/controller/fornecedor/getfornecedor',
 						data: { id: itemid } 
 					}).success(function(data){
-						$scope.unidademedida = data;
+						$scope.fornecedor = data;
 					});
 				}
 
@@ -36,14 +37,14 @@ app
 					// var listaproduto = $resource('php/produto/produtos.php'); 
 					// $scope.produtos  = listaproduto.query();
 					
-					$http.get('/controller/unidademedida/allUnidadesMedida')
+					$http.get('/controller/fornecedor/fornecedores')
 						.success(function(data){
-							$scope.unidademedidas = data;
+							$scope.fornecedores = data;
 							$scope.currentPage = 1; //current page
 							$scope.entryLimit = 5; //max no of items to display in a page
-							$scope.filteredItems = $scope.unidademedidas.length; //Initially for no filter
-							$scope.totalItems = $scope.unidademedidas.length;
-							$scope.numPerPage = 5;
+							$scope.filteredItems = $scope.fornecedores.length; //Initially for no filter
+							$scope.totalItems = $scope.fornecedores.length;
+  							$scope.numPerPage = 5;
 						});
 
 				};
@@ -52,7 +53,7 @@ app
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
     				end = begin + $scope.numPerPage;
-    				index = $scope.unidademedidas.indexOf(value);
+    				index = $scope.fornecedores.indexOf(value);
     				return (begin <= index && index < end);
   				};
 
@@ -65,14 +66,14 @@ app
 						//show loading
 						$scope.isloading = true;
 						//via http
-						$http.post('/controller/unidademedida/saveUnidadeMedida', $scope.unidademedida )
+						$http.post('/controller/fornecedor/savefornecedor', $scope.fornecedor )
 						.success(function(data){
 							//saving set false
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
 							//success
-							$location.path('/unidademedida');
+							$location.path('/produto');
 							//show message
 							$scope.feedback = true;
 							// $scope.feedbackType = 'success';
@@ -88,8 +89,8 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemunidademedida = $resource('/controller/unidademedida/deleteUnidadeMedida' , {id: itemid});
-					itemunidademedida.delete(
+					var itemfornecedor = $resource('/controller/fornecedor/deletefornecedor' , {id: itemid});
+					itemfornecedor.delete(
 						function(data){
 							console.log(data.msg_success);
 							//success
