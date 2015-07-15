@@ -12,10 +12,11 @@ app
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
+			  	
 
 			  	$scope.submitting = false;	// set label btn for false then save
 
-				var itemid = $routeParams.id;
+				var itemid = $routeParams.idproduto;
 
 				if( itemid && itemid > 0){
 					// via resource
@@ -43,6 +44,30 @@ app
 							$scope.entryLimit = 5; //max no of items to display in a page
 							$scope.filteredItems = $scope.produtos.length; //Initially for no filter
 							$scope.totalItems = $scope.produtos.length;
+  							$scope.numPerPage = 5;
+						});
+
+				};
+
+				$scope.paginate = function(value) {
+    				var begin, end, index;
+    				begin = ($scope.currentPage - 1) * $scope.numPerPage;
+    				end = begin + $scope.numPerPage;
+    				index = $scope.produtos.indexOf(value);
+    				return (begin <= index && index < end);
+  				};
+
+				$scope.loadunidademedidas = function(){
+					// var listaproduto = $resource('php/produto/produtos.php'); 
+					// $scope.produtos  = listaproduto.query();
+					
+					$http.get('/controller/unidademedida/allUnidadesMedida')
+						.success(function(data){
+							$scope.unidademedidas = data;
+							//$scope.currentPage = 1; //current page
+							//$scope.entryLimit = 5; //max no of items to display in a page
+							//$scope.filteredItems = $scope.produtos.length; //Initially for no filter
+							//$scope.totalItems = $scope.produtos.length;
 						});
 
 				};

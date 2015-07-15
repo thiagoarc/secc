@@ -46,17 +46,18 @@
 					<th></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem">
+					<tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 						<td>{{produto.idproduto}}</td>
 						<td>{{produto.nome}}</td>
 						<td>{{produto.descricao}}</td>
 						<td>{{produto.marca}}</td>
-						<td>{{produto.idunidade_medida}}</td>
+						<td>{{produto.sigla}}</td>
 						<td><a href="#!/produto/edit/{{produto.idproduto}}">Editar</a></td>
 						<td><a href="javascript:;" ng-click="deleteitem(produto.idproduto)">Excluir</a></td>
 					</tr>
 				</tbody>
 			</table>
+			<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
 		</div>
 
 		<div class="col-md-12" ng-show="!totalItems">

@@ -23,7 +23,11 @@
 
 	<div class="form-group">
 		<label for="quantidade" class="control-label">Unidade de Medida: <span class="red">*</span></label>
-		<input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required>
+		<select class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" ng-init="loadunidademedidas()" required>
+		<option value="">Escolha</option>
+		<option ng-repeat="unidade in unidademedidas" value="{{unidade.idunidade_medida}}" ng-selected="produto.idunidade_medida==unidade.idunidade_medida">{{unidade.sigla}} - {{unidade.descricao}}</option>
+		</select>
+		<!-- <input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required> -->
 		<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
 	</div><!-- END INPUT -->
 

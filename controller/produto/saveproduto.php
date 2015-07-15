@@ -26,10 +26,11 @@ try{
 
 	}else{
 
-		$stmt = $oConexao->prepare("INSERT INTO produto (nome, descricao, marca, idunidade_medida) VALUES(:nome, :descricao, :marca, 1)");  
+		$stmt = $oConexao->prepare("INSERT INTO produto (nome, descricao, marca, idunidade_medida) VALUES(:nome, :descricao, :marca, :idunidade_medida)");  
 		$stmt->bindParam('nome', $params->nome);
 		$stmt->bindParam('descricao', $params->descricao);
 		$stmt->bindParam('marca', $params->marca);
+		$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
 		$stmt->execute();
 
 		$oConexao = null;
