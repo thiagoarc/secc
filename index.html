@@ -5,11 +5,30 @@
     <head>
     
         <meta charset="utf8">
-<!--         <base href="/"> -->
-        
+        <!-- <base href="/"> -->
         <!-- <title ng-bind="title | title"></title>         -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+        <style type="text/css">
+            /*style modal*/
+            .modal { 
+                    display: block;
+                }
+
+                /* Custom dialog/modal headers */
+
+                .dialog-header-error { background-color: #d2322d; }
+                .dialog-header-wait { background-color: #428bca; }
+                .dialog-header-notify { background-color: #eeeeee; }
+                .dialog-header-confirm { background-color: #333333; }
+                    .dialog-header-error span, .dialog-header-error h4,
+                    .dialog-header-wait span, .dialog-header-wait h4,
+                    .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }
+
+                /* Ease Display */
+
+                .pad { padding: 25px; }
+        </style>
 
     </head>
 
@@ -28,8 +47,9 @@
         <script type="text/javascript" src="lib/angular/angular-route.min.js"></script> 
         <script type="text/javascript" src="lib/angular/angular-resource.min.js"></script> 
         <script type="text/javascript" src="lib/ui-bootstrap/angular-ui-bootstrap.min.js"></script> 
-        <script src="lib/oclazyload/ocLazyLoad.js"></script>
+        <script type="text/javascript" src="lib/oclazyload/ocLazyLoad.js"></script>
         <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/services/modalService.js"></script>
 
     </body>
 

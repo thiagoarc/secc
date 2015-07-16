@@ -1,0 +1,10 @@
+http://www.ngroutes.com/questions/AU03v5mhX0lsqxww8TV0/create-a-simple-bootstrap-yes-no-confirmation-or-just-notification-alert-in-angu.html
+
+
+http://weblogs.asp.net/dwahlin/building-an-angularjs-modal-service
+
+
+http://angular-ui.github.io/bootstrap/#/modal
+
+
+https://github.com/DanWahlin/CustomerManager

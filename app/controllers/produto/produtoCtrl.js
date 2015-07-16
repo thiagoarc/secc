@@ -2,10 +2,8 @@
 
 app
 	.controller('produtoCtrl', 
-		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
-			function($scope, $resource, $routeParams, $location, $modal, $http) {
-
-				//Scopes.store('produtoCtrl', $scope);
+		['$scope', '$resource', '$routeParams', '$location', '$modal', 'modalService', '$http', 
+			function($scope, $resource, $routeParams, $location, $modal, modalService, $http) {
 				
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
@@ -14,7 +12,6 @@ app
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
-			  	
 
 			  	$scope.submitting = false;	// set label btn for false then save
 
@@ -35,6 +32,25 @@ app
 					});
 				}
 
+				$scope.open = function(itemid){
+						
+					var modalOptions = {
+			            closeButtonText: 'Cancelar',
+			            actionButtonText: 'Deletar produto',
+			            headerText: 'Produto: ' + itemid + '?',
+			            bodyText: 'Deseja realmente deletar o produto selecionado?'
+			        };	
+
+			        modalService.showModal({}, modalOptions).then(function (result) {
+
+			        	// modalOptions.ok = function (result) {
+			        	// 	console.log('aqui');
+	           //              // $modalInstance.close(result);
+	           //          };
+
+			        });
+
+				}
 
 				//modal
 				/*$scope.open = function (itemid) {
@@ -147,17 +163,14 @@ app
 			}
 		]
 	);
+	
 
 	app.controller('modalConfirmacaoController',function($scope, $modalInstance, tValue, bValue, idValue) {
 
-		//Scopes.store('modalConfirmacaoController', $scope);
-
-    	$scope.title_modal = tValue;
-    	$scope.body_modal = bValue;
-    	$scope.sim = function () {
-        	//$scope.deleteitem(idValue);
+    	$scope.ok = function () {
+        	$scope.deleteitem(idValue);
     	};
-    	$scope.nao = function () {
+    	$scope.close = function () {
         	$modalInstance.close();
     	};
 
