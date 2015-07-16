@@ -26,3 +26,8 @@ bootstrap modal yes no confirm delete angularjs
 
 
 http://www.dwmkerr.com/the-only-angularjs-modal-service-youll-ever-need/
+
+
+
+DIALOG UIBOOTSTRAP
+http://michaeleconroy.blogspot.com.br/2013/08/creating-application-dialog-service.html
