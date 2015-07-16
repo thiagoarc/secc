@@ -4,6 +4,8 @@ app
 	.controller('produtoCtrl', 
 		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
 			function($scope, $resource, $routeParams, $location, $modal, $http) {
+
+				//Scopes.store('produtoCtrl', $scope);
 				
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
@@ -32,6 +34,32 @@ app
 						$scope.produto = data;
 					});
 				}
+
+
+				//modal
+				/*$scope.open = function (itemid) {
+        			//$http.get('api/contacts/?id='+contactId).success(function(data) {
+            			//$scope.contact = data.data;
+            			var id = itemid;
+            			var modalInstance = $modal.open({
+                			templateUrl: 'views/modalconfirmacao.html',
+                			controller: 'modalConfirmacaoController',
+                			resolve: {
+                    			tValue: function () {
+                        			return "Confirmação de exclusão";
+                    			},
+                    			bValue: function () {
+                        			return "Deseja realmente excluir o resgistro?";
+                    			},
+                    			idValue: function () {
+                    				//alert(itemid);
+                        			return itemid;
+                    			}
+                			}
+            			});
+            			
+        			//});
+    			};*/
 
 				$scope.load = function(){
 					// var listaproduto = $resource('php/produto/produtos.php'); 
@@ -116,7 +144,24 @@ app
 						}
 					);
 				};
-
 			}
 		]
 	);
+
+	app.controller('modalConfirmacaoController',function($scope, $modalInstance, tValue, bValue, idValue) {
+
+		//Scopes.store('modalConfirmacaoController', $scope);
+
+    	$scope.title_modal = tValue;
+    	$scope.body_modal = bValue;
+    	$scope.sim = function () {
+        	//$scope.deleteitem(idValue);
+    	};
+    	$scope.nao = function () {
+        	$modalInstance.close();
+    	};
+
+    	
+	});
+
+	
