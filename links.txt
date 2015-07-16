@@ -22,3 +22,7 @@ http://stackoverflow.com/questions/29602222/create-a-simple-bootstrap-yes-no-con
 
 
 bootstrap modal yes no confirm delete angularjs
+
+
+
+http://www.dwmkerr.com/the-only-angularjs-modal-service-youll-ever-need/
