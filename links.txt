@@ -8,3 +8,17 @@ http://angular-ui.github.io/bootstrap/#/modal
 
 
 https://github.com/DanWahlin/CustomerManager
+
+
+
+
+EXAMPLOS
+http://stackoverflow.com/questions/22915006/custom-delete-confirm-in-angularjs
+
+http://stackoverflow.com/questions/29602222/create-a-simple-bootstrap-yes-no-confirmation-or-just-notification-alert-in-angu
+
+
+http://stackoverflow.com/questions/29602222/create-a-simple-bootstrap-yes-no-confirmation-or-just-notification-alert-in-angu
+
+
+bootstrap modal yes no confirm delete angularjs
