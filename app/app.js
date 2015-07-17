@@ -165,6 +165,51 @@ app.config(['$resourceProvider', function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
 }]);
 
+app.factory("flash", function($rootScope) {
+  var queue = [];
+  var currentMessage = "";
+
+  $rootScope.$on("$routeChangeSuccess", function() {
+    currentMessage = queue.shift() || "";
+  });
+
+  return {
+    setMessage: function(message) {
+      queue.push(message);
+    },
+    getMessage: function() {
+      return currentMessage;
+    }
+  };
+});
+
+
+app.directive('messageList', function(){
+	return {
+		restrict: 'E',
+		scope: false,
+		templateUrl: 'views/messages.html'
+	}
+}); 
+
+// app.directive('myCostumer', function($rootScope) {
+//   return {
+//     restrict: 'E',
+//     template: "views/loading.html",
+//     replace: true,
+//     link: function(scope, elem, attrs) {
+//       scope.isRouteLoading = false;
+ 
+//       $rootScope.$on('$routeChangeStart', function() {
+//         scope.isRouteLoading = true;
+//       });
+//       $rootScope.$on('$routeChangeSuccess', function() {
+//         scope.isRouteLoading = false;
+//       });
+//     }
+//   };
+// });
+
 
 // var app = angular.module('app', [
 // 		'ng',

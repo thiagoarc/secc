@@ -4,7 +4,7 @@ app
 	.controller('produtoCtrl', 
 		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
 			function($scope, $resource, $routeParams, $location, $modal, $http) {
-				
+
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
 				$scope.feedback				= false;
@@ -12,7 +12,6 @@ app
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
-			  	$scope.modalitem 			= {};
 
 			  	$scope.submitting = false;	// set label btn for false then save
 

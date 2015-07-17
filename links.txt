@@ -31,3 +31,30 @@ http://www.dwmkerr.com/the-only-angularjs-modal-service-youll-ever-need/
 
 DIALOG UIBOOTSTRAP
 http://michaeleconroy.blogspot.com.br/2013/08/creating-application-dialog-service.html
+
+
+
+VALIDATION DINAMIC
+http://jonsamwell.com/dynamic-angularjs-validation/
+
+
+URL Route Authorization and Security in Angular
+http://jonsamwell.com/url-route-authorization-and-security-in-angular/
+
+
+TUTORIAIS
+http://www.intridea.com/blog
+http://softwarejuancarlos.com/category/angularjs/page/2/
+
+https://www.youtube.com/watch?v=HPWYCsEH8nA
+
+http://stackoverflow.com/questions/26309573/fire-notification-toaster-in-any-controller-angularjs
+
+NOTIFICATION
+https://scotch.io/tutorials/submitting-ajax-forms-the-angularjs-way
+
+
+AUTENTICATION
+https://www.youtube.com/watch?v=ZHMVP5aLAPM
+https://www.youtube.com/watch?v=3H_YqMITSi0
+http://www.formatccolon.com/mmdb-pt7-laravel-4-flash-messages-helper-class-and-secure-routes/
