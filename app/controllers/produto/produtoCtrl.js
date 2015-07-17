@@ -2,8 +2,8 @@
 
 app
 	.controller('produtoCtrl', 
-		['$scope', '$resource', '$routeParams', '$location', '$modal', 'modalService', '$http', 
-			function($scope, $resource, $routeParams, $location, $modal, modalService, $http) {
+		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
+			function($scope, $resource, $routeParams, $location, $modal, $http) {
 				
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
@@ -12,16 +12,13 @@ app
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
+			  	$scope.modalitem 			= {};
 
 			  	$scope.submitting = false;	// set label btn for false then save
 
-				var itemid = $routeParams.idproduto;
+				var itemid = $routeParams.idproduto || 0;
 
 				if( itemid && itemid > 0){
-					// via resource
-					// var itemp = $resource('php/produto/getproduto.php', {id: itemid});
-					// $scope.produto = itemp.get();
-
 					//via http
 					$http({
 						method: 'POST',
@@ -32,54 +29,39 @@ app
 					});
 				}
 
-				$scope.open = function(itemid){
-						
-					var modalOptions = {
-			            closeButtonText: 'Cancelar',
-			            actionButtonText: 'Deletar produto',
-			            headerText: 'Produto: ' + itemid + '?',
-			            bodyText: 'Deseja realmente deletar o produto selecionado?'
-			        };	
+				/* confirmação modal para excluir item */
+				$scope.deleteconfirm = function(produtodelete){
+					var modalInstance = $modal.open({
+				      	templateUrl: 'views/confirm.html',
+				      	controller: function ($scope, $modalInstance, produtos) {
+				      	
+					      	$scope.produto = produtos;
+					      	
+					      	$scope.ok = function () {
+							    $modalInstance.close($scope.produto);
+							};
 
-			        modalService.showModal({}, modalOptions).then(function (result) {
+							$scope.cancel = function () {
+							    $modalInstance.dismiss('cancel');
+							};
 
-			        	// modalOptions.ok = function (result) {
-			        	// 	console.log('aqui');
-	           //              // $modalInstance.close(result);
-	           //          };
+				      	},
+				      	resolve: {
+				        	produtos: function () {
+				          		return produtodelete;
+				        	}
+				      	}
+				  	});
 
-			        });
+				  	modalInstance.result.then(function (unidade) {
+				      $scope.deleteitem( unidade.idproduto );
+				    }, function () {
+				    	/* funcao ao cancelar ou fechar o modal */
+				    });
 
-				}
-
-				//modal
-				/*$scope.open = function (itemid) {
-        			//$http.get('api/contacts/?id='+contactId).success(function(data) {
-            			//$scope.contact = data.data;
-            			var id = itemid;
-            			var modalInstance = $modal.open({
-                			templateUrl: 'views/modalconfirmacao.html',
-                			controller: 'modalConfirmacaoController',
-                			resolve: {
-                    			tValue: function () {
-                        			return "Confirmação de exclusão";
-                    			},
-                    			bValue: function () {
-                        			return "Deseja realmente excluir o resgistro?";
-                    			},
-                    			idValue: function () {
-                    				//alert(itemid);
-                        			return itemid;
-                    			}
-                			}
-            			});
-            			
-        			//});
-    			};*/
+				};
 
 				$scope.load = function(){
-					// var listaproduto = $resource('php/produto/produtos.php'); 
-					// $scope.produtos  = listaproduto.query();
 					
 					$http.get('/controller/produto/produtos')
 						.success(function(data){
@@ -102,24 +84,16 @@ app
   				};
 
 				$scope.loadunidademedidas = function(){
-					// var listaproduto = $resource('php/produto/produtos.php'); 
-					// $scope.produtos  = listaproduto.query();
 					
 					$http.get('/controller/unidademedida/allUnidadesMedida')
 						.success(function(data){
 							$scope.unidademedidas = data;
-							//$scope.currentPage = 1; //current page
-							//$scope.entryLimit = 5; //max no of items to display in a page
-							//$scope.filteredItems = $scope.produtos.length; //Initially for no filter
-							//$scope.totalItems = $scope.produtos.length;
 						});
 
 				};
 
 				$scope.saveitem = function(){
-					// var itemproduto = $resource('php/produto/saveproduto.php');
 					if($scope.createForm.$valid){
-
 						//saving set true
 						$scope.submitting = true;
 						//show loading
@@ -160,21 +134,10 @@ app
 						}
 					);
 				};
+
 			}
 		]
 	);
 	
-
-	app.controller('modalConfirmacaoController',function($scope, $modalInstance, tValue, bValue, idValue) {
-
-    	$scope.ok = function () {
-        	$scope.deleteitem(idValue);
-    	};
-    	$scope.close = function () {
-        	$modalInstance.close();
-    	};
-
-    	
-	});
 
 	
