@@ -1,51 +1,49 @@
 <!DOCTYPE html>
-
+<!--[if IE 9]>         <html class="ie9 no-focus" ng-app="app"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" ng-app="app"> <!--<![endif]-->
 <html lang="pt-br" ng-app="app">
 
     <head>
     
         <meta charset="utf8">
-        <!-- <base href="/"> -->
-        <!-- <title ng-bind="title | title"></title>         -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-        <style type="text/css">
-            /* Custom dialog/modal headers */
-            .dialog-header-error { background-color: #d2322d; }
-            .dialog-header-wait { background-color: #428bca; }
-            .dialog-header-notify { background-color: #eeeeee; }
-            .dialog-header-confirm { background-color: #333333; }
-            .dialog-header-error span, .dialog-header-error h3,
-            .dialog-header-wait span, .dialog-header-wait h3,
-            .dialog-header-confirm span, .dialog-header-confirm h3 { color: #ffffff; }
 
-            .loader {
-                background: url("https://cdn.contaazul.com/de7177607c8c0647b7008984610818072d074f5d/images/image-background-loader.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
-                height: 100%;
-                left: 0;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                z-index: 1000000002;
-            }
-            .loader .progress {
-                margin: 141px 400px 0;
-            }
-            .progress {
-                background-color: #f7f7f7;
-                background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
-                background-repeat: repeat-x;
-                border-radius: 4px;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-                height: 20px;
-                margin-bottom: 20px;
-                overflow: hidden;
-            }
-            .loader .bar {
-                text-align: left;
-                text-indent: 9px;
-            }
-        </style>
+        <title>SECC - Sistema</title>
+
+        <meta name="description" content="SECC - Sistema">
+        <meta name="author" content="SAI">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="assets/img/favicons/favicon.png">
+        
+        <link rel="icon" type="image/png" href="assets/img/favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="assets/img/favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="assets/img/favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="assets/img/favicons/favicon-160x160.png" sizes="160x160">
+        <link rel="icon" type="image/png" href="assets/img/favicons/favicon-192x192.png" sizes="192x192">
+
+        <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon-180x180.png">
+
+        <!-- Stylesheets -->
+        <!-- Web fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="assets/js/plugins/slick/slick.min.css">
+        <link rel="stylesheet" href="assets/js/plugins/slick/slick-theme.min.css">
+
+        <!-- OneUI CSS framework -->
+        <link rel="stylesheet" id="css-main" href="assets/css/oneui.css">
 
     </head>
 
@@ -55,21 +53,383 @@
         <!-- <div ng-include="'views/loading.html'"></div> -->
         <!-- <message-list></message-list> -->
         
-        <div class="container">
-            <div ng-view></div>
+         <!-- Page Container -->
+        <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+            
+            <!-- Side Overlay-->
+            <!-- <md-side></md-side> -->
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+                <!-- Sidebar Scroll Container -->
+                <div id="sidebar-scroll">
+                    <!-- Sidebar Content -->
+                    <!-- Adding .sidebar-mini-hide to an element will hide it when the sidebar is in mini mode -->
+                    <div class="sidebar-content">
+                        <!-- Side Header -->
+                        <div class="side-header side-content bg-white-op">
+                            <!-- Themes functionality initialized in App() -> uiHandleTheme() -->
+                            <div class="btn-group pull-right">
+                                <ul class="dropdown-menu dropdown-menu-right font-s13 sidebar-mini-hide">
+                                    <li>
+                                        <a data-toggle="theme" data-theme="default" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-default pull-right"></i> <span class="font-w600">Default</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="assets/css/themes/amethyst.min.css" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-amethyst pull-right"></i> <span class="font-w600">Amethyst</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="assets/css/themes/city.min.css" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-city pull-right"></i> <span class="font-w600">City</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="assets/css/themes/flat.min.css" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-flat pull-right"></i> <span class="font-w600">Flat</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="assets/css/themes/modern.min.css" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-modern pull-right"></i> <span class="font-w600">Modern</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="theme" data-theme="assets/css/themes/smooth.min.css" tabindex="-1" href="javascript:void(0)">
+                                            <i class="fa fa-circle text-smooth pull-right"></i> <span class="font-w600">Smooth</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a class="h5 text-white" href="index.html">
+                                <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">ne</span>
+                            </a>
+                        </div>
+                        <!-- END Side Header -->
+
+                        <!-- Side Content -->
+                        <div class="side-content">
+                            <ul class="nav-main">
+                                <li>
+                                    <a class="active" href="/"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                                </li>
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">Atividades</span></li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Produto</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_ui_grid.html">Adicionar produto</a>
+                                        </li>
+                                        <li>
+                                            <a href="#!/produto">Lista de produto</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_ui_typography.html">Categoria</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-grid"></i><span class="sidebar-mini-hide">Tables</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_tables_styles.html">Styles</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_tables_responsive.html">Responsive</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_tables_tools.html">Tools</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_tables_pricing.html">Pricing</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_tables_datatables.html">DataTables</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Forms</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_forms_premade.html">Pre-made</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_forms_elements.html">Elements</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_forms_pickers_more.html">Pickers &amp; More</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_forms_editors.html">Text Editors</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_forms_validation.html">Validation</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_forms_wizard.html">Wizard</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">Develop</span></li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Components</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_comp_images.html">Images</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_charts.html">Charts</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_calendar.html">Calendar</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_sliders.html">Sliders</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_maps.html">Maps</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_animations.html">Animations</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_comp_syntax_highlighting.html">Syntax Highlighting</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Gallery</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="base_comp_gallery_simple.html">Simple</a>
+                                                </li>
+                                                <li>
+                                                    <a href="base_comp_gallery_advanced.html">Advanced</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Layouts</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_layouts_api.html">Layout API</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_default.html">Default</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_default_flipped.html">Default Flipped</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_header_static.html">Static Header</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_sidebar_mini_hoverable.html">Mini Sidebar (Hoverable)</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_side_overlay_hoverable.html">Side Overlay (Hoverable)</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_side_overlay_open.html">Side Overlay (Open)</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_side_native_scrolling.html">Side Native Scrolling</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_layouts_sidebar_hidden.html">Hidden Sidebar</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Multi Level Menu</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">Link 1-1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Link 1-2</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Sub Level 2</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Link 2-1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Link 2-2</a>
+                                                </li>
+                                                <li>
+                                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#">Sub Level 3</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#">Link 3-1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Link 3-2</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Sub Level 4</a>
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#">Link 4-1</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Link 4-2</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#">Sub Level 5</a>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="#">Link 5-1</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#">Link 5-2</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Sub Level 6</a>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <a href="#">Link 6-1</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#">Link 6-2</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">Pages</span></li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Generic</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_pages_blank.html">Blank</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_profile.html">User Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_search.html">Search Results</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_invoice.html">Invoice</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_faq.html">FAQ</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_inbox.html">Inbox</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_login.html">Log In</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_register.html">Register</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_lock.html">Lock Screen</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_reminder.html">Password Reminder</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_coming_soon.html">Coming Soon</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-fire"></i><span class="sidebar-mini-hide">Error Pages</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="base_pages_400.html">400</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_401.html">401</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_403.html">403</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_404.html">404</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_500.html">500</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_503.html">503</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-heading"><span class="sidebar-mini-hide">Apps</span></li>
+                                <li>
+                                    <a href="frontend_home.html"><i class="si si-rocket"></i><span class="sidebar-mini-hide">Frontend</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END Side Content -->
+                    </div>
+                    <!-- Sidebar Content -->
+                </div>
+                <!-- END Sidebar Scroll Container -->
+                </nav>
+            <!-- end Sidebar -->    
+
+            <!-- Header -->
+            <md-header></md-header>
+
+            <!-- Main Container -->
+            <main id="main-container" ng-view ></main>
+            <!-- END Main Container -->
+
+            <!-- Footer -->
+            <md-footer></md-footer>
+
         </div>
+        <!-- END Page Container -->
 
-        <!-- include script -->
-        <script type="text/javascript" src="lib/jquery/jquery.js"></script>
-        <script type="text/javascript">var $jQuery = jQuery.noConflict();</script>
-
-        <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script> 
+        <!-- <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script> -->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
         <script type="text/javascript" src="lib/angular/angular-route.min.js"></script> 
         <script type="text/javascript" src="lib/angular/angular-resource.min.js"></script> 
         <script type="text/javascript" src="lib/ui-bootstrap/angular-ui-bootstrap.min.js"></script> 
         <script type="text/javascript" src="lib/oclazyload/ocLazyLoad.js"></script>
         <script type="text/javascript" src="app/app.js"></script>
+
+        <!-- include script -->
+        <!-- TEMPLATE Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <!-- <script src="assets/js/core/jquery.min.js"></script> -->
+        <script type="text/javascript">var $jQuery = jQuery.noConflict();</script>
+        <script type="text/javascript">var jQuery  = jQuery.noConflict();</script>
+        <script src="assets/js/core/bootstrap.min.js"></script>
+        
+        <script src="assets/js/core/jquery.slimscroll.min.js"></script>
+        <script src="assets/js/core/jquery.scrollLock.min.js"></script>
+        <script src="assets/js/core/jquery.appear.min.js"></script>
+        <script src="assets/js/core/jquery.countTo.min.js"></script>
+        <script src="assets/js/core/jquery.placeholder.min.js"></script>
+        <script src="assets/js/core/js.cookie.min.js"></script> 
+        <script src="assets/js/app.js"></script>
+
+        <!-- <script src="assets/js/core/oneui.min.js"></script> -->
+
+        <script>
+            jQuery(function () {
+                // Init page helpers (Slick Slider plugin)
+                App.initHelpers('slick');
+            });
+        </script>
 
     </body>
 

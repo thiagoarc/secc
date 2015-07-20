@@ -58,3 +58,7 @@ AUTENTICATION
 https://www.youtube.com/watch?v=ZHMVP5aLAPM
 https://www.youtube.com/watch?v=3H_YqMITSi0
 http://www.formatccolon.com/mmdb-pt7-laravel-4-flash-messages-helper-class-and-secure-routes/
+
+
+INJECT CONTROLLER AND MESSAGE
+http://onehungrymind.com/angularjs-communicating-between-controllers/
