@@ -2,18 +2,29 @@
 
 app
 	.controller('produtoCtrl', 
-		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
-			function($scope, $resource, $routeParams, $location, $modal, $http) {
+		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
+			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
+				$scope.count				= 0;
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
-				$scope.feedback				= false;
-				$scope.feedbackMessage		= {};
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
-
 			  	$scope.submitting = false;	// set label btn for false then save
+
+			    $scope.notification = appMessages; // factory notification feedback application
+
+			    $scope.handleClick = function(msg) {
+			        appMessages.addMessage(msg);
+			    };
+			        
+			    $scope.$on('handleBroadcast', function() {
+			        $scope.message = $scope.notification.msg;
+			        console.log( 'Mensagem do scope: '+ $scope.message );
+			    });
+
+
 
 				var itemid = $routeParams.idproduto || 0;
 
@@ -107,10 +118,11 @@ app
 							//success
 							$location.path('/produto');
 							//show message
-							$scope.feedback = true;
-							// $scope.feedbackType = 'success';
-							// $scope.feedbackIcon = 'glyphicon glyphicon-ok';
-							$scope.feedbackMessage = {msg : data.msg_success};
+							appMessages.addMessage(data.msg_success, true, 'success');
+							//show message in 5 seconds
+							$timeout(function(){
+								appMessages.show = false;
+							}, 5000);
 
 						})
 						.error(function(error){
@@ -124,9 +136,14 @@ app
 					var itemproduto = $resource('/controller/produto/deleteproduto' , {id: itemid});
 					itemproduto.delete(
 						function(data){
-							console.log(data.msg_success);
 							//success
 							$scope.load();
+							//show message
+							appMessages.addMessage(data.msg_success, true, 'success');
+							//show message in 5 seconds
+							$timeout(function(){
+								appMessages.show = false;
+							}, 5000);
 						},
 						function(error){
 							console.log(error);

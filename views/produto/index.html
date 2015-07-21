@@ -3,7 +3,7 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Produto <small>vizualize, pesquise a lista dos produtos registrados</small>
+                Produto <small>vizualize, pesquise na lista dos produtos registrados</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
@@ -21,6 +21,10 @@
 	<div class="block">
 		<div class="row">
 			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
 
 				<p></p><!-- clearfixed -->
 
@@ -68,15 +72,16 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
-									<td>{{produto.idproduto}}</td>
+									<td>{{$index+1}}</td>
 									<td>{{produto.nome}}</td>
 									<td>{{produto.descricao}}</td>
 									<td>{{produto.marca}}</td>
 									<td>{{produto.sigla}}</td>
-									<td><a class="btn btn-info btn-sm" href="#!/produto/edit/{{produto.idproduto}}">Editar</a></td>
+									<td><a class="btn btn-info btn-sm" href="#!/produto/edit/{{produto.idproduto}}">
+										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
 									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
 										ng-click="deleteconfirm(produto)">
-										<i class="fa fa-trash-o"></i> Excluir</a></td>
+										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
 								</tr>
 							</tbody>
 						</table>

@@ -13,7 +13,7 @@ try{
 		$stmt->execute();
 		$oConexao = null;
 		$msg['msg']         = 'success';
-    	$msg['msg_success'] = 'Registro deletado com sucesso.';
+    	$msg['msg_success'] = 'Produto deletado com sucesso.';
     	echo json_encode($msg);
 	}
 
