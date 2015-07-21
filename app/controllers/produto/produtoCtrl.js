@@ -5,25 +5,22 @@ app
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
-				$scope.count				= 0;
 				$scope.produto 				= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
-			  	$scope.submitting = false;	// set label btn for false then save
-
-			    $scope.notification = appMessages; // factory notification feedback application
+			  	$scope.submitting 			= false;	// set label btn for false then save
+			    $scope.notification 		= appMessages; // factory notification feedback application
+			    $scope.modalItem			= '';
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
-			    };
-			        
+			    };			        
 			    $scope.$on('handleBroadcast', function() {
 			        $scope.message = $scope.notification.msg;
-			        console.log( 'Mensagem do scope: '+ $scope.message );
+			        // console.log( 'Mensagem do scope: '+ $scope.message );
 			    });
-
 
 
 				var itemid = $routeParams.idproduto || 0;
@@ -46,6 +43,7 @@ app
 				      	controller: function ($scope, $modalInstance, produtos) {
 				      	
 					      	$scope.produto = produtos;
+					      	$scope.modalItem =  produtos.nome;
 					      	
 					      	$scope.ok = function () {
 							    $modalInstance.close($scope.produto);
