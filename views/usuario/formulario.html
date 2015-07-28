@@ -1,0 +1,158 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de usuário <small>adicione, edite os itens do usuário do sistema</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/usuario">Usuário</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+
+					<input type="hidden" ng-model="usuario.idusuario" name="idusuario">
+
+					<div class="row form-group">
+						<div class="col-sm-6">
+							<label for="nome" class="control-label">Nome: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="usuario.nome" name="nome" placeholder="Informe o nome de usuário" required>
+							<span class="help-block" ng-show="createForm.nome.$dirty && createForm.nome.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-6">
+							<label for="descricao" class="control-label">E-mail(será utilizado como login do usuário): 
+								<span class="red">*</span>
+							</label>
+							<input type="text" class="form-control" ng-model="usuario.email" name="email" placeholder="Informe o e-mail do usuário" required>
+							<span class="help-block" ng-show="createForm.email.$dirty && createForm.email.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+
+					<div class="row form-group">
+						<div class="col-sm-6">
+							<label for="preco" class="control-label">Senha: <span class="red">*</span></label>
+							<input type="password" class="form-control" ng-model="usuario.senha" name="senha" placeholder="" required>
+							<span class="help-block" ng-show="createForm.senha.$dirty && createForm.senha.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-6">
+							<label for="preco" class="control-label">Confirma senha: <span class="red">*</span></label>
+							<input type="password" class="form-control" ng-model="usuario.confirmasenha" name="confirmasenha" placeholder="" required>
+							<span class="help-block" ng-show="createForm.confirmasenha.$dirty && createForm.confirmasenha.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+
+					<div class="row form-group">
+						<div class="col-sm-12">
+							<fieldset>
+								<legend>Selecione o perfil de acesso desejado</legend>
+							</fielset>
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center" width="25%"></th>
+										<th class="text-center">Cadastros</th>
+										<th class="text-center">Compras</th>
+										<th class="text-center">Estoque</th>
+										<th class="text-center">Relatórios</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th class="text-center">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" checked="" name="perfil"><span></span> Administrador
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+
+									<tr>
+										<th class="text-center">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" checked="" name="perfil"><span></span> Cadastrador
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+
+									<tr>
+										<th class="text-center">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" checked="" name="perfil"><span></span> Observador
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+					</div><!-- END INPUT -->
+
+					
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->

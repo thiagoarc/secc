@@ -146,7 +146,52 @@ app.config( function($routeProvider, $locationProvider){
 					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/fornecedor/fornecedor	Ctrl.js']
+                        	files: ['app/controllers/fornecedor/fornecedorCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/usuario',
+			{ 
+				templateUrl: 'views/usuario/index.html',
+				controller: 'usuarioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/usuario/usuarioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/usuario/add',
+			{ 
+				templateUrl: 'views/usuario/formulario.html',
+				controller: 'usuarioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/usuario/usuarioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/usuario/edit/:id',
+			{ 
+				templateUrl: 'views/usuario/formulario.html',
+				controller: 'usuarioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/usuario/usuarioCtrl.js']
                     	});
 					}]
 				}
