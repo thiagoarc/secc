@@ -1,41 +1,132 @@
-<h1>Adicionar produto</h1>
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de Fornecedor <small>adicione, edite os itens do fornecedor</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/fornecedor">Fornecedor</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
 
-<form name="createForm" role="form" novalidate>
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
 
-	<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+				<!-- Messages -->
+		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!-- End Messages -->
 
-	<div class="form-group">
-		<label for="nome" class="control-label">Nome: <span class="red">*</span></label>
-		<input type="text" class="form-control" ng-model="produto.nome" name="nome" placeholder="Informe o nome do produto" required>
-		<span class="help-block" ng-show="createForm.nome.$dirty && createForm.nome.$error.required">O campo é obrigatório</span>
-	</div><!-- END INPUT -->
+				<p></p><!-- clearfixed -->
 
-	<div class="form-group">
-		<label for="descricao" class="control-label">Descricao:</label>
-		<input type="text" class="form-control" ng-model="produto.descricao" name="descricao" placeholder="Informe a descrição do produto">
-	</div><!-- END INPUT -->
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
 
-	<div class="form-group">
-		<label for="preco" class="control-label">Marca: <span class="red">*</span></label>
-		<input type="text" class="form-control" ng-model="produto.marca" name="marca" placeholder="Informe a marca do produto" required>
-		<span class="help-block" ng-show="createForm.marca.$dirty && createForm.marca.$error.required">O campo é obrigatório</span>
-	</div><!-- END INPUT -->
+					<input type="hidden" ng-model="fornecedor.idfornecedor" name="idfornecedor">
+					<fieldset>
+					<legend>Informações Básicas do Fornecedor</legend>
+						<div class="form-group">
+							<label for="nome" class="control-label">Razão Social: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="fornecedor.razaosocial" name="razaosocial" placeholder="Informe a razão social do forncedor" required>
+							<span class="help-block" ng-show="createForm.razaosocial.$dirty && createForm.razaosocial.$error.required">O campo é obrigatório</span>
+						</div><!-- END INPUT -->
 
-	<div class="form-group">
-		<label for="quantidade" class="control-label">Unidade de Medida: <span class="red">*</span></label>
-		<select class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" ng-init="loadunidademedidas()" required>
-		<option value="">Escolha</option>
-		<option ng-repeat="unidade in unidademedidas" value="{{unidade.idunidade_medida}}" ng-selected="produto.idunidade_medida==unidade.idunidade_medida">{{unidade.sigla}} - {{unidade.descricao}}</option>
-		</select>
-		<!-- <input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required> -->
-		<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
-	</div><!-- END INPUT -->
+						<div class="row">
+							<div class="col-sm-3">
+								<label for="cnpj" class="control-label">CNPJ:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.cnpj" name="cnpj" placeholder="Informe o cnpj do fornecedor">
+							</div>
+							<div class="col-sm-9">
+								<label for="responsavel" class="control-label">Responsável: <span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="fornecedor.responsavel" name="responsavel" placeholder="Informe o nome do responsável" required>
+								<span class="help-block" ng-show="createForm.responsavel.$dirty && createForm.responsavel.$error.required">O campo é obrigatório</span>
+							</div>
+						</div><!-- END INPUT -->
+						<div class="row">
+							<div class="col-sm-3">
+								<label for="telefone" class="control-label">Telefone:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.telefone" name="telefone" placeholder="Informe o telefone do fornecedor">
+							</div>
+							<div class="col-sm-3">
+								<label for="celular" class="control-label">Celular:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.celular" name="celular" placeholder="Informe o celular do fornecedor">
+							</div>
+							<div class="col-sm-6">
+								<label for="email" class="control-label">Email:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.email" name="email" placeholder="Informe o email do fornecedor">
+							</div>
+						</div><!-- END INPUT -->
+					</fieldset>
+					<fieldset>
+					<legend>Endereço do Fornecedor</legend>
+						<div class="row">
+							<div class="col-sm-10">
+								<label for="logradouro" class="control-label">Logradouro:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.logradouro" name="logradouro" placeholder="Informe o logradouro do fornecedor">
+							</div>
+							<div class="col-sm-2">
+								<label for="numero" class="control-label">Número: <span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="fornecedor.numero" name="numero" placeholder="Informe o numero do logradouro" required>
+								<span class="help-block" ng-show="createForm.numero.$dirty && createForm.numero.$error.required">O campo é obrigatório</span>
+							</div>
+						</div><!-- END INPUT -->
+						<div class="row">
+							<div class="col-sm-3">
+								<label for="telefone" class="control-label">Telefone:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.telefone" name="telefone" placeholder="Informe o telefone do fornecedor">
+							</div>
+							<div class="col-sm-3">
+								<label for="cidade" class="control-label">Cidade:</label>
+								<select class="form-control" ng-model="fornecedor.idcidade" name="idcidade" ng-init="loadcidades()" required>
+									<option value="">Escolha</option>
+									<option ng-repeat="cidade in cidades" value="{{cidade.ididcidade}}" ng-selected="fornecedor.idcidade==cidade.idcidade">{{cidade.nome}}</option>
+								</select>
+					</fieldset>
+							</div>
+							<div class="col-sm-6">
+								<label for="email" class="control-label">Email:</label>
+								<input type="text" class="form-control" ng-model="fornecedor.email" name="email" placeholder="Informe o email do fornecedor">
+							</div>
+						</div><!-- END INPUT -->
+					
 
-	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-	<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
-		<span ng-switch-default>Salvar</span>
-    	<span ng-switch-when="true">Salvando...</span>
-	</button>
-	<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+					<div class="form-group">
+						<label for="preco" class="control-label">Marca: <span class="red">*</span></label>
+						<input type="text" class="form-control" ng-model="produto.marca" name="marca" placeholder="Informe a marca do produto" required>
+						<span class="help-block" ng-show="createForm.marca.$dirty && createForm.marca.$error.required">O campo é obrigatório</span>
+					</div><!-- END INPUT -->
 
-</form>
+					<div class="form-group">
+						<label for="quantidade" class="control-label">Unidade de Medida: <span class="red">*</span></label>
+						<select class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" ng-init="loadunidademedidas()" required>
+						<option value="">Escolha</option>
+						<option ng-repeat="unidade in unidademedidas" value="{{unidade.idunidade_medida}}" ng-selected="produto.idunidade_medida==unidade.idunidade_medida">{{unidade.sigla}} - {{unidade.descricao}}</option>
+						</select>
+						<!-- <input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required> -->
+						<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
+					</div><!-- END INPUT -->
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->

@@ -1,70 +1,106 @@
-<!-- <h1>RESULTADO DO FEEDBACK <p ng-repeat="message in feedbackMessage"></p>{{message.msg}}</h1> -->
-
-<div class="row" ng-init="load()">
-
-	<!-- <h1 class="message" data-ng-show="feedback" data-ng-bind="feedbackMessage">{{feedbackMessage}}</h1> -->
-	<div class="col-sm-12">
-		<!-- <div ng-bind="feedback" class="alert alert-{{feedbackType}}">
-		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		  <div><span class="{{feedbackIcon}}"></span>{{feedbackMessage}}</div>
-		</div> -->
-	</div><!-- FEEDBACK MESSAGE -->
-
-
-	<div class="col-sm-12">
-		<h3>Lista de Fornecedores</h3>
-
-		<a href="#!/fornecedor/add" class="btn btn-success btn-sm pull-right"><i class="glyphicon glyphicon-plus"></i> Adicionar</a>
-	</div>
-
-	<div class="col-sm-12">
-
-		<form ng-show="totalItems">
-	    	<div class="form-group">
-		      <div class="input-group">
-		        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-		        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
-		      </div>      
-	      	</div>
-	    </form>
-
-		<div class="table-responsive" ng-show="totalItems > 0">
-			<table class="table table-striped">
-				<thead>
-					<th>#</th>
-					<th>
-						<a href="#" ng-click="sortType = 'razaosocial'; sortReverse = !sortReverse">
-							Razão Social
-							<span ng-show="sortType == 'razaosocial' && !sortReverse" class="fa fa-caret-down"></span>
-            				<span ng-show="sortType == 'razaosocial' && sortReverse" class="fa fa-caret-up"></span>
-						</a>
-					</th>
-					<th>CNPJ</th>
-					<th>Celular</th>
-					<th>Responsável</th>
-					<th></th>
-					<th></th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="fornecedor in fornecedores | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
-						<td>{{fornecedor.idfornecedor}}</td>
-						<td>{{fornecedor.razaosocial}}</td>
-						<td>{{fornecedor.cnpj}}</td>
-						<td>{{fornecedor.celular}}</td>
-						<td>{{fornecedor.responsavel}}</td>
-						<td><a href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">Editar</a></td>
-						<td><a href="javascript:;" ng-click="deleteitem(fornecedor.idfornecedor)">Excluir</a></td>
-					</tr>
-				</tbody>
-			</table>
-			<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
-		</div>
-
-		<div class="col-md-12" ng-show="!totalItems">
-	        <div class="col-md-12">
-	            <h4>Nenhum item encontrado.</h4>
-	        </div>
-	    </div>
-
-	</div>
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Fornecedor <small>vizualize, pesquise na lista dos fornecedores registrados</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/fornecedor">Fornecedor</a></li>
+            </ol>
+        </div>
+    </div>
 </div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow" ng-init="load()">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4">
+							<form ng-show="totalItems">
+						    	<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
+							      </div>      
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-8">
+							<a href="#!/fornecedor/add" class="btn btn-success btn-sm pull-right">
+								<i class="glyphicon glyphicon-plus"></i> Adicionar
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div class="table-responsive" ng-show="totalItems > 0">
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="40%" >
+									<a href="#!/fornecedor" ng-click="sortType = 'nome'; sortReverse = !sortReverse">
+										Razão Social
+										<span ng-show="sortType == 'nome' && !sortReverse" class="fa fa-caret-down"></span>
+			            				<span ng-show="sortType == 'nome' && sortReverse" class="fa fa-caret-up"></span>
+									</a>
+								</th>
+								<th width="10%" >CNPJ</th>
+								<th width="10%" >Responsável</th>
+								<th width="19%" >Celular</th>
+								<th width="5%"></th>
+								<th width="5%" ></th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="fornecedor in fornecedores | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td>{{produto.razaosocial}}</td>
+									<td>{{produto.cnpj}}</td>
+									<td>{{produto.responsavel}}</td>
+									<td>{{produto.celular}}</td>
+									<td><a class="btn btn-info btn-sm" href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">
+										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
+									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
+										ng-click="deleteconfirm(fornecedor)">
+										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+					</div>
+
+					<div class="col-md-12" ng-show="!totalItems">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum item encontrado.</td>
+				        	</tr>
+				        </table>
+				        </div>
+				    </div>
+
+				</div>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->

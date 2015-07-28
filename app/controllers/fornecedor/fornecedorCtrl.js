@@ -2,27 +2,30 @@
 
 app
 	.controller('fornecedorCtrl', 
-		['$scope', '$resource', '$routeParams', '$location', '$modal', '$http', 
-			function($scope, $resource, $routeParams, $location, $modal, $http) {
-				
+		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
+			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
+
 				$scope.fornecedor 				= {};
 				$scope.isloading 			= false;
-				$scope.feedback				= false;
-				$scope.feedbackMessage		= {};
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
-			  	
+			  	$scope.submitting 			= false;	// set label btn for false then save
+			    $scope.notification 		= appMessages; // factory notification feedback application
+			    $scope.modalItem			= '';
 
-			  	$scope.submitting = false;	// set label btn for false then save
+			    $scope.handleClick = function(msg) {
+			        appMessages.addMessage(msg);
+			    };			        
+			    $scope.$on('handleBroadcast', function() {
+			        $scope.message = $scope.notification.msg;
+			        // console.log( 'Mensagem do scope: '+ $scope.message );
+			    });
 
-				var itemid = $routeParams.idproduto;
+
+				var itemid = $routeParams.id || 0;
 
 				if( itemid && itemid > 0){
-					// via resource
-					// var itemp = $resource('php/produto/getproduto.php', {id: itemid});
-					// $scope.produto = itemp.get();
-
 					//via http
 					$http({
 						method: 'POST',
@@ -33,9 +36,40 @@ app
 					});
 				}
 
+				/* confirmação modal para excluir item */
+				$scope.deleteconfirm = function(fornecedordelete){
+					var modalInstance = $modal.open({
+				      	templateUrl: 'views/confirm.html',
+				      	controller: function ($scope, $modalInstance, fornecedores) {
+				      	
+					      	$scope.fornecedor = fornecedores;
+					      	$scope.modalItem =  fornecedores.nome;
+					      	
+					      	$scope.ok = function () {
+							    $modalInstance.close($scope.fornecedor);
+							};
+
+							$scope.cancel = function () {
+							    $modalInstance.dismiss('cancel');
+							};
+
+				      	},
+				      	resolve: {
+				        	fornecedores: function () {
+				          		return fornecedordelete;
+				        	}
+				      	}
+				  	});
+
+				  	modalInstance.result.then(function (unidade) {
+				      $scope.deleteitem( unidade.idfornecedor );
+				    }, function () {
+				    	/* funcao ao cancelar ou fechar o modal */
+				    });
+
+				};
+
 				$scope.load = function(){
-					// var listaproduto = $resource('php/produto/produtos.php'); 
-					// $scope.produtos  = listaproduto.query();
 					
 					$http.get('/controller/fornecedor/fornecedores')
 						.success(function(data){
@@ -49,6 +83,15 @@ app
 
 				};
 
+				$scope.loadcidades = function(){
+					
+					$http.get('/controller/fornecedor/cidades')
+						.success(function(data){
+							$scope.cidades = data;
+						});
+
+				};
+
 				$scope.paginate = function(value) {
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
@@ -58,9 +101,7 @@ app
   				};
 
 				$scope.saveitem = function(){
-					// var itemproduto = $resource('php/produto/saveproduto.php');
 					if($scope.createForm.$valid){
-
 						//saving set true
 						$scope.submitting = true;
 						//show loading
@@ -73,12 +114,18 @@ app
 							//hide loading
 							$scope.isloading = false;
 							//success
-							$location.path('/produto');
+							$location.path('/fornecedor');
 							//show message
-							$scope.feedback = true;
-							// $scope.feedbackType = 'success';
-							// $scope.feedbackIcon = 'glyphicon glyphicon-ok';
-							$scope.feedbackMessage = {msg : data.msg_success};
+							if(data.msg == 'success'){
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+							}else{
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}
+							//show message in 5 seconds
+							$timeout(function(){
+								appMessages.show = false;
+							}, 5000);
 
 						})
 						.error(function(error){
@@ -92,9 +139,18 @@ app
 					var itemfornecedor = $resource('/controller/fornecedor/deletefornecedor' , {id: itemid});
 					itemfornecedor.delete(
 						function(data){
-							console.log(data.msg_success);
 							//success
 							$scope.load();
+							if(data.msg == 'success'){
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+							}else{
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}
+							//show message in 5 seconds
+							$timeout(function(){
+								appMessages.show = false;
+							}, 5000);
 						},
 						function(error){
 							console.log(error);
@@ -105,3 +161,6 @@ app
 			}
 		]
 	);
+	
+
+	

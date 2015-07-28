@@ -93,7 +93,7 @@ app
 
 				$scope.loadunidademedidas = function(){
 					
-					$http.get('/controller/unidademedida/allUnidadesMedida')
+					$http.get('/controller/unidademedida/unidadesmedida')
 						.success(function(data){
 							$scope.unidademedidas = data;
 						});
@@ -136,8 +136,12 @@ app
 						function(data){
 							//success
 							$scope.load();
-							//show message
-							appMessages.addMessage(data.msg_success, true, 'success');
+							if(data.msg == 'success'){
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+							}else{
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}
 							//show message in 5 seconds
 							$timeout(function(){
 								appMessages.show = false;

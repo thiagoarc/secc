@@ -19,7 +19,9 @@ try{
 
 }catch (PDOException $e){
     $oConexao->rollBack();
-    echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+    $msg['msg']         = 'success';
+    $msg['msg_success'] = $e->getMessage()."<br>Por favor entre em contato com o adimistrador do sistema e informe o erro.";
+    echo json_encode($msg);
 	die();
 }
 
