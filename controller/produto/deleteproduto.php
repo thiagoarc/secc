@@ -1,6 +1,5 @@
 <?php 
 	
-include_once('../../conn/config.php');
 $oConexao = Conexao::getInstance();
 
 $id = $_GET['id'];

@@ -22,6 +22,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
 				<p></p><!-- clearfixed -->
 
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
@@ -35,23 +39,23 @@
 							<span class="help-block" ng-show="createForm.nome.$dirty && createForm.nome.$error.required">O campo é obrigatório</span>
 						</div>
 						<div class="col-sm-6">
-							<label for="descricao" class="control-label">E-mail(será utilizado como login do usuário): 
+							<label for="email" class="control-label">E-mail(será utilizado como login do usuário): 
 								<span class="red">*</span>
 							</label>
-							<input type="text" class="form-control" ng-model="usuario.email" name="email" placeholder="Informe o e-mail do usuário" required>
+							<input type="email" class="form-control" ng-model="usuario.email" name="email" placeholder="Informe o e-mail do usuário" required>
 							<span class="help-block" ng-show="createForm.email.$dirty && createForm.email.$error.required">O campo é obrigatório</span>
 						</div>
 					</div><!-- END INPUT -->
 
 					<div class="row form-group">
 						<div class="col-sm-6">
-							<label for="preco" class="control-label">Senha: <span class="red">*</span></label>
-							<input type="password" class="form-control" ng-model="usuario.senha" name="senha" placeholder="" required>
+							<label for="senha" class="control-label">Senha: <span class="red">*</span></label>
+							<input type="password" class="form-control" ng-model="usuario.senha" name="senha" placeholder="" ng-disabled="usuario.idusuario != null" ng-required="usuario.idusuario == null">
 							<span class="help-block" ng-show="createForm.senha.$dirty && createForm.senha.$error.required">O campo é obrigatório</span>
 						</div>
 						<div class="col-sm-6">
-							<label for="preco" class="control-label">Confirma senha: <span class="red">*</span></label>
-							<input type="password" class="form-control" ng-model="usuario.confirmasenha" name="confirmasenha" placeholder="" required>
+							<label for="confirmasenha" class="control-label">Confirma senha: <span class="red">*</span></label>
+							<input type="password" class="form-control" ng-model="usuario.confirmasenha" name="confirmasenha" placeholder="" ng-disabled="usuario.idusuario != null" ng-required="usuario.idusuario == null">
 							<span class="help-block" ng-show="createForm.confirmasenha.$dirty && createForm.confirmasenha.$error.required">O campo é obrigatório</span>
 						</div>
 					</div><!-- END INPUT -->
@@ -59,8 +63,10 @@
 					<div class="row form-group">
 						<div class="col-sm-12">
 							<fieldset>
-								<legend>Selecione o perfil de acesso desejado</legend>
+								<h3 class="block-title">Selecione o perfil de acesso desejado</h3>
+								<p class="help-block">* O campo abaixo é obrigatório, favor selecione.</p>
 							</fielset>
+							<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
@@ -75,7 +81,7 @@
 									<tr>
 										<th class="text-center">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
-												<input type="radio" checked="" name="perfil"><span></span> Administrador
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="1" required><span></span> Administrador
 											</label>
 										</th>
 										<th>
@@ -95,7 +101,7 @@
 									<tr>
 										<th class="text-center">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
-												<input type="radio" checked="" name="perfil"><span></span> Cadastrador
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="2" required><span></span> Cadastrador
 											</label>
 										</th>
 										<th>
@@ -115,7 +121,7 @@
 									<tr>
 										<th class="text-center">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
-												<input type="radio" checked="" name="perfil"><span></span> Observador
+												<input type="radio" checked="true" name="perfil" ng-model="usuario.perfil" value="3" required><span></span> Observador
 											</label>
 										</th>
 										<th>
@@ -133,6 +139,7 @@
 									</tr>
 								</tbody>
 							</table>
+							</div>
 						</div>
 
 
@@ -145,7 +152,7 @@
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+					<a href="#!/usuario" class="btn btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 

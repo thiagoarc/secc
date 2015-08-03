@@ -197,7 +197,7 @@ app.config( function($routeProvider, $locationProvider){
 				}
 			}
 		)
-		.otherwise({ redirectTo: '/' });
+		.otherwise({ redirectTo: 'views/404.html' });
 
 	//remove the # in URLs
 	// $locationProvider.html5Mode(true);	

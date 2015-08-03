@@ -1,0 +1,46 @@
+<section>
+    <div class="block block-themed block-transparent remove-margin-b">
+        <div class="block-header bg-primary-dark">
+            <ul class="block-options">
+                <li>
+                    <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
+                </li>
+            </ul>
+            <h3 class="block-title">Redefinir senha</h3>
+        </div>
+        <div class="block-content">
+
+           <!-- message modal --> 
+           <div ng-class="{ 'alert-danger' : notificationModal.typeAlert == 'danger', 'alert-success' : notificationModal.typeAlert == 'success' }" 
+                class="alert alert-dismissable" ng-show="notificationModal.show">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <p>
+                    <i class="fa fa-check"></i> 
+                    {{notificationModal.msg}}
+                </p>
+            </div> 
+            <!-- end modal message -->
+
+           <form name="RedifinePasswordForm" role="form" novalidate>
+                <div class="row form-group">
+                    <div class="col-sm-12 form-group">
+                        <label for="senha" class="control-label">Senha: <span class="red">*</span></label>
+                        <input type="password" class="form-control" ng-model="usuario.senha" name="senha" placeholder="" required>
+                        <span class="help-block" ng-show="RedifinePasswordForm.senha.$dirty && RedifinePasswordForm.senha.$error.required">O campo é obrigatório</span>
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <label for="confirmasenha" class="control-label">Confirma senha: <span class="red">*</span></label>
+                        <input type="password" class="form-control" ng-model="usuario.confirmasenha" name="confirmasenha" placeholder="" required>
+                        <span class="help-block" ng-show="RedifinePasswordForm.confirmasenha.$dirty && RedifinePasswordForm.confirmasenha.$error.required">O campo é obrigatório</span>
+                    </div>
+                </div><!-- END INPUT -->
+           </form>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()" ng-class="{disabled: RedifinePasswordForm.$invalid}">Salvar</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+    </div>
+</section>
+<!-- end modal -->

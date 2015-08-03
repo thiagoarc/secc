@@ -5,18 +5,16 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-sleep(1);
 
 try{
 
-	if( $params->idproduto != '' ){
+	if( $params->idusuario != '' ){
 
-		$stmt = $oConexao->prepare("UPDATE produto SET nome = :nome, descricao = :descricao, marca = :marca, idunidade_medida = :idunidade_medida WHERE idproduto = :idproduto");  
+		$stmt = $oConexao->prepare("UPDATE usuario SET nome = :nome, email = :email,  perfil = :perfil WHERE idusuario = :idusuario");  
 		$stmt->bindParam('nome', $params->nome);
-		$stmt->bindParam('descricao', $params->descricao);
-		$stmt->bindParam('marca', $params->marca);
-		$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
-		$stmt->bindParam('idproduto', $params->idproduto);
+		$stmt->bindParam('email', $params->email);
+		$stmt->bindParam('perfil', $params->perfil);
+		$stmt->bindParam('idusuario', $params->idusuario);
 		$stmt->execute();
 		$oConexao = null;
 
@@ -26,11 +24,11 @@ try{
 
 	}else{
 
-		$stmt = $oConexao->prepare("INSERT INTO produto (nome, descricao, marca, idunidade_medida) VALUES(:nome, :descricao, :marca, :idunidade_medida)");  
+		$stmt = $oConexao->prepare("INSERT INTO usuario (nome, email, senha, perfil, liberado) VALUES(:nome, :email, :senha, :perfil, 1)");  
 		$stmt->bindParam('nome', $params->nome);
-		$stmt->bindParam('descricao', $params->descricao);
-		$stmt->bindParam('marca', $params->marca);
-		$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
+		$stmt->bindParam('email', $params->email);
+		$stmt->bindParam('senha', sha1( $params->senha ) );
+		$stmt->bindParam('perfil', $params->perfil);
 		$stmt->execute();
 
 		$oConexao = null;
@@ -43,7 +41,8 @@ try{
 
 }catch (PDOException $e){
     $oConexao->rollBack();
-    echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+   	$msg['msg']         = 'error';
+    $msg['msg_error'] 	= $e->getMessage()." - Por favor entre em contato com o adimistrador do sistema e informe o erro.";
 	die();
 }
 

@@ -23,7 +23,7 @@ app
 			    });
 
 
-				var itemid = $routeParams.idusuario || 0;
+				var itemid = $routeParams.id || 0;
 
 				if( itemid && itemid > 0){
 					//via http
@@ -37,16 +37,16 @@ app
 				}
 
 				/* confirmação modal para excluir item */
-				$scope.deleteconfirm = function(produtodelete){
+				$scope.deleteconfirm = function(usuariodelete){
 					var modalInstance = $modal.open({
 				      	templateUrl: 'views/confirm.html',
-				      	controller: function ($scope, $modalInstance, produtos) {
+				      	controller: function ($scope, $modalInstance, usuarios) {
 				      	
-					      	$scope.produto = produtos;
-					      	$scope.modalItem =  produtos.nome;
+					      	$scope.usuario 		= usuarios;
+					      	$scope.modalItem 	= usuarios.nome;
 					      	
 					      	$scope.ok = function () {
-							    $modalInstance.close($scope.produto);
+							    $modalInstance.close($scope.usuario);
 							};
 
 							$scope.cancel = function () {
@@ -55,19 +55,87 @@ app
 
 				      	},
 				      	resolve: {
-				        	produtos: function () {
-				          		return produtodelete;
+				        	usuarios: function () {
+				          		return usuariodelete;
 				        	}
 				      	}
 				  	});
 
-				  	modalInstance.result.then(function (unidade) {
-				      $scope.deleteitem( unidade.idproduto );
+				  	modalInstance.result.then(function (usuario) {
+				      $scope.deleteitem( usuario.idusuario );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
 
 				};
+
+				$scope.redefinirsenha = function(usuarioredefinirsenha){
+					var modalInstance = $modal.open({
+						templateUrl: 'views/usuario/redefinirsenha.html',
+						controller: function( $scope, $modalInstance, usuarioRS ){
+
+							$scope.usuario = usuarioRS;
+							$scope.usuario.senha = null;
+							$scope.usuario.confirmasenha = null;
+
+							$scope.notificationModal			= {}; // modal notification
+						    $scope.notificationModal.typeAlert 	= 'success';
+						    $scope.notificationModal.show 		= false;
+						    $scope.notificationModal.msg 		= '';
+
+							$scope.ok = function(){
+
+								if( $scope.usuario.senha != $scope.usuario.confirmasenha ){
+									$scope.RedifinePasswordForm.$valid = false;
+									//show message
+									$scope.notificationModal.typeAlert = 'danger';
+									$scope.notificationModal.show = true;
+									$scope.notificationModal.msg = 'Senhas não coincidem, favor verifique.';
+									//show message in 5 seconds
+									$timeout(function(){
+										$scope.notificationModal.show = false;
+									}, 5000);
+								}
+								if($scope.RedifinePasswordForm.$valid){
+									$modalInstance.close($scope.usuario);
+								}
+
+							};
+
+							$scope.cancel = function(){
+								$modalInstance.dismiss('cancel');
+							}
+
+						},
+						resolve: {
+							usuarioRS: function(){
+								return usuarioredefinirsenha;
+							}
+						}
+					});
+
+					modalInstance.result.then(function( usuario ){
+						/* funcao ao salvar */
+						$scope.saveredefinepassword( usuario );
+					}, function(){
+						/* funcao ao cancelar ou fechar o modal */
+					});
+				}
+
+				$scope.saveredefinepassword = function( usuario ){
+					$http.post('/controller/usuario/redefinirsenha', usuario)
+					.success( function(data){
+						//show message
+						appMessages.addMessage(data.msg_success, true, 'success');
+						//show message in 5 seconds
+						$timeout(function(){
+							appMessages.show = false;
+						}, 5000);
+					})
+					.error( function(error){
+						console.log(error);
+					});
+				}
 
 				$scope.load = function(){
 					
@@ -78,7 +146,7 @@ app
 							$scope.entryLimit = 5; //max no of items to display in a page
 							$scope.filteredItems = $scope.usuarios.length; //Initially for no filter
 							$scope.totalItems = $scope.usuarios.length;
-  							$scope.numPerPage = 5;
+  							$scope.numPerPage = 10;
 						});
 
 				};
@@ -87,7 +155,7 @@ app
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
     				end = begin + $scope.numPerPage;
-    				index = $scope.produtos.indexOf(value);
+    				index = $scope.usuarios.indexOf(value);
     				return (begin <= index && index < end);
   				};
 
@@ -101,20 +169,30 @@ app
 				};
 
 				$scope.saveitem = function(){
+					//validate password and confirm password
+					if( $scope.usuario.senha != $scope.usuario.confirmasenha ){
+						$scope.createForm.$valid = false;	
+						//show message
+						appMessages.addMessage('Senhas não coincidem, favor verifique.', true, 'danger');
+						//show message in 5 seconds
+						$timeout(function(){
+							appMessages.show = false;
+						}, 5000);
+					}
 					if($scope.createForm.$valid){
 						//saving set true
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
 						//via http
-						$http.post('/controller/produto/saveproduto', $scope.produto )
+						$http.post('/controller/usuario/saveusuario', $scope.usuario )
 						.success(function(data){
 							//saving set false
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
 							//success
-							$location.path('/produto');
+							$location.path('/usuario');
 							//show message
 							appMessages.addMessage(data.msg_success, true, 'success');
 							//show message in 5 seconds
@@ -131,8 +209,8 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemproduto = $resource('/controller/produto/deleteproduto' , {id: itemid});
-					itemproduto.delete(
+					var itemusuario = $resource('/controller/usuario/deleteusuario' , {id: itemid});
+					itemusuario.delete(
 						function(data){
 							//success
 							$scope.load();
