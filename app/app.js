@@ -15,10 +15,35 @@ var app = angular.module('app', [
 app.config( function($routeProvider, $locationProvider){
 
 	$routeProvider
-		.when('/', { templateUrl: 'template/dashboard.html',  title: 'Dasboard' })
 		// .when('/produto', { templateUrl: 'views/produto/index.php', controller: 'produtoCtrl', title: 'Lista de Produto' })
-		// .when('/produto/form', { templateUrl: 'views/produto/form.php', controller: 'produtoCtrl', title: 'Adicionar Produto' })
-		// .when('/produto/form/:id', { templateUrl: 'views/produto/form.php', controller: 'produtoCtrl', title: 'Editar Produto' })
+		.when('/', 
+			{ 
+				templateUrl: 'views/login.html',
+				title: 'authentication',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/app/loginCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/login', 
+			{ 
+				templateUrl: 'views/login.html',
+				title: 'authentication' 
+			}
+		)
+
+		.when('/app', 
+			{ 
+				templateUrl: 'views/app.html',  
+				title: 'application' 
+			}
+		)
 		
 		.when('/produto',
 			{ 
@@ -199,7 +224,9 @@ app.config( function($routeProvider, $locationProvider){
 				}
 			}
 		)
-		.otherwise({ redirectTo: 'views/404.html' });
+
+		.when('/404', { templateUrl: '404.html',  title: 'error application' })
+		.otherwise({ redirectTo: '/404' });
 
 	//remove the # in URLs
 	// $locationProvider.html5Mode(true);	
@@ -211,24 +238,6 @@ app.config(['$resourceProvider', function($resourceProvider) {
   // Don't strip trailing slashes from calculated URLs
   $resourceProvider.defaults.stripTrailingSlashes = false;
 }]);
-
-app.factory("flash", function($rootScope) {
-  var queue = [];
-  var currentMessage = "";
-
-  $rootScope.$on("$routeChangeSuccess", function() {
-    currentMessage = queue.shift() || "";
-  });
-
-  return {
-    setMessage: function(message) {
-      queue.push(message);
-    },
-    getMessage: function() {
-      return currentMessage;
-    }
-  };
-});
 
 
 app.directive('messageList', function(){
@@ -245,6 +254,14 @@ app.directive('mdSide', function(){
 		restrict: 'E',
 		scope: true,
 		templateUrl: 'template/aside.html'
+	}
+});
+
+app.directive('mdSidebar', function(){
+	return {
+		restrict: 'E',
+		scope: true,
+		templateUrl: 'template/sidebar.html'
 	}
 });
 

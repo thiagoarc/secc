@@ -5,8 +5,6 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-sleep(1);
-
 try{
 
 	if( $params->idproduto != '' ){

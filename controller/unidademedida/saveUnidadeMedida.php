@@ -5,7 +5,6 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-
 try{
 
 	if( $params->idunidade_medida != '' ){
