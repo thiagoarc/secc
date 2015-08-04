@@ -20,11 +20,12 @@ app.config( function($routeProvider, $locationProvider){
 			{ 
 				templateUrl: 'views/login.html',
 				title: 'authentication',
+				controller: 'authenticationCtrl',
 				resolve: {
 					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/app/loginCtrl.js']
+                        	files: ['app/controllers/app/authenticationCtrl.js', 'app/services/authentication.js', 'app/services/authenticationsession.js']
                     	});
 					}]
 				}
@@ -34,7 +35,16 @@ app.config( function($routeProvider, $locationProvider){
 		.when('/login', 
 			{ 
 				templateUrl: 'views/login.html',
-				title: 'authentication' 
+				title: 'authentication',
+				controller: 'authenticationCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/app/authenticationCtrl.js', 'app/services/authentication.js', 'app/services/authenticationsession.js']
+                    	});
+					}]
+				}
 			}
 		)
 
