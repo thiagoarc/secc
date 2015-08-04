@@ -8,7 +8,7 @@ $limit = $params->limit != '' ?  $params->limit : 10;
 
 try{
 
-	$sql = "SELECT * FROM fornecedor ORDER BY nome asc LIMIT 0, $limit";
+	$sql = "SELECT * FROM fornecedor ORDER BY razaosocial asc LIMIT 0, $limit";
 	$stmt = $oConexao->query($sql);  
 	$fornecedores = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;

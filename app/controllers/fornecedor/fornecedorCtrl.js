@@ -23,7 +23,7 @@ app
 			    });
 
 
-				var itemid = $routeParams.id || 0;
+				var itemid = $routeParams.idfornecedor || 0;
 
 				if( itemid && itemid > 0){
 					//via http

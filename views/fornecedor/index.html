@@ -73,10 +73,10 @@
 							<tbody>
 								<tr ng-repeat="fornecedor in fornecedores | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td>{{produto.razaosocial}}</td>
-									<td>{{produto.cnpj}}</td>
-									<td>{{produto.responsavel}}</td>
-									<td>{{produto.celular}}</td>
+									<td>{{fornecedor.razaosocial}}</td>
+									<td>{{fornecedor.cnpj | brCnpj}}</td>
+									<td>{{fornecedor.responsavel}}</td>
+									<td>{{fornecedor.celular | brPhoneNumber}}</td>
 									<td><a class="btn btn-info btn-sm" href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">
 										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
 									<td><a class="btn btn-danger btn-sm" href="javascript:;" 

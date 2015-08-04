@@ -5,7 +5,9 @@ var app = angular.module('app', [
 			'ngResource',
 			'ngRoute',
 			'ui.bootstrap',
-		    'oc.lazyLoad'
+		    'oc.lazyLoad',
+		    'ui.utils.masks',
+		    'idf.br-filters'
 		  ]);
 
 
@@ -138,7 +140,7 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
-		.when('/fornecedor/edit/:id',
+		.when('/fornecedor/edit/:idfornecedor',
 			{ 
 				templateUrl: 'views/fornecedor/formulario.html',
 				controller: 'fornecedorCtrl',

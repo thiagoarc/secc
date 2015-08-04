@@ -9,7 +9,7 @@ sleep(1);
 
 try{
 
-	if( $params->idproduto != '' ){
+	if( $params->idfornecedor != '' ){
 
 		$stmt = $oConexao->prepare("UPDATE fornecedor SET razaosocial = :razaosocial, cnpj = :cnpj, cep = :cep, logradouro = :logradouro, numero = :numero, complemento = :complemento, bairro = :bairro, telefone = :telefone, celular = :celular, email = :email, responsavel = :responsavel, idcidade = :idcidade WHERE idfornecedor = :idfornecedor");  
 		$stmt->bindParam('razaosocial', $params->razaosocial);
@@ -34,7 +34,8 @@ try{
 
 	}else{
 
-		$stmt = $oConexao->prepare("INSERT INTO produto (razaosocial, cnpj, cep, logradouro, numero, complemento, bairro, telefone, celular, email, responsavel, idcidade) VALUES(:razaosocial, :cnpj, :cep, :logradouro, :numero, :complemento, :bairro, :telefone, :celular, :email, :responsavel, :idcidade)");  
+		$stmt = $oConexao->prepare("INSERT INTO fornecedor (razaosocial, cnpj, cep, logradouro, numero, complemento, bairro, telefone, celular, email, responsavel, idcidade) VALUES 
+			(:razaosocial, :cnpj, :cep, :logradouro, :numero, :complemento, :bairro, :telefone, :celular, :email, :responsavel, :idcidade)");  
 		$stmt->bindParam('razaosocial', $params->razaosocial);
 		$stmt->bindParam('cnpj', $params->cnpj);
 		$stmt->bindParam('cep', $params->cep);
@@ -59,8 +60,9 @@ try{
 
 }catch (PDOException $e){
     $oConexao->rollBack();
-    echo '{"error":{"text":'. $e->getMessage() .'}}'; 
-	die();
+    $msg['msg']         = 'error';
+    $msg['msg_success'] = 'Ocorreu um erro ao tentar salvar.';
+    echo json_encode($msg);
 }
 
 ?>
