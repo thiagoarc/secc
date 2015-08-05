@@ -13,12 +13,12 @@ app
 				$http.post('/controller/authentication/login', data)
 				.success(function( data ){
 					if( data.email ){
-						console.log( data );
-						// sessionSrv.set('ang_secc_uid', data.email);
-						// sessionSrv.set('ang_secc_profile', data.email);
-						// $location.path('/app');
+						sessionSrv.set('ang_secc_uid', data.idusuario);
+						sessionSrv.set('ang_secc_email', data.email);
+						sessionSrv.set('ang_secc_profile', data.perfil);
+						$location.path('/app');
 					}else if( data.credentials ){
-						scope.msgcredentials = 'Favor verifique, credenciais está incorreta.';
+						scope.msgcredentials = 'Favor verifique os dados informados, credenciais está incorreta.';
 						//clear model usuarioLogin
 						scope.usuarioLogin.email 	= null;
 						scope.usuarioLogin.password = null;
@@ -36,15 +36,23 @@ app
 
 			logout: function(){
 				sessionSrv.destroy('ang_secc_uid');
+				sessionSrv.destroy('ang_secc_email');
+				sessionSrv.destroy('ang_secc_profile');
 				$location.path('/login');
 			},
 
 			isLogged: function(){
-				if( sessionSrv.get('ang_secc_uid') ){
-					return true;
-				}else{
-					return false;
-				}
+ 				
+ 				var $checkSessionLogin = $http.post('/controller/authentication/checksessionlogin');
+ 				return $checkSessionLogin;
+
+			},
+
+			rolesPermission: function(){
+
+				var $getRolesPermission = $http.post('/controller/authentication/rolespermissionlogin');
+				return $getRolesPermission;
+
 			}
 
 		}

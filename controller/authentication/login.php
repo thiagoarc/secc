@@ -1,17 +1,16 @@
 <?php 
-	
+
+session_start();
 $oConexao = Conexao::getInstance();
 
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-sleep(1);
-
 try{
 
 	if( $params->email != '' ){
 
-		$stmt = $oConexao->prepare("SELECT email, senha, perfil FROM usuario WHERE upper(email) = upper(:email) AND upper(senha) = upper(:senha)");  
+		$stmt = $oConexao->prepare("SELECT idusuario, email, senha, perfil FROM usuario WHERE upper(email) = upper(:email) AND upper(senha) = upper(:senha)");  
 		$stmt->bindParam('email', $params->email);
 		$stmt->bindParam('senha', sha1( $params->password ) );
 		$stmt->execute();
@@ -19,6 +18,10 @@ try{
 		$oConexao = null;
 
 		if( $usuario ){
+			//create session local browser
+			$_SESSION['ang_secc_uid'] 		= $usuario->idusuario;
+			$_SESSION['ang_secc_email'] 	= $usuario->email;
+			$_SESSION['ang_secc_profile'] 	= $usuario->perfil;
 			echo json_encode($usuario);
 		}else{
 			echo '{ "credentials": "null" }';

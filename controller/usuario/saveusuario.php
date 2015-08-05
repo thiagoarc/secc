@@ -29,6 +29,27 @@ try{
 		$stmt->bindParam('senha', sha1( $params->senha ) );
 		$stmt->bindParam('perfil', $params->perfil);
 		$stmt->execute();
+		$usuario = $oConexao->lastInsertId('idusuario');
+
+		if( $params->perfil == 1 ){ //adminstrador
+			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+    									VALUES
+    										("/usuario", :usuario),
+    										("/usuario/add", :usuario),
+    										("/usuario/edit", :usuario),
+    										("/unidademedida", :usuario),
+    										("/unidademedida/add", :usuario),
+    										("/unidademedida/edit", :usuario),
+    										("/fornecedor", :usuario),
+    										("/fornecedor/add", :usuario),
+    										("/fornecedor/edit", :usuario),
+    										("/produto", :usuario),
+    										("/produto/add", :usuario),
+    										("/produto/edit", :usuario)
+    								');
+		    $stmtPerfil->bindParam('usuario', $usuario);
+		    $stmtPerfil->execute();
+		}
 
 		$oConexao = null;
 

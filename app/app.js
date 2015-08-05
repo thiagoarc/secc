@@ -25,7 +25,7 @@ app.config( function($routeProvider, $locationProvider){
 					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/app/authenticationCtrl.js', 'app/services/authentication.js', 'app/services/authenticationsession.js']
+                        	files: ['app/controllers/app/authenticationCtrl.js']
                     	});
 					}]
 				}
@@ -41,7 +41,7 @@ app.config( function($routeProvider, $locationProvider){
 					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/app/authenticationCtrl.js', 'app/services/authentication.js', 'app/services/authenticationsession.js']
+                        	files: ['app/controllers/app/authenticationCtrl.js']
                     	});
 					}]
 				}
@@ -291,10 +291,34 @@ app.directive('mdFooter', function(){
 	}
 });
 
-//run
-// app.run(function($rootScope, $route, applicationName){
-// 	$rootScope.applicationName = applicationName;
-// 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous){
-// 		$rootScope.title = $route.current.title;
-// 	});
-// });
+//run application
+app.run(function($rootScope, $location, authenticationSrv){
+	var $rolespermission = [];
+	// var $getrolespermission = authenticationSrv.rolesPermission();
+	// $getrolespermission.then(function(data){
+	// 	$rolespermission.push(data.data.roles);
+	// });
+	// // ['/app'];
+	// console.log( $rolespermission );
+	$rootScope.$on('$routeChangeStart', function (event, next, current){
+
+		var $getrolespermission = authenticationSrv.rolesPermission();
+		$getrolespermission.then(function(data){
+			// console.log( data.data );
+			for (var i = data.data.length - 1; i >= 0; i--) {
+				$rolespermission.push(data.data[i]);
+			};
+			console.log( $rolespermission );
+		});
+
+		// console.log( 'URL: ' + $rolespermission.indexOf( $location.path() ) );
+		if( $rolespermission.indexOf( $location.path() ) != -1 ){
+			var connectedsessionLogin = authenticationSrv.isLogged();
+			connectedsessionLogin.then(function(data){
+				if( data.data = 'notauthentified' ){
+					$location.path('/login');
+				}
+			});
+		}
+	});
+});
