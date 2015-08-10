@@ -10,7 +10,7 @@ try{
 
 	if( $params->email != '' ){
 
-		$stmt = $oConexao->prepare("SELECT idusuario, email, senha, perfil FROM usuario WHERE upper(email) = upper(:email) AND upper(senha) = upper(:senha)");  
+		$stmt = $oConexao->prepare("SELECT idusuario, email, perfil FROM usuario WHERE upper(email) = upper(:email) AND upper(senha) = upper(:senha)");  
 		$stmt->bindParam('email', $params->email);
 		$stmt->bindParam('senha', sha1( $params->password ) );
 		$stmt->execute();

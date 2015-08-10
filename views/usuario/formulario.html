@@ -86,6 +86,7 @@
 									<tr>
 										<th class="text-center" width="25%"></th>
 										<th class="text-center">Cadastros</th>
+										<th class="text-center">Contratos</th>
 										<th class="text-center">Compras</th>
 										<th class="text-center">Estoque</th>
 										<th class="text-center">Relatórios</th>
@@ -93,7 +94,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<th class="text-center">
+										<th class="text-left">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
 												<input type="radio" name="perfil" ng-model="usuario.perfil" value="1" required><span></span> Administrador
 											</label>
@@ -110,13 +111,19 @@
 										<th>
 											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
 										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
 									</tr>
 
 									<tr>
-										<th class="text-center">
+										<th class="text-left">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
-												<input type="radio" name="perfil" ng-model="usuario.perfil" value="2" required><span></span> Cadastrador
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="2" required><span></span> Gestor de contrato
 											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
 										</th>
 										<th>
 											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
@@ -133,10 +140,82 @@
 									</tr>
 
 									<tr>
-										<th class="text-center">
+										<th class="text-left">
 											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
-												<input type="radio" checked="true" name="perfil" ng-model="usuario.perfil" value="3" required><span></span> Observador
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="3" required><span></span> Gestor de compras
 											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+
+									<tr>
+										<th class="text-left">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="4" required><span></span> Gestor de estoque
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+
+									<tr>
+										<th class="text-left">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" name="perfil" ng-model="usuario.perfil" value="5" required><span></span> Gestor de compra/estoque
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-ok"></i></div>
+										</th>
+									</tr>
+
+									<tr>
+										<th class="text-left">
+											<label class="css-input css-radio css-radio-sm css-radio-default push-10-r">
+												<input type="radio" checked="true" name="perfil" ng-model="usuario.perfil" value="6" required><span></span> Observador
+											</label>
+										</th>
+										<th>
+											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>
 										</th>
 										<th>
 											<div class="text-center"><i class="glyphicon glyphicon-remove"></i></div>

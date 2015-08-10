@@ -15,7 +15,7 @@ try{
 		$rolespermission = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$oConexao = null;
 
-		if( $rolespermission ){
+		if( $rolespermission ){			
 			echo json_encode($rolespermission);
 		}else{
 			echo '{ "roles": "null" }';

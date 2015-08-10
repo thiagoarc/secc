@@ -18,7 +18,7 @@ app
 						sessionSrv.set('ang_secc_profile', data.perfil);
 						$location.path('/app');
 					}else if( data.credentials ){
-						scope.msgcredentials = 'Favor verifique os dados informados, credenciais está incorreta.';
+						scope.msgcredentials = 'Favor verifique os dados, credenciais informada está incorreta.';
 						//clear model usuarioLogin
 						scope.usuarioLogin.email 	= null;
 						scope.usuarioLogin.password = null;
@@ -54,7 +54,7 @@ app
 				return $getRolesPermission;
 
 			}
-
+			
 		}
 
 	}]);

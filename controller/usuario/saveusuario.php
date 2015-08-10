@@ -34,6 +34,7 @@ try{
 		if( $params->perfil == 1 ){ //adminstrador
 			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
     									VALUES
+    										("/app", :usuario),
     										("/usuario", :usuario),
     										("/usuario/add", :usuario),
     										("/usuario/edit", :usuario),
@@ -45,7 +46,50 @@ try{
     										("/fornecedor/edit", :usuario),
     										("/produto", :usuario),
     										("/produto/add", :usuario),
-    										("/produto/edit", :usuario)
+    										("/produto/edit", :usuario),
+    										("/compras", :usuario),
+    										("/estoque", :usuario),
+    										("/relatorio", :usuario)
+    								');
+		    $stmtPerfil->bindParam('usuario', $usuario);
+		    $stmtPerfil->execute();
+		}else if( $params->perfil == 2 ){ // gestor
+			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+    									VALUES
+    										("/app", :usuario),
+    										("/usuario", :usuario),
+    										("/usuario/add", :usuario),
+    										("/usuario/edit", :usuario),
+    										("/unidademedida", :usuario),
+    										("/unidademedida/add", :usuario),
+    										("/unidademedida/edit", :usuario),
+    										("/fornecedor", :usuario),
+    										("/fornecedor/add", :usuario),
+    										("/fornecedor/edit", :usuario),
+    										("/produto", :usuario),
+    										("/produto/add", :usuario),
+    										("/produto/edit", :usuario),
+    										("/relatorio", :usuario)
+    								');
+		    $stmtPerfil->bindParam('usuario', $usuario);
+		    $stmtPerfil->execute();
+		}else{ //observaor
+			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+    									VALUES
+    										("/app", :usuario),
+    										("/usuario", :usuario),
+    										("/usuario/add", :usuario),
+    										("/usuario/edit", :usuario),
+    										("/unidademedida", :usuario),
+    										("/unidademedida/add", :usuario),
+    										("/unidademedida/edit", :usuario),
+    										("/fornecedor", :usuario),
+    										("/fornecedor/add", :usuario),
+    										("/fornecedor/edit", :usuario),
+    										("/produto", :usuario),
+    										("/produto/add", :usuario),
+    										("/produto/edit", :usuario),
+    										("/relatorio", :usuario)
     								');
 		    $stmtPerfil->bindParam('usuario', $usuario);
 		    $stmtPerfil->execute();

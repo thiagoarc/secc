@@ -293,32 +293,25 @@ app.directive('mdFooter', function(){
 
 //run application
 app.run(function($rootScope, $location, authenticationSrv){
-	var $rolespermission = [];
-	// var $getrolespermission = authenticationSrv.rolesPermission();
-	// $getrolespermission.then(function(data){
-	// 	$rolespermission.push(data.data.roles);
-	// });
-	// // ['/app'];
-	// console.log( $rolespermission );
+	$rootScope.rolespermission = [];
+	
 	$rootScope.$on('$routeChangeStart', function (event, next, current){
 
 		var $getrolespermission = authenticationSrv.rolesPermission();
 		$getrolespermission.then(function(data){
-			// console.log( data.data );
-			for (var i = data.data.length - 1; i >= 0; i--) {
-				$rolespermission.push(data.data[i]);
-			};
-			console.log( $rolespermission );
+			for( var i = 0; i < data.data.length; i++ ) {
+				$rootScope.rolespermission.push(data.data[i].roles);
+			}
+			// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
+			if( $rootScope.rolespermission.indexOf( $location.path() ) === -1 ){
+				var connectedsessionLogin = authenticationSrv.isLogged();
+				connectedsessionLogin.then(function(data){
+					if( data.data = 'notauthentified' ){
+						$location.path('/login');
+					}
+				});
+			}
 		});
 
-		// console.log( 'URL: ' + $rolespermission.indexOf( $location.path() ) );
-		if( $rolespermission.indexOf( $location.path() ) != -1 ){
-			var connectedsessionLogin = authenticationSrv.isLogged();
-			connectedsessionLogin.then(function(data){
-				if( data.data = 'notauthentified' ){
-					$location.path('/login');
-				}
-			});
-		}
 	});
 });
