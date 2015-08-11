@@ -1,0 +1,29 @@
+<section>
+    <div class="block block-themed block-transparent remove-margin-b">
+        <div class="block-header bg-primary-dark">
+            <ul class="block-options">
+                <li>
+                    <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
+                </li>
+            </ul>
+            <h3 class="block-title">Detalhes da Unidade de Medida</h3>
+        </div>
+        <div class="block-content">
+
+            <div class="form-group">
+                        <label for="nome" class="control-label">Sigla:</label>
+                        {{unidademedida.sigla}}
+                    </div><!-- END INPUT -->
+
+                    <div class="form-group">
+                        <label for="descricao" class="control-label">Descricao:</label>
+                        {{unidademedida.descricao}}
+                    </div><!-- END INPUT -->
+           
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Fechar</button>
+    </div>
+</section>
+<!-- end modal -->

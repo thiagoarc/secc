@@ -1,13 +1,13 @@
 'use strict';
 
 app
-	.controller('unidadeMedidaCtrl', 
+	.controller('contratoCtrl', 
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
-				$scope.unidademedida 	    = {};
+				$scope.contrato 				= {};
 				$scope.isloading 			= false;
-				$scope.sortType     		= 'sigla'; // set the default sort type
+				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
 			  	$scope.searchItem   		= '';     // set the default search/filter term
 			  	$scope.submitting 			= false;	// set label btn for false then save
@@ -23,30 +23,30 @@ app
 			    });
 
 
-				var itemid = $routeParams.id || 0;
+				var itemid = $routeParams.idcompra || 0;
 
 				if( itemid && itemid > 0){
 					//via http
 					$http({
 						method: 'POST',
-						url: '/controller/unidademedida/getunidademedida',
+						url: '/controller/contrato/getcontrato',
 						data: { id: itemid } 
 					}).success(function(data){
-						$scope.unidademedida = data;
+						$scope.contrato = data;
 					});
 				}
 
 				/* confirmação modal para excluir item */
-				$scope.deleteconfirm = function(unidademedidadelete){
+				$scope.deleteconfirm = function(contratodelete){
 					var modalInstance = $modal.open({
 				      	templateUrl: 'views/confirm.html',
-				      	controller: function ($scope, $modalInstance, unidadesmedida) {
+				      	controller: function ($scope, $modalInstance, contratos) {
 				      	
-					      	$scope.unidademedida = unidadesmedida;
-					      	$scope.modalItem =  unidadesmedida.sigla;
+					      	$scope.contrato = contratos;
+					      	$scope.modalItem =  contratos.tipo;
 					      	
 					      	$scope.ok = function () {
-							    $modalInstance.close($scope.unidademedida);
+							    $modalInstance.close($scope.contrato);
 							};
 
 							$scope.cancel = function () {
@@ -55,14 +55,14 @@ app
 
 				      	},
 				      	resolve: {
-				        	unidadesmedida: function () {
-				          		return unidademedidadelete;
+				        	contratos: function () {
+				          		return contratodelete;
 				        	}
 				      	}
 				  	});
 
-				  	modalInstance.result.then(function (unidade) {
-				      $scope.deleteitem( unidade.idunidade_medida );
+				  	modalInstance.result.then(function (contrato) {
+				      $scope.deleteitem( contrato.idcompra );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
@@ -70,20 +70,21 @@ app
 				};
 
 				//modal detahes
-				$scope.detalhes = function(unidademedida){
+				$scope.detalhes = function(fornecedor){
 					var modalInstance = $modal.open({
-						templateUrl: 'views/unidademedida/detalhes.html',
-						controller: function( $scope, $modalInstance, unidademedidaRS ){
+						size: 'lg',
+						templateUrl: 'views/contrato/detalhes.html',
+						controller: function( $scope, $modalInstance, contratoRS ){
 
-							$scope.unidademedida = unidademedidaRS;
+							$scope.contrato = contratoRS;
 							$scope.cancel = function(){
 								$modalInstance.dismiss('cancel');
 							}
 
 						},
 						resolve: {
-							unidademedidaRS: function(){
-								return unidademedida;
+							contratoRS: function(){
+								return contrato;
 							}
 						}
 					});
@@ -91,14 +92,23 @@ app
 
 				$scope.load = function(){
 					
-					$http.get('/controller/unidademedida/unidadesmedida')
+					$http.get('/controller/contrato/contratos')
 						.success(function(data){
-							$scope.unidadesmedida = data;
+							$scope.contratos = data;
 							$scope.currentPage = 1; //current page
 							$scope.entryLimit = 5; //max no of items to display in a page
-							$scope.filteredItems = $scope.unidadesmedida.length; //Initially for no filter
-							$scope.totalItems = $scope.unidadesmedida.length;
+							$scope.filteredItems = $scope.contratos.length; //Initially for no filter
+							$scope.totalItems = $scope.contratos.length;
   							$scope.numPerPage = 5;
+						});
+
+				};
+
+				$scope.loadorgaos = function(){
+					
+					$http.get('/controller/contrato/orgaos')
+						.success(function(data){
+							$scope.orgaos = data;
 						});
 
 				};
@@ -107,18 +117,9 @@ app
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
     				end = begin + $scope.numPerPage;
-    				index = $scope.unidadesmedida.indexOf(value);
+    				index = $scope.contratos.indexOf(value);
     				return (begin <= index && index < end);
   				};
-
-				$scope.loadunidademedidas = function(){
-					
-					$http.get('/controller/unidademedida/unidadesmedida')
-						.success(function(data){
-							$scope.unidadesmedida = data;
-						});
-
-				};
 
 				$scope.saveitem = function(){
 					if($scope.createForm.$valid){
@@ -127,16 +128,21 @@ app
 						//show loading
 						$scope.isloading = true;
 						//via http
-						$http.post('/controller/unidademedida/saveunidademedida', $scope.unidademedida )
+						$http.post('/controller/contrato/savecontrato', $scope.contrato )
 						.success(function(data){
 							//saving set false
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
 							//success
-							$location.path('/unidademedida');
+							$location.path('/contrato');
 							//show message
-							appMessages.addMessage(data.msg_success, true, 'success');
+							if(data.msg == 'success'){
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+							}else{
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}
 							//show message in 5 seconds
 							$timeout(function(){
 								appMessages.show = false;
@@ -151,8 +157,8 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemunidademedida = $resource('/controller/unidademedida/deleteunidademedida' , {id: itemid});
-					itemunidademedida.delete(
+					var itemcontrato = $resource('/controller/contrato/deletecontrato' , {id: itemid});
+					itemcontrato.delete(
 						function(data){
 							//success
 							$scope.load();

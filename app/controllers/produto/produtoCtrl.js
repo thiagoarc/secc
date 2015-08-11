@@ -69,6 +69,26 @@ app
 
 				};
 
+				//modal detahes
+				$scope.detalhes = function(produto){
+					var modalInstance = $modal.open({
+						templateUrl: 'views/produto/detalhes.html',
+						controller: function( $scope, $modalInstance, produtoRS ){
+
+							$scope.produto = produtoRS;
+							$scope.cancel = function(){
+								$modalInstance.dismiss('cancel');
+							}
+
+						},
+						resolve: {
+							produtoRS: function(){
+								return produto;
+							}
+						}
+					});
+				}
+
 				$scope.load = function(){
 					
 					$http.get('/controller/produto/produtos')

@@ -11,19 +11,18 @@
 
 <!-- Main Container -->
 <main id="main-container">
-
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Produto <small>vizualize, pesquise na lista dos produtos registrados</small>
+                Contratos <small>vizualize, pesquise na lista dos contratos registrados</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>Dashboard</li>
-                <li><a class="link-effect" href="#!/produto">Produto</a></li>
+                <li><a class="link-effect" href="#!/contrato">Contrato</a></li>
             </ol>
         </div>
     </div>
@@ -55,7 +54,7 @@
 						    </form>
 						</div><!-- search table -->
 						<div class="col-sm-8">
-							<a href="#!/produto/add" class="btn btn-success btn-sm pull-right">
+							<a href="#!/contrato/add" class="btn btn-success btn-sm pull-right">
 								<i class="glyphicon glyphicon-plus"></i> Adicionar
 							</a>
 						</div>
@@ -71,34 +70,34 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="40%" >
-									<a href="#!/produto" ng-click="sortType = 'nome'; sortReverse = !sortReverse">
-										Nome
+								<th width="15%" >
+									<a href="#!/contrato" ng-click="sortType = 'tipo'; sortReverse = !sortReverse">
+										Tipo
 										<span ng-show="sortType == 'nome' && !sortReverse" class="fa fa-caret-down"></span>
 			            				<span ng-show="sortType == 'nome' && sortReverse" class="fa fa-caret-up"></span>
 									</a>
 								</th>
-								<th width="10%" >Descrição</th>
-								<th width="10%" >Marca</th>
-								<th width="19%" >UN</th>
+								<th width="20%" >Número Contrato/Empenho</th>
+								<th width="20%" >Valor</th>
+								<th width="20%" >Validade</th>
 								<th width="5%"></th>
 								<th width="5%"></th>
 								<th width="5%"></th>
 							</thead>
 							<tbody>
-								<tr ng-repeat="produto in produtos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+								<tr ng-repeat="contrato in contratos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td>{{produto.nome}}</td>
-									<td>{{produto.descricao}}</td>
-									<td>{{produto.marca}}</td>
-									<td>{{produto.sigla}}</td>
+									<td>{{contrato.tipo}}</td>
+									<td>{{contrato.numerocontratoempenho}}</td>
+									<td>{{contrato.valor}}</td>
+									<td>{{contrato.validade}}</td>
 									<td><a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(produto)">
+										ng-click="detalhes(fornecedor)">
 										<i class="glyphicon glyphicon-trash"></i> Detalhes</a></td>
-									<td><a class="btn btn-info btn-sm" href="#!/produto/edit/{{produto.idproduto}}">
+									<td><a class="btn btn-info btn-sm" href="#!/contrato/edit/{{contrato.idcompra}}">
 										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
 									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(produto)">
+										ng-click="deleteconfirm(contrato)">
 										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
 								</tr>
 							</tbody>
@@ -122,7 +121,6 @@
 	</div><!-- end block -->
 </div>
 <!-- END Page Content -->
-
 </main>
 <!-- END Main Container -->
 

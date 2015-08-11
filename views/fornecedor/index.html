@@ -1,3 +1,16 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
@@ -68,7 +81,8 @@
 								<th width="10%" >Responsável</th>
 								<th width="19%" >Celular</th>
 								<th width="5%"></th>
-								<th width="5%" ></th>
+								<th width="5%"></th>
+								<th width="5%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="fornecedor in fornecedores | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
@@ -77,6 +91,9 @@
 									<td>{{fornecedor.cnpj | brCnpj}}</td>
 									<td>{{fornecedor.responsavel}}</td>
 									<td>{{fornecedor.celular | brPhoneNumber}}</td>
+									<td><a class="btn btn-default btn-sm" href="javascript:;" 
+										ng-click="detalhes(fornecedor)">
+										<i class="glyphicon glyphicon-trash"></i> Detalhes</a></td>
 									<td><a class="btn btn-info btn-sm" href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">
 										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
 									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
@@ -104,3 +121,12 @@
 	</div><!-- end block -->
 </div>
 <!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

@@ -347,15 +347,15 @@ app.run(function($rootScope, $location, authenticationSrv){
 			for( var i = 0; i < data.data.length; i++ ) {
 				$rootScope.rolespermission.push(data.data[i].roles);
 			}
-			console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
-			if( $rootScope.rolespermission.indexOf( $location.path() ) === -1 ){
-				var connectedsessionLogin = authenticationSrv.isLogged();
-				connectedsessionLogin.then(function(data){
-					if( data.data = 'notauthentified' ){
-						$location.path('/login');
-					}
-				});
-			}
+			// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
+			// if( $rootScope.rolespermission.indexOf( $location.path() ) === -1 ){
+			// 	var connectedsessionLogin = authenticationSrv.isLogged();
+			// 	connectedsessionLogin.then(function(data){
+			// 		if( data.data = 'notauthentified' ){
+			// 			$location.path('/login');
+			// 		}
+			// 	});
+			// }
 		});
 
 	});

@@ -1,0 +1,163 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de Contratos <small>adicione, edite os itens do contrato</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/contrato">Contrato</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+					<input type="hidden" ng-model="contrato.idcompra" name="idcompra">
+
+						<div class="form-group">
+							<label for="nome" class="control-label">Tipo: <span class="red">*</span></label>
+							<select class="form-control" ng-model="contrato.tipo" name="tipo" required>
+								<option value="">Escolha</option>
+								<option value="1" ng-click="tipo=1">Termo de Adesão</option>
+								<option value="2" ng-click="tipo=2">Licitação</option>
+								<option value="3" ng-click="tipo=3">Compra Direta</option>
+							</select>
+							<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
+						</div><!-- END INPUT -->
+						<div class="row form-group" ng-show="tipo == 1 || tipo == 2 && tipoCompra == 1">
+							<fieldset>
+							<legend>Informações Básicas do Termo de Adesão/Licitação</legend>
+							<div class="col-sm-3">
+								<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="contrato.numero" name="numero" placeholder="Informe o número" required>
+								<span class="help-block" ng-show="createForm.numero.$dirty && createForm.numero.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-3">
+								<label for="celular" class="control-label">Data Assinatura:</label>
+								<input type="text" class="form-control" ng-model="contrato.dataassinaturatali" name="dataassinaturatali" placeholder="Informe data de assinatura">
+							</div>
+							<div class="col-sm-3">
+								<label for="email" class="control-label">Número da Ata:</label>
+								<input type="text" class="form-control" ng-model="contrato.numeroata" name="numeroata" placeholder="Informe o número da ata">
+							</div>
+							<div class="col-sm-3">
+								<label for="email" class="control-label">Validade da Ata:</label>
+								<input type="text" class="form-control" ng-model="contrato.validadeata" name="validadeata" placeholder="Informe a validade da ata">
+							</div>
+							<div class="col-sm-3">
+								<label for="telefone" class="control-label">Número do Pregão:<span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="contrato.numeropregao" name="numeropregao" placeholder="Informe o número do pregão" required>
+								<span class="help-block" ng-show="createForm.numeropregao.$dirty && createForm.numeropregao.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-3">
+								<label for="celular" class="control-label">Número do Processo:</label>
+								<input type="text" class="form-control" ng-model="contrato.numeroprocesso" name="numeroprocesso" placeholder="Informe o número do processo">
+							</div>
+							<div class="col-sm-6">
+								<label for="cidade" class="control-label">Õrgão Gerenciador:<span class="red">*</span></label>
+								<select class="form-control" ng-model="contrato.idorgao" name="idorgao" ng-init="loadorgaos()" required>
+									<option value="">Escolha</option>
+									<option ng-repeat="orgao in orgaos" value="{{orgao.idorgao}}" ng-selected="contrato.idorgao==orgao.idorgao">{{orgao.sigla}} - {{orgao.nome}}</option>
+								</select>
+								<span class="help-block" ng-show="createForm.idorgao.$dirty && createForm.idorgao.$error.required">O campo é obrigatório</span>
+							</div>
+							</fieldset>
+						</div>
+						<div class="row form-group" ng-show="tipo == 3">
+							<fieldset>
+							<legend>Informações Básicas da Compra Direta</legend>
+							<div class="col-sm-4">
+								<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="contrato.numerocd" name="numerocd" placeholder="Informe o número" required>
+								<span class="help-block" ng-show="createForm.numerocd.$dirty && createForm.numerocd.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-4">
+								<label for="email" class="control-label">Número do Parecer Juridico:</label>
+								<input type="text" class="form-control" ng-model="contrato.numeroparecerjuridico" name="numeroparecerjuridico" placeholder="Informe o número do parecer juridico">
+							</div>
+							<div class="col-sm-4">
+								<label for="celular" class="control-label">Data Compra:</label>
+								<input type="text" class="form-control" ng-model="contrato.datacompra" name="datacompra" placeholder="Informe data da compra">
+							</div>
+							</fieldset>
+						</div>
+					<fieldset>
+					<legend>Informações do Contrato/Empenho</legend>
+						<div class="col-sm-3">
+								<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="contrato.numerocontratoempenho" name="numerocontratoempenho" placeholder="Informe o número" required>
+								<span class="help-block" ng-show="createForm.numerocontratoempenho.$dirty && createForm.numerocontratoempenho.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-3">
+								<label for="email" class="control-label">Valor:</label>
+								<input type="text" class="form-control" ng-model="contrato.valor" name="valor" placeholder="Informe o valor">
+							</div>
+							<div class="col-sm-3">
+								<label for="celular" class="control-label">Data Assinatura:</label>
+								<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" placeholder="Informe data de assinatura">
+							</div>
+							<div class="col-sm-3">
+								<label for="email" class="control-label">Validade da Ata:</label>
+								<input type="text" class="form-control" ng-model="contrato.validade" name="validade" placeholder="Informe a validade">
+							</div>
+							<div class="col-sm-3">
+								<label for="email" class="control-label">Objeto:</label>
+								<textarea class="form-control" ng-model="contrato.objeto" name="objeto" placeholder="Informe o objeto"></textarea>
+							</div>
+					</fieldset>
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/fornecedor" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

@@ -69,6 +69,27 @@ app
 
 				};
 
+				//modal detahes
+				$scope.detalhes = function(fornecedor){
+					var modalInstance = $modal.open({
+						size: 'lg',
+						templateUrl: 'views/fornecedor/detalhes.html',
+						controller: function( $scope, $modalInstance, fornecedorRS ){
+
+							$scope.fornecedor = fornecedorRS;
+							$scope.cancel = function(){
+								$modalInstance.dismiss('cancel');
+							}
+
+						},
+						resolve: {
+							fornecedorRS: function(){
+								return fornecedor;
+							}
+						}
+					});
+				}
+
 				$scope.load = function(){
 					
 					$http.get('/controller/fornecedor/fornecedores')
