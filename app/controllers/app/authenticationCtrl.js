@@ -11,6 +11,10 @@ app
 				$scope.isloading 				= false;
 				$scope.submitting 				= false;
 
+				//aplication background body
+				jQuery('body').addClass('bg-image');
+        		jQuery('body').css('background-image', 'url("/assets/img/photos/photo1@2x.jpg")');
+
 				$scope.login = function( data ){
 					authenticationSrv.login( data, $scope );
 				}

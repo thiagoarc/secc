@@ -78,8 +78,8 @@
 			            				<span ng-show="sortType == 'nome' && sortReverse" class="fa fa-caret-up"></span>
 									</a>
 								</th>
-								<th width="25%" >E-mail(login)</th>
-								<th width="19%" >Perfil</th>
+								<th width="25%">E-mail(login)</th>
+								<th width="19%">Perfil</th>
 								<th width="5%"></th>
 								<th width="5%"></th>
 								<th width="5%" ></th>
@@ -89,9 +89,12 @@
 									<td>{{$index+1}}</td>
 									<td>{{usuario.nome}}</td>
 									<td>{{usuario.email}}</td>
-									<td ng-if="usuario.perfil == 1 ">Administrador</td>
-									<td ng-if="usuario.perfil == 2 ">Gestor</td>
-									<td ng-if="usuario.perfil == 3 ">Observador</td>
+									<td ng-if="usuario.perfil == 1">Administrador</td>
+									<td ng-if="usuario.perfil == 2">Gestor de contrato</td>
+									<td ng-if="usuario.perfil == 3">Gestor de compras</td>
+									<td ng-if="usuario.perfil == 4">Gestor de estoque</td>
+									<td ng-if="usuario.perfil == 5">Gestor de compras/estoque</td>
+									<td ng-if="usuario.perfil == 6">Observador</td>
 									<td><a class="btn btn-warning btn-sm" href="javascript:void(0);" 
 										ng-click="redefinirsenha(usuario)">
 										<i class="glyphicon glyphicon-lock"></i> Redefinir senha</a></td>
