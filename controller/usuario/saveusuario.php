@@ -22,7 +22,7 @@ try{
     	echo json_encode($msg);
 
 	}else{
-
+ 
 		$stmt = $oConexao->prepare("INSERT INTO usuario (nome, email, senha, perfil, liberado) VALUES(:nome, :email, :senha, :perfil, 1)");  
 		$stmt->bindParam('nome', $params->nome);
 		$stmt->bindParam('email', $params->email);
