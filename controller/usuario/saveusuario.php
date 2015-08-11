@@ -47,6 +47,9 @@ try{
     										("/produto", :usuario),
     										("/produto/add", :usuario),
     										("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
     										("/compras", :usuario),
     										("/estoque", :usuario),
     										("/relatorio", :usuario)
@@ -69,6 +72,9 @@ try{
     										("/produto", :usuario),
     										("/produto/add", :usuario),
     										("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
     										("/relatorio", :usuario)
     								');
 		    $stmtPerfil->bindParam('usuario', $usuario);
@@ -89,6 +95,9 @@ try{
     										("/produto", :usuario),
     										("/produto/add", :usuario),
     										("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
     										("/relatorio", :usuario)
     								');
 		    $stmtPerfil->bindParam('usuario', $usuario);
