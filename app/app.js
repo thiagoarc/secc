@@ -145,51 +145,6 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
-		.when('/contrato',
-			{ 
-				templateUrl: 'views/contrato/index.html',
-				controller: 'contratoCtrl',
-				resolve: {
-					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
-						return $ocLazyLoad.load({
-                        	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/contrato/contratoCtrl.js']
-                    	});
-					}]
-				}
-			}
-		)
-
-		.when('/contrato/add',
-			{ 
-				templateUrl: 'views/contrato/formulario.html',
-				controller: 'contratoCtrl',
-				resolve: {
-					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
-						return $ocLazyLoad.load({
-                        	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/contrato/contratoCtrl.js']
-                    	});
-					}]
-				}
-			}
-		)
-
-		.when('/contrato/edit/:id',
-			{ 
-				templateUrl: 'views/contrato/formulario.html',
-				controller: 'contratoCtrl',
-				resolve: {
-					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
-						return $ocLazyLoad.load({
-                        	name: 'app', /*name module(YourModuleApp)*/
-                        	files: ['app/controllers/contrato/contratoCtrl.js']
-                    	});
-					}]
-				}
-			}
-		)
-
 		.when('/fornecedor',
 			{ 
 				templateUrl: 'views/fornecedor/index.html',
@@ -348,14 +303,14 @@ app.run(function($rootScope, $location, authenticationSrv){
 				$rootScope.rolespermission.push(data.data[i].roles);
 			}
 			// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
-			// if( $rootScope.rolespermission.indexOf( $location.path() ) === -1 ){
-			// 	var connectedsessionLogin = authenticationSrv.isLogged();
-			// 	connectedsessionLogin.then(function(data){
-			// 		if( data.data = 'notauthentified' ){
-			// 			$location.path('/login');
-			// 		}
-			// 	});
-			// }
+			if( $rootScope.rolespermission.indexOf( $location.path() ) == -1 ){
+				var connectedsessionLogin = authenticationSrv.isLogged();
+				connectedsessionLogin.then(function(data){
+					if( data.data = 'notauthentified' ){
+						$location.path('/login');
+					}
+				});
+			}
 		});
 
 	});

@@ -6,7 +6,7 @@ app
 		return {
 
 			login: function( data, scope ){
-				//enable loading and submitting before authentication
+				/* enable loading and submitting before authentication */
 				scope.isloading 	= true;
 				scope.submitting	= true;
 				/* send data to authentication login */
@@ -19,13 +19,13 @@ app
 						$location.path('/app');
 					}else if( data.credentials ){
 						scope.msgcredentials = 'Favor verifique os dados, credenciais informada está incorreta.';
-						//clear model usuarioLogin
+						/* clear model usuarioLogin */
 						scope.usuarioLogin.email 	= null;
 						scope.usuarioLogin.password = null;
-						//enable message error authentication
+						/* enable message error authentication */
 						scope.msgErrorAuthentication = true;
 					}
-					//disabled loading and submitting after authentication
+					/* disabled loading and submitting after authentication */
 					scope.isloading 	= false;
 					scope.submitting 	= false;
 				})
@@ -42,17 +42,13 @@ app
 			},
 
 			isLogged: function(){
- 				
  				var $checkSessionLogin = $http.post('/controller/authentication/checksessionlogin');
  				return $checkSessionLogin;
-
 			},
 
 			rolesPermission: function(){
-
 				var $getRolesPermission = $http.post('/controller/authentication/rolespermissionlogin');
 				return $getRolesPermission;
-
 			}
 			
 		}

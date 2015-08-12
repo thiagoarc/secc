@@ -15,7 +15,7 @@ app
 			destroy: function(key){
 				//vamos chamar o http para destruir a session
 				$http.post('/controller/authentication/logout');
-				return sessionStorage.remove(key);
+				return sessionStorage.removeItem(key);
 			}
 
 		};
