@@ -19,6 +19,10 @@ app
 					authenticationSrv.login( data, $scope );
 				}
 
+				$scope.logout = function(){
+					authenticationSrv.logout();
+				}
+
 			}
 		]
 	);
