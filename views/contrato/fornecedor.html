@@ -1,0 +1,125 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de Vinculação de Fornecedores ao Contrato <small>adicione o(s) fornecedor(es) ao contrato</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/contrato">Contrato</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+					<input type="hidden" ng-model="contrato.idcontrato" name="idcontrato">
+						<div class="row form-group">
+							<div class="col-sm-12">
+								<label for="nome" class="control-label">Número Contrato:</label>
+								{{contrato.numerocontrato}}
+								<br>
+								<label for="nome" class="control-label">Valor:</label>
+								{{contrato.valor | finance:true:2}}
+							</div>
+						</div><!-- END INPUT -->
+						<div class="row form-group">
+							<div class="col-sm-9">
+								<label for="nome" class="control-label">Fornecedor: <span class="red">*</span></label>
+								<select class="form-control" ng-model="contratoFornecedor.idfornecedor" name="idfornecedor" ng-init="loadfornecedores()" required>
+									<option value="">Escolha</option>
+										<option ng-repeat="fornecedor in fornecedores" value="{{fornecedor.idfornecedor}}">{{fornecedor.idfornecedor}} - {{fornecedor.razaosocial}}</option>
+								</select>
+								<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" ng-click="addfornecedor()" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+									<span ng-switch-default>Adicionar</span>
+				    				<span ng-switch-when="true">Adicionando...</span>
+								</button>
+							</div>
+						</div><!-- END INPUT -->
+						<fieldset>
+							<legend>Fornecedores Vinculados do Contrato</legend>
+						<div class="row form-group">
+							<div class="table-responsive" ng-show="totalItems > 0">
+								<table class="table table-striped">
+									<thead>
+										<th width="1%" >#</th>
+										<th width="40%" >Razão Social</th>
+										<th width="10%" >CNPJ</th>
+										<th width="5%"></th>
+									</thead>
+									<tbody>
+										<tr ng-repeat="forn in fornecedorescadastrados | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+											<td>{{$index+1}}</td>
+											<td>{{forn.razaosocial}}</td>
+											<td>{{forn.cnpj | brCnpj}}</td>
+											<td><a class="btn btn-danger btn-sm" href="javascript:;" 
+												ng-click="deleteconfirm(forn)">
+												<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+										</tr>
+									</tbody>
+								</table>
+								<!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+							</div>
+
+							<div class="col-md-12" ng-show="!totalItems">
+				        		<table class="table">
+				        			<tr>
+				        				<td colspan="7">Nenhum forcenedor vinculado.</td>
+				        			</tr>
+				        		</table>
+				        	</div>
+						</div><!-- END INPUT -->
+						</fieldset>
+					<a href="#!/contrato" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

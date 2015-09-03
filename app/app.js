@@ -7,6 +7,7 @@ var app = angular.module('app', [
 			'ui.bootstrap',
 		    'oc.lazyLoad',
 		    'ui.utils.masks',
+		    'ui.mask',
 		    'idf.br-filters'
 		  ]);
 
@@ -190,6 +191,81 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/contrato',
+			{ 
+				templateUrl: 'views/contrato/index.html',
+				controller: 'contratoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/add',
+			{ 
+				templateUrl: 'views/contrato/formulario.html',
+				controller: 'contratoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/edit/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/formulario.html',
+				controller: 'contratoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/fornecedor/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/fornecedor.html',
+				controller: 'contratoFornecedorCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoFornecedorCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/itens/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/itens.html',
+				controller: 'contratoItensCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoItensCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/usuario',
 			{ 
 				templateUrl: 'views/usuario/index.html',
@@ -298,20 +374,20 @@ app.run(function($rootScope, $location, authenticationSrv){
 	$rootScope.$on('$routeChangeStart', function (event, next, current){
 
 		var $getrolespermission = authenticationSrv.rolesPermission();
-		$getrolespermission.then(function(data){
-			for( var i = 0; i < data.data.length; i++ ) {
-				$rootScope.rolespermission.push(data.data[i].roles);
-			}
-			// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
-			if( $rootScope.rolespermission.indexOf( $location.path() ) == -1 ){
-				var connectedsessionLogin = authenticationSrv.isLogged();
-				connectedsessionLogin.then(function(data){
-					if( data.data = 'notauthentified' ){
-						$location.path('/login');
-					}
-				});
-			}
-		});
+		// $getrolespermission.then(function(data){
+		// 	for( var i = 0; i < data.data.length; i++ ) {
+		// 		$rootScope.rolespermission.push(data.data[i].roles);
+		// 	}
+		// 	// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
+		// 	if( $rootScope.rolespermission.indexOf( $location.path() ) == -1 ){
+		// 		var connectedsessionLogin = authenticationSrv.isLogged();
+		// 		connectedsessionLogin.then(function(data){
+		// 			if( data.data = 'notauthentified' ){
+		// 				$location.path('/login');
+		// 			}
+		// 		});
+		// 	}
+		// });
 
 	});
 });

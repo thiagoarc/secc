@@ -5,7 +5,7 @@ app
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
-				$scope.contrato 				= {};
+				$scope.contrato 			= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -23,7 +23,7 @@ app
 			    });
 
 
-				var itemid = $routeParams.idcompra || 0;
+				var itemid = $routeParams.idcontrato || 0;
 
 				if( itemid && itemid > 0){
 					//via http
@@ -34,6 +34,8 @@ app
 					}).success(function(data){
 						$scope.contrato = data;
 					});
+
+					$scope.tipo = $scope.contrato.tipo;
 				}
 
 				/* confirmação modal para excluir item */
@@ -43,7 +45,7 @@ app
 				      	controller: function ($scope, $modalInstance, contratos) {
 				      	
 					      	$scope.contrato = contratos;
-					      	$scope.modalItem =  contratos.tipo;
+					      	$scope.modalItem =  "de número de contrato: "+contratos.numerocontrato;
 					      	
 					      	$scope.ok = function () {
 							    $modalInstance.close($scope.contrato);
@@ -62,7 +64,7 @@ app
 				  	});
 
 				  	modalInstance.result.then(function (contrato) {
-				      $scope.deleteitem( contrato.idcompra );
+				      $scope.deleteitem( contrato.idcontrato );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
@@ -113,6 +115,15 @@ app
 
 				};
 
+				$scope.loadfornecedores = function(){
+					
+					$http.get('/controller/fornecedor/fornecedores')
+						.success(function(data){
+							$scope.fornecedores = data;
+						});
+
+				};
+
 				$scope.paginate = function(value) {
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
@@ -127,6 +138,12 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
+						$scope.contrato.dataassinaturatali = $scope.formataData($scope.contrato.dataassinaturatali);
+						$scope.contrato.validadeata = $scope.formataData($scope.contrato.validadeata);
+						$scope.contrato.datacompra = $scope.formataData($scope.contrato.datacompra);
+						$scope.contrato.validade = $scope.formataData($scope.contrato.validade);
+						$scope.contrato.dataassinatura = $scope.formataData($scope.contrato.dataassinatura);
+
 						//via http
 						$http.post('/controller/contrato/savecontrato', $scope.contrato )
 						.success(function(data){
@@ -156,6 +173,16 @@ app
 					}
 				};
 
+				$scope.formataData = function(data){
+					if(data != null){
+						var dataFormatada = data.substring(4, 8)+"-"+data.substring(3, 4)+"-"+data.substring(1, 2);
+						alert(dataFormatada);
+						return dataFormatada;
+					}else{
+						return "0000-00-00";
+					}
+				};
+
 				$scope.deleteitem = function(itemid){
 					var itemcontrato = $resource('/controller/contrato/deletecontrato' , {id: itemid});
 					itemcontrato.delete(
@@ -165,6 +192,10 @@ app
 							if(data.msg == 'success'){
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');
+							}else if(data.msg == 'error1'){
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}else if(data.msg == 'error2'){
+								appMessages.addMessage(data.msg_success, true, 'danger');
 							}else{
 								appMessages.addMessage(data.msg_success, true, 'danger');
 							}
@@ -178,6 +209,78 @@ app
 						}
 					);
 				};
+
+
+				/////////////////////////
+				//scopos do datapicker
+				/*$scope.today = function() {
+    $scope.dt = new Date();
+  };
+  $scope.today();
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+
+  $scope.open = function($event) {
+    $scope.status.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+
+  $scope.status = {
+    opened: false
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date();
+  afterTomorrow.setDate(tomorrow.getDate() + 2);
+  $scope.events =
+    [
+      {
+        date: tomorrow,
+        status: 'full'
+      },
+      {
+        date: afterTomorrow,
+        status: 'partially'
+      }
+    ];
+
+  $scope.getDayClass = function(date, mode) {
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      for (var i=0;i<$scope.events.length;i++){
+        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+        if (dayToCheck === currentDay) {
+          return $scope.events[i].status;
+        }
+      }
+    }
+
+    return '';
+  };*/
+				////////////////////////
+
 
 			}
 		]
