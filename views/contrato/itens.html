@@ -59,7 +59,7 @@
 								<label for="nome" class="control-label">Fornecedor: <span class="red">*</span></label>
 								<select class="form-control" ng-model="contratoItens.idfornecedor" name="idfornecedor" ng-init="loadfornecedores()" required>
 									<option value="">Escolha</option>
-									<option ng-repeat="fornecedor in fornecedores" value="{{fornecedor.idfornecedor}}">{{fornecedor.cnpj | brCnpj}} - {{fornecedor.razaosocial}}</option>
+									<option ng-repeat="fornecedor in fornecedores" value="{{fornecedor.idfornecedor}}" ng-selected="fornecedor.idfornecedor==contratoItens.idfornecedor">{{fornecedor.cnpj | brCnpj}} - {{fornecedor.razaosocial}}</option>
 								</select>
 								<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
 							</div>
@@ -76,7 +76,7 @@
 								<label for="nome" class="control-label">Unidade de Medida: <span class="red">*</span></label>
 								<select class="form-control" ng-model="contratoItens.idunidade_medida" name="idunidade_medida" ng-init="loadunidademedida()" required>
 									<option value="">Escolha</option>
-									<option ng-repeat="unidade in unidadesmedida" value="{{unidade.idunidade_medida}}">{{unidade.sigla}} - {{unidade.descricao}}</option>
+									<option ng-repeat="unidade in unidadesmedida" value="{{unidade.idunidade_medida}}" ng-selected="unidade.idunidade_medida==contratoItens.idunidade_medida">{{unidade.sigla}} - {{unidade.descricao}}</option>
 								</select>
 								<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
 							</div>
@@ -93,9 +93,13 @@
 						</div><!-- END INPUT -->
 						<div class="row form-group">
 							<div class="col-sm-12">
-								<button type="submit" ng-click="additens()" class="btn btn-primary" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+								<button type="submit" ng-show="!mostraBotao" ng-hide="mostraBotao" ng-click="additens()" class="btn btn-primary" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
 									<span ng-switch-default>Adicionar</span>
 				    				<span ng-switch-when="true">Adicionando...</span>
+								</button>
+								<button type="submit" ng-show="mostraBotao" ng-hide="!mostraBotao" ng-click="additens()" class="btn btn-primary" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+									<span ng-switch-default>Editar</span>
+				    				<span ng-switch-when="true">Editando...</span>
 								</button>
 								<button type="reset" class="btn btn-default">
 									Limpar
@@ -125,7 +129,7 @@
 											<td>{{item.valorunitario  | finance:true:2}}</td>
 											<td>{{item.total  | finance:true:2}}</td>
 											<td><a class="btn btn-info btn-sm"  href="javascript:;" 
-												ng-click="editar(item)">
+												ng-click="editar(item);mudaBotao()">
 												<i class="glyphicon glyphicon-pencil"></i></a>
 												<a class="btn btn-danger btn-sm" href="javascript:;" 
 												ng-click="deleteconfirm(item)">

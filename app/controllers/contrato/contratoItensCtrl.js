@@ -16,6 +16,7 @@ app
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
 			    $scope.itenscadastrados 	= [];
+			    $scope.mostraBotao			= false;			
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -44,6 +45,8 @@ app
 					});
 
 				};
+
+
 
 
 				var itemid = $routeParams.idcontrato || 0;
@@ -80,6 +83,36 @@ app
 
 				};
 
+				$scope.editar = function(itemid){
+					
+					/*$http.get('/controller/contrato/contraofornecedores' )
+						.success(function(data){
+							$scope.fornecedores = data;
+						});*/
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/getcontratoitens',
+						data: { id: itemid.iditens_contrato } 
+					}).success(function(data){
+						//console.log(data);
+						// $scope.contratoItens 		= null;
+						$scope.contratoItens = data;
+						// console.log(data);
+						// $scope.contratoItens.descricao = data.descricao;
+						// console.log($scope.contratoItens);
+					});
+
+				};
+
+
+				$scope.mudaBotao = function(){
+					if($scope.mostraBotao == true){
+						$scope.mostraBotao = false;
+					}else{
+						$scope.mostraBotao = true;
+					}
+				}
+
 				$scope.loadunidademedida = function(){
 					
 					$http.get('/controller/unidademedida/unidadesmedida')
@@ -91,6 +124,7 @@ app
 
 				$scope.calculaTotalGeral = function(){
 					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
+					$scope.totalgeral 			= 0; 
 					angular.forEach($scope.itenscadastrados, function(item) {
 						console.log(item.total);
 						$scope.totalgeral += parseFloat(item.total);
@@ -99,6 +133,7 @@ app
 
 
 				$scope.additens = function(){
+						$scope.mostraBotao = false;
 						//saving set true
 						$scope.submitting = true;
 						//show loading

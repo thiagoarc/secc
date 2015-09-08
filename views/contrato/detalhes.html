@@ -6,74 +6,98 @@
                     <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
                 </li>
             </ul>
-            <h3 class="block-title">Detalhes do Fornecedor</h3>
+            <h3 class="block-title">Detalhes do Contrato</h3>
         </div>
         <div class="block-content">
-
-           <fieldset>
-                    <legend>Informações Básicas do Fornecedor</legend>
-                        <div class="form-group">
-                            <label for="nome" class="control-label">Razão Social:</label>
-                            {{fornecedor.razaosocial}}
-                        </div><!-- END INPUT -->
-
-                        <div class="row form-group">
-                            <div class="col-sm-3">
-                                <label for="cnpj" class="control-label">CNPJ:</label>
-                                {{fornecedor.cnpj | brCnpj}}
-                            </div>
-                            <div class="col-sm-9">
-                                <label for="responsavel" class="control-label">Responsável:</label>
-                                {{fornecedor.responsavel}}
-                            </div>
-                        </div><!-- END INPUT -->
-                        <div class="row form-group">
-                            <div class="col-sm-3">
-                                <label for="telefone" class="control-label">Telefone:</label>
-                                {{fornecedor.telefone | brPhoneNumber}}
-                            </div>
-                            <div class="col-sm-3">
-                                <label for="celular" class="control-label">Celular:</label>
-                                {{fornecedor.celular | brPhoneNumber}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="email" class="control-label">Email:</label>
-                                {{fornecedor.email}}
-                            </div>
-                        </div><!-- END INPUT -->
-                    </fieldset>
-                    <fieldset>
-                    <legend>Endereço do Fornecedor</legend>
-                        <div class="row form-group">
-                            <div class="col-sm-10">
-                                <label for="logradouro" class="control-label">Logradouro:</label>
-                                {{fornecedor.logradouro}}
-                            </div>
-                            <div class="col-sm-2">
-                                <label for="numero" class="control-label">Número:</label>
-                                {{fornecedor.numero}}
-                            </div>
-                        </div><!-- END INPUT -->
-                        <div class="form-group">
-                            <label for="complemento" class="control-label">Complemento:</label>
-                            {{fornecedor.complemento}}
-                        </div><!-- END INPUT -->
-                        <div class="row form-group">
-                            <div class="col-sm-4">
-                                <label for="cidade" class="control-label">Cidade:</label>
-                                {{fornecedor.cidade}}
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="bairro" class="control-label">Bairro:</label>
-                                {{fornecedor.bairro}}
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="cep" class="control-label">Cep:</label>
-                                {{fornecedor.cep | brCep}}
-                            </div>
-                        </div>
-                    </fieldset>
-
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <label for="nome" class="control-label">Tipo:</label>
+                    {{contrato.tipo}}
+                </div>
+                <div class="col-sm-6">
+                    <label for="cnpj" class="control-label">Tipo Compra:</label>
+                    {{contrato.tipoobjetos}}
+                </div>
+            </div><!-- END INPUT -->
+            <div class="row form-group" ng-show="tipoDetalhe1">
+                <fieldset>
+                    <legend>Informações Básicas do Termo de Adesão/Licitação</legend>
+                    <div class="col-sm-4">
+                        <label for="telefone" class="control-label">Número:</label>
+                        {{contrato.numerotali}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="celular" class="control-label">Data Assinatura:</label>
+                        {{contrato.dataassinaturatali}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="email" class="control-label">Número da Ata:</label>
+                        {{contrato.numeroata}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="email" class="control-label">Validade da Ata:</label>
+                        {{contrato.validadeata}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="telefone" class="control-label">Número do Pregão:</label>
+                        {{contrato.numeropregao}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="celular" class="control-label">Número do Processo:</label>
+                        {{contrato.numeroprocesso}}
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="cidade" class="control-label">Órgão Gerenciador:</label>
+                        {{contrato.sigla}} - {{contrato.nome}}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="row form-group" ng-show="tipoDetalhe2">
+                <fieldset>
+                    <legend>Informações Básicas da Compra Direta</legend>
+                    <div class="col-sm-4">
+                        <label for="telefone" class="control-label">Número:</label>
+                        {{contrato.numerocd}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="email" class="control-label">Número do Parecer Juridico:</label>
+                        {{contrato.numeroparecerjuridico}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="celular" class="control-label">Data Compra:</label>
+                        {{contrato.datacompra}}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <fieldset>
+                    <legend>Informações do Contrato/Empenho</legend>
+                    <div class="col-sm-4">
+                        <label for="telefone" class="control-label">Número Contrato:</label>
+                        {{contrato.numerocontrato}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="email" class="control-label">Valor:</label>
+                        {{contrato.valor | finance:true:2}}
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="celular" class="control-label">Data Assinatura:</label>
+                        {{contrato.dataassinatura}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="celular" class="control-label">Validade:</label>
+                        {{contrato.validade}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="telefone" class="control-label">Número Empenho:</label>
+                        {{contrato.numeroempenho}}
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="email" class="control-label">Objeto:</label>
+                        {{contrato.objeto}}
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

@@ -13,6 +13,8 @@ app
 			  	$scope.submitting 			= false;	// set label btn for false then save
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
+			    $scope.tipoDetalhe1			= false;
+			    $scope.tipoDetalhe2			= false;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -72,7 +74,17 @@ app
 				};
 
 				//modal detahes
-				$scope.detalhes = function(fornecedor){
+				$scope.detalhes = function(contrato){
+					if(contrato.tipo == 1 || contrato.tipo == 2){
+						$scope.tipoDetalhe1			= true;
+			    		$scope.tipoDetalhe2			= false;
+			    		console.log("1 - "+$scope.tipoDetalhe1);
+					}else{
+						$scope.tipoDetalhe1			= false;
+			    		$scope.tipoDetalhe2			= true;
+			    		console.log("2 - "+$scope.tipoDetalhe2);
+					}
+
 					var modalInstance = $modal.open({
 						size: 'lg',
 						templateUrl: 'views/contrato/detalhes.html',
@@ -91,6 +103,8 @@ app
 						}
 					});
 				}
+
+				
 
 				$scope.load = function(){
 					
