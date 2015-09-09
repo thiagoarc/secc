@@ -62,3 +62,7 @@ http://www.formatccolon.com/mmdb-pt7-laravel-4-flash-messages-helper-class-and-s
 
 INJECT CONTROLLER AND MESSAGE
 http://onehungrymind.com/angularjs-communicating-between-controllers/
+
+
+FORMATO DE DATA
+http://www.angulartutorial.net/2014/04/date-filtering-and-formatting-in.html
