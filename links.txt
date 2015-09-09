@@ -65,4 +65,7 @@ http://onehungrymind.com/angularjs-communicating-between-controllers/
 
 
 FORMATO DE DATA
+filter mask date angulajs
+http://stackoverflow.com/questions/22392328/how-to-format-date-in-angularjs
+http://stackoverflow.com/questions/12920892/format-date-time-in-angular-js
 http://www.angulartutorial.net/2014/04/date-filtering-and-formatting-in.html
