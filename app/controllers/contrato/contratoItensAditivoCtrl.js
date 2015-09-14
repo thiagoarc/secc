@@ -5,9 +5,9 @@ app
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
-				$scope.contratoItens 		= {};
+				$scope.aditivoItens 		= {};
 				$scope.totalgeral 			= 0; 	
-				$scope.contrato 			= {};
+				$scope.aditivo 				= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -16,7 +16,8 @@ app
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
 			    $scope.itenscadastrados 	= [];
-			    $scope.mostraBotao			= false;			
+			    $scope.mostraBotao			= false;
+			    $scope.idcontrato			= 0;			
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -26,12 +27,12 @@ app
 			        // console.log( 'Mensagem do scope: '+ $scope.message );
 			    });
 
-			    $scope.loadcontratositens = function(idcontrato){
+			    $scope.loadaditivoitens = function(idaditivo){
 					
-					$scope.contratoItens.idcontrato = idcontrato;
+					$scope.aditivoItens.idaditivo = idaditivo;
 					$http({
 						method: 'POST',
-						url: '/controller/contrato/contratoitens',
+						url: '/controller/contrato/aditivoitens',
 						data: { id: itemid } 
 					}).success(function(data){
 						//console.log(data);
@@ -49,33 +50,32 @@ app
 
 
 
-				var itemid = $routeParams.idcontrato || 0;
+				var itemid = $routeParams.idaditivo || 0;
 				//$scope.loadcontratosfornecedores(itemid);
 				if( itemid && itemid > 0){
 					$http({
 						method: 'POST',
-						url: '/controller/contrato/getcontrato',
+						url: '/controller/contrato/getaditivo',
 						data: { id: itemid } 
 					}).success(function(data){
 						//console.log(data);
-						$scope.contrato = data;
+						$scope.aditivo = data;
+						console.log($scope.aditivo);
+						$scope.idcontrato = $scope.aditivo.idcontrato;
+						$scope.loadfornecedores($scope.aditivo.idcontrato);
 					});
-					$scope.loadcontratositens(itemid);
+					$scope.loadaditivoitens(itemid);
 				}
 
 				
 
 				
-				$scope.loadfornecedores = function(){
-					
-					/*$http.get('/controller/contrato/contraofornecedores' )
-						.success(function(data){
-							$scope.fornecedores = data;
-						});*/
+				$scope.loadfornecedores = function(idcontrato){
+					//console.log(idcontrato);
 					$http({
 						method: 'POST',
 						url: '/controller/contrato/contratofornecedores',
-						data: { id: itemid } 
+						data: { id: idcontrato } 
 					}).success(function(data){
 						//console.log(data);
 						$scope.fornecedores = data;
@@ -91,12 +91,12 @@ app
 						});*/
 					$http({
 						method: 'POST',
-						url: '/controller/contrato/getcontratoitens',
-						data: { id: itemid.iditens_contrato } 
+						url: '/controller/contrato/getaditivoitens',
+						data: { id: itemid.iditens_aditivo } 
 					}).success(function(data){
 						//console.log(data);
 						// $scope.contratoItens 		= null;
-						$scope.contratoItens = data;
+						$scope.aditivoItens = data;
 						// console.log(data);
 						// $scope.contratoItens.descricao = data.descricao;
 						// console.log($scope.contratoItens);
@@ -126,7 +126,7 @@ app
 					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
 					$scope.totalgeral 			= 0; 
 					angular.forEach($scope.itenscadastrados, function(item) {
-						console.log(item.total);
+						//console.log(item.total);
 						$scope.totalgeral += parseFloat(item.total);
 					});
 				}
@@ -139,7 +139,7 @@ app
 						//show loading
 						$scope.isloading = true;
 						//via http
-						$http.post('/controller/contrato/savecontratoitens', $scope.contratoItens )
+						$http.post('/controller/contrato/saveaditivoitens', $scope.aditivoItens )
 						.success(function(data){
 							//saving set false
 							$scope.submitting = false;
@@ -147,12 +147,12 @@ app
 							$scope.isloading = false;
 							//success
 							//$location.path('/contrato');
-							$scope.loadcontratositens($scope.contratoItens.idcontrato);
+							$scope.loadaditivoitens($scope.aditivoItens.idaditivo);
 							//show message
 							if(data.msg == 'success'){
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');
-								$scope.contratoItens 				= {};
+								$scope.aditivoItens 				= {};
 							}else if(data.msg == 'error_existe'){
 								appMessages.addMessage(data.msg_success, true, 'danger');
 							}else{
@@ -170,16 +170,16 @@ app
 				};
 
 				/* confirmação modal para excluir item */
-				$scope.deleteconfirm = function(contratoItensdelete){
+				$scope.deleteconfirm = function(aditivoItensdelete){
 					var modalInstance = $modal.open({
 				      	templateUrl: 'views/confirm.html',
-				      	controller: function ($scope, $modalInstance, contratoItenss) {
+				      	controller: function ($scope, $modalInstance, aditivoItenss) {
 				      	
-					      	$scope.contratoItens = contratoItenss;
-					      	$scope.modalItem =  contratoItenss.descricao;
+					      	$scope.aditivoItens = aditivoItenss;
+					      	$scope.modalItem =  aditivoItenss.descricao;
 					      	
 					      	$scope.ok = function () {
-							    $modalInstance.close($scope.contratoItens);
+							    $modalInstance.close($scope.aditivoItens);
 							};
 
 							$scope.cancel = function () {
@@ -188,14 +188,14 @@ app
 
 				      	},
 				      	resolve: {
-				        	contratoItenss: function () {
-				          		return contratoItensdelete;
+				        	aditivoItenss: function () {
+				          		return aditivoItensdelete;
 				        	}
 				      	}
 				  	});
 
-				  	modalInstance.result.then(function (contratoItens) {
-				      $scope.deleteitem( contratoItens.iditens_contrato );
+				  	modalInstance.result.then(function (aditivoItens) {
+				      $scope.deleteitem( aditivoItens.iditens_aditivo );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
@@ -203,11 +203,11 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemcontrato = $resource('/controller/contrato/deletecontratoitens' , {id: itemid});
-					itemcontrato.delete(
+					var itemaditivo = $resource('/controller/aditivo/deleteaditivoitens' , {id: itemid});
+					itemaditivo.delete(
 						function(data){
 							//success
-							$scope.loadcontratositens(itemid);
+							$scope.loadaditivoitens(itemid);
 							if(data.msg == 'success'){
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');

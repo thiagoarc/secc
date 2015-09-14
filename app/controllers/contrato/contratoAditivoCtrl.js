@@ -1,10 +1,11 @@
 'use strict';
 
 app
-	.controller('contratoCtrl', 
+	.controller('contratoAditivoCtrl', 
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
+				$scope.contratoAditivo 		= {};
 				$scope.contrato 			= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
@@ -13,8 +14,8 @@ app
 			  	$scope.submitting 			= false;	// set label btn for false then save
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
-			    $scope.tipoDetalhe1			= false;
-			    $scope.tipoDetalhe2			= false;
+			    $scope.newcontrato			= null;
+			    $scope.idcontrato			= null;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -25,19 +26,44 @@ app
 			    });
 
 
-				var itemid = $routeParams.idcontrato || 0;
+			    $scope.idcontrato 	= $routeParams.idcontrato || 0;
 
-				if( itemid && itemid > 0){
+				if( $scope.idcontrato && $scope.idcontrato > 0){
+					console.log($scope.idcontrato);
+					$scope.newcontrato = $scope.idcontrato;
+					console.log($scope.newcontrato);
 					//via http
 					$http({
 						method: 'POST',
 						url: '/controller/contrato/getcontrato',
-						data: { id: itemid } 
+						data: { id: $scope.idcontrato } 
 					}).success(function(data){
 						$scope.contrato = data;
 					});
+					
+				}
 
-					$scope.tipo = $scope.contrato.tipo;
+
+				$scope.newcontrato 	= $routeParams.newcontrato || 0;
+
+				if( $scope.newcontrato && $scope.newcontrato > 0){
+					//via http
+					$scope.contratoAditivo.idcontrato = $scope.newcontrato;
+					$scope.idcontrato = $scope.newcontrato;
+				}
+
+				var itemidaditivo = $routeParams.idaditivo || 0;
+
+				if( itemidaditivo && itemidaditivo > 0){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/getaditivo',
+						data: { id: itemidaditivo } 
+					}).success(function(data){
+						$scope.contratoAditivo = data;
+					});
+					
 				}
 
 				/* confirmação modal para excluir item */
@@ -65,40 +91,52 @@ app
 				      	}
 				  	});
 
-				  	modalInstance.result.then(function (contrato) {
-				      $scope.deleteitem( contrato.idcontrato );
+				  	modalInstance.result.then(function (contratoAditivo) {
+				      $scope.deleteitem( contratoAditivo.idaditivo );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
 
 				};
 
+				$scope.aditivaritens = function(contratoAditivo){
+					alert(contratoAditivo.idcontrato);
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/copiaitens',
+						data: { idcontrato: contratoAditivo.idcontrato, idaditivo: contratoAditivo.idaditivo } 
+					}).success(function(data){
+						//$scope.contratoAditivo = data;
+						if(data.msg == 'success'){
+							$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
+							appMessages.addMessage(data.msg_success, true, 'success');
+						}else if(data.msg == 'warning'){
+								$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
+								appMessages.addMessage("O contrato não possui itens cadastrados", true, 'warning');
+							}else{
+								appMessages.addMessage("Ocorreu um erro: "+data.msg_success, true, 'danger');
+							}
+						
+					});
+				};
+
 				//modal detahes
-				$scope.detalhes = function(contrato){
-					if(contrato.tipo == 'Termo de Adesão' || contrato.tipo == 'Licitação'){
-						$scope.tipoDetalhe1			= true;
-			    		$scope.tipoDetalhe2			= false;
-			    		console.log("1 - "+$scope.tipoDetalhe1);
-					}else{
-						$scope.tipoDetalhe1			= false;
-			    		$scope.tipoDetalhe2			= true;
-			    		console.log("2 - "+$scope.tipoDetalhe2);
-					}
+				$scope.detalhes = function(contratoAditivo){
 
 					var modalInstance = $modal.open({
 						size: 'lg',
-						templateUrl: 'views/contrato/detalhes.html',
+						templateUrl: 'views/contrato/detalhesaditivo.html',
 						controller: function( $scope, $modalInstance, contratoRS ){
 
-							$scope.contrato = contratoRS;
+							$scope.contratoAditivo = contratoAditivo;
 							$scope.cancel = function(){
 								$modalInstance.dismiss('cancel');
 							}
 
 						},
 						resolve: {
-							contratoRS: function(){
-								return contrato;
+							contratoAditivo: function(){
+								return contratoAditivo;
 							}
 						}
 					});
@@ -107,27 +145,22 @@ app
 				
 
 				$scope.load = function(){
-					
-					$http.get('/controller/contrato/contratos')
-						.success(function(data){
-							$scope.contratos = data;
+
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/aditivos',
+						data: { id: $scope.idcontrato } 
+					}).success(function(data){
+						$scope.contratoAditivos = data;
 							$scope.currentPage = 1; //current page
 							$scope.entryLimit = 5; //max no of items to display in a page
-							$scope.filteredItems = $scope.contratos.length; //Initially for no filter
-							$scope.totalItems = $scope.contratos.length;
+							$scope.filteredItems = $scope.contratoAditivos.length; //Initially for no filter
+							$scope.totalItems = $scope.contratoAditivos.length;
   							$scope.numPerPage = 5;
-						});
+					});
 
 				};
 
-				$scope.loadorgaos = function(){
-					
-					$http.get('/controller/contrato/orgaos')
-						.success(function(data){
-							$scope.orgaos = data;
-						});
-
-				};
 
 				$scope.loadfornecedores = function(){
 					
@@ -138,11 +171,20 @@ app
 
 				};
 
+				$scope.novo = function(contrato){
+					$scope.contrato = contrato;
+					$scope.contratoAditivo.idcontrato = contrato.idcontrato;
+					
+					//$location.path('/contrato/aditivo/add');
+				};
+
+				
+
 				$scope.paginate = function(value) {
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
     				end = begin + $scope.numPerPage;
-    				index = $scope.contratos.indexOf(value);
+    				index = $scope.contratoAditivos.indexOf(value);
     				return (begin <= index && index < end);
   				};
 
@@ -152,21 +194,18 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
-						$scope.contrato.dataassinaturatali = $scope.formataData($scope.contrato.dataassinaturatali);
-						$scope.contrato.validadeata = $scope.formataData($scope.contrato.validadeata);
-						$scope.contrato.datacompra = $scope.formataData($scope.contrato.datacompra);
-						$scope.contrato.validade = $scope.formataData($scope.contrato.validade);
-						$scope.contrato.dataassinatura = $scope.formataData($scope.contrato.dataassinatura);
+						//$scope.contratoAditivo.idcontrato = $scope.newcontrato;
+						$scope.contratoAditivo.validade = $scope.formataData($scope.contratoAditivo.validade);
 
 						//via http
-						$http.post('/controller/contrato/savecontrato', $scope.contrato )
+						$http.post('/controller/contrato/saveaditivo', $scope.contratoAditivo )
 						.success(function(data){
 							//saving set false
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
 							//success
-							$location.path('/contrato');
+							$location.path('/contrato/aditivos/'+$scope.contratoAditivo.idcontrato);
 							//show message
 							if(data.msg == 'success'){
 								//show message
@@ -190,7 +229,7 @@ app
 				$scope.formataData = function(data){
 					if(data != null){
 						var dataFormatada = data.substring(4, 8)+"-"+data.substring(3, 4)+"-"+data.substring(1, 2);
-						alert(dataFormatada);
+						//alert(dataFormatada);
 						return dataFormatada;
 					}else{
 						return "0000-00-00";
@@ -198,7 +237,7 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemcontrato = $resource('/controller/contrato/deletecontrato' , {id: itemid});
+					var itemcontrato = $resource('/controller/contrato/deleteaditivo' , {id: itemid});
 					itemcontrato.delete(
 						function(data){
 							//success
@@ -223,78 +262,6 @@ app
 						}
 					);
 				};
-
-
-				/////////////////////////
-				//scopos do datapicker
-				/*$scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
-
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
-
-  $scope.open = function($event) {
-    $scope.status.opened = true;
-  };
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
-
-  $scope.status = {
-    opened: false
-  };
-
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var afterTomorrow = new Date();
-  afterTomorrow.setDate(tomorrow.getDate() + 2);
-  $scope.events =
-    [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
-    ];
-
-  $scope.getDayClass = function(date, mode) {
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-      for (var i=0;i<$scope.events.length;i++){
-        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
-      }
-    }
-
-    return '';
-  };*/
-				////////////////////////
-
 
 			}
 		]

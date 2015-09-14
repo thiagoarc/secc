@@ -251,6 +251,66 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/contrato/aditivos/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/aditivos.html',
+				controller: 'contratoAditivoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoAditivoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/aditivo/add/:newcontrato',
+			{ 
+				templateUrl: 'views/contrato/formularioaditivo.html',
+				controller: 'contratoAditivoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoAditivoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/aditivo/edit/:idaditivo',
+			{ 
+				templateUrl: 'views/contrato/formularioaditivo.html',
+				controller: 'contratoAditivoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoAditivoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/aditivo/itens/:idaditivo',
+			{ 
+				templateUrl: 'views/contrato/itensaditivo.html',
+				controller: 'contratoItensAditivoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoItensAditivoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/contrato/itens/:idcontrato',
 			{ 
 				templateUrl: 'views/contrato/itens.html',

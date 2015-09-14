@@ -16,7 +16,7 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Contratos <small>vizualize, pesquise na lista dos contratos registrados</small>
+                Aditivos <small>vizualize, pesquise na lista dos contratos registrados</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
@@ -54,7 +54,8 @@
 						    </form>
 						</div><!-- search table -->
 						<div class="col-sm-8">
-							<a href="#!/contrato/add" class="btn btn-success btn-sm pull-right">
+							<a href="#!/contrato/aditivo/add/{{idcontrato}}" 
+										 class="btn btn-success btn-sm pull-right">
 								<i class="glyphicon glyphicon-plus"></i> Adicionar
 							</a>
 						</div>
@@ -78,26 +79,25 @@
 									</a>
 								</th>-->
 								<th width="15%" >Número Contrato</th>
+								<th width="15%" >Número Aditivo</th>
 								<th width="15%" >Valor</th>
 								<th width="15%" >Validade</th>
-								<th width="54%"></th>
+								<th width="39%"></th>
 							</thead>
 							<tbody>
-								<tr ng-repeat="contrato in contratos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+								<tr ng-repeat="contratoAditivo in contratoAditivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
 									<!--<td>{{contrato.tipo}}</td>-->
 									<td>{{contrato.numerocontrato}}</td>
-									<td>{{contrato.valor  | finance:true:2}}</td>
-									<td>{{contrato.validade | date:'MM/dd/yyyy'}}</td>
-									<td><a class="btn btn-success btn-sm" href="#!/contrato/aditivos/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-plus"></i> Aditivo</a>
-										<a class="btn btn-warning btn-sm" href="#!/contrato/fornecedor/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-shopping-cart"></i> Fornecedor</a> <a class="btn btn-success btn-sm" href="#!/contrato/itens/{{contrato.idcontrato}}">
+									<td>{{contratoAditivo.numero}}</td>
+									<td>{{contratoAditivo.valor  | finance:true:2}}</td>
+									<td>{{contratoAditivo.validade | date:'dd/MM/yyyy'}}</td>
+									<td><a class="btn btn-success btn-sm" href="javascript:;" ng-click="aditivaritens(contratoAditivo)">
 										<i class="glyphicon glyphicon-plus"></i> Itens</a> <a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(contrato)">
-										<i class="glyphicon glyphicon-trash"></i> Detalhes</a> <a class="btn btn-info btn-sm" href="#!/contrato/edit/{{contrato.idcontrato}}">
+										ng-click="detalhes(contratoAditivo)">
+										<i class="glyphicon glyphicon-trash"></i> Detalhes</a> <a class="btn btn-info btn-sm" href="#!/contrato/aditivo/edit/{{contratoAditivo.idaditivo}}">
 										<i class="glyphicon glyphicon-pencil"></i> Editar</a> <a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(contrato)">
+										ng-click="deleteconfirm(contratoAditivo)">
 										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
 								</tr>
 							</tbody>
