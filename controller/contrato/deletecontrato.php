@@ -4,18 +4,19 @@ include_once('../../conn/config.php');
 $oConexao = Conexao::getInstance();
 
 $id = $_GET['id'];
-
 try{
-
 	if( $id > 0){
 
-		$stmt = $oConexao->prepare("SELECT * FROM contrato_fornecedor WHERE idcontrato = :id");  
+		$stmt = $oConexao->prepare("SELECT * FROM fornecedor_contrato WHERE idcontrato = :id");  
 		$stmt->bindParam('id', $id);
-		$qtdContratos = $stmt->execute()->rowCount();
+		$stmt->execute();
+		$qtdContratos = $stmt->rowCount();
+
 
 		$stmt = $oConexao->prepare("SELECT * FROM itens_contrato WHERE idcontrato = :id");  
 		$stmt->bindParam('id', $id);
-		$qtdItens = $stmt->execute()->rowCount();
+		$stmt->execute();
+		$qtdItens = $stmt->rowCount();
 
 		if($qtdContratos == 0 && $qtdItens == 0){
 			$stmt = $oConexao->prepare("DELETE FROM contrato WHERE idcontrato = :id");  
@@ -34,7 +35,7 @@ try{
     	}else{
     		$oConexao = null;
 				$msg['msg']         = 'error2';
-    			$msg['msg_success'] = 'Existem itens(produtos ou fornecedores) vinculados ao contrato, exclua-os primeiro.';
+    			$msg['msg_success'] = 'Não foi possível excluir este contrato, pois existem itens(produtos, fornecedores ou aditivos) vinculados ao mesmo.';
     			echo json_encode($msg);
     	}
 	}

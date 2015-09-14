@@ -250,7 +250,7 @@ app
 				};
 
 				$scope.deleteitem = function(itemid){
-					var itemaditivo = $resource('/controller/aditivo/deleteaditivoitens' , {id: itemid});
+					var itemaditivo = $resource('/controller/contrato/deleteaditivoitens' , {id: itemid});
 					itemaditivo.delete(
 						function(data){
 							//success

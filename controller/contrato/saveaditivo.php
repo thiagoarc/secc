@@ -14,7 +14,11 @@ try{
 		$stmt = $oConexao->prepare("UPDATE aditivo SET idcontrato = :idcontrato, numero = :numero, validade = :validade, valor = :valor, obs = :obs WHERE idaditivo = :idaditivo");  
 		$stmt->bindParam('idcontrato', $params->idcontrato);
 		$stmt->bindParam('numero', $params->numero);
-		$stmt->bindParam('validade', $params->validade);
+
+		$data4 = substr($params->validade, 4, 4)."-".substr($params->validade, 2, 2)."-".substr($params->validade, 0, 2);//implode("-",array_reverse(explode("/",$params->validade)));
+		$stmt->bindParam('validade', $data4);
+		//$stmt->bindParam('validade', $params->validade);
+		
 		$stmt->bindParam('valor', $params->valor);
 		$stmt->bindParam('obs', $params->obs);
 		$stmt->bindParam('idaditivo', $params->idaditivo);
@@ -30,7 +34,11 @@ try{
 		$stmt = $oConexao->prepare("INSERT INTO aditivo (idcontrato, numero, validade, valor, obs) VALUES (:idcontrato, :numero, :validade, :valor, :obs)");  
 		$stmt->bindParam('idcontrato', $params->idcontrato);
 		$stmt->bindParam('numero', $params->numero);
-		$stmt->bindParam('validade', $params->validade);
+
+		$data4 = substr($params->validade, 4, 4)."-".substr($params->validade, 2, 2)."-".substr($params->validade, 0, 2);//implode("-",array_reverse(explode("/",$params->validade)));
+		$stmt->bindParam('validade', $data4);
+		//$stmt->bindParam('validade', $params->validade);
+		
 		$stmt->bindParam('valor', $params->valor);
 		$stmt->bindParam('obs', $params->obs);
 		$stmt->execute();

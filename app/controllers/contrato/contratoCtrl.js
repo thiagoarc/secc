@@ -35,6 +35,7 @@ app
 						data: { id: itemid } 
 					}).success(function(data){
 						$scope.contrato = data;
+						console.log("DataAssinatura: "+$scope.contrato.dataassinatura);
 					});
 
 					$scope.tipo = $scope.contrato.tipo;
@@ -164,11 +165,12 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
-						$scope.contrato.dataassinaturatali = $scope.formataData($scope.contrato.dataassinaturatali);
-						$scope.contrato.validadeata = $scope.formataData($scope.contrato.validadeata);
-						$scope.contrato.datacompra = $scope.formataData($scope.contrato.datacompra);
-						$scope.contrato.validade = $scope.formataData($scope.contrato.validade);
-						$scope.contrato.dataassinatura = $scope.formataData($scope.contrato.dataassinatura);
+						// $scope.contrato.dataassinaturatali = $scope.formataData($scope.contrato.dataassinaturatali);
+						// $scope.contrato.validadeata = $scope.formataData($scope.contrato.validadeata);
+						// $scope.contrato.datacompra = $scope.formataData($scope.contrato.datacompra);
+						// $scope.contrato.validade = $scope.formataData($scope.contrato.validade);
+						// $scope.contrato.dataassinatura = $scope.formataData($scope.contrato.dataassinatura);
+						// console.log("DataAssinatura: "+$scope.contrato.dataassinatura);
 
 						//via http
 						$http.post('/controller/contrato/savecontrato', $scope.contrato )
@@ -200,9 +202,10 @@ app
 				};
 
 				$scope.formataData = function(data){
+					var dataFormatada = "";
 					if(data != null){
-						var dataFormatada = data.substring(4, 8).toString()+"-"+data.substring(2, 4).toString()+"-"+data.substring(0, 2).toString();
-						alert(dataFormatada);
+						dataFormatada = data.substring(4, 8).toString()+"-"+data.substring(2, 4).toString()+"-"+data.substring(0, 2).toString();
+						console.log(dataFormatada);
 						return dataFormatada;
 					}else{
 						return "0000-00-00";

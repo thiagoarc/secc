@@ -8,7 +8,7 @@ try{
 
 	if( $params->id > 0){
 		//$stmt = $oConexao->prepare("SELECT * FROM contrato WHERE idcontrato = :id");  
-		$stmt = $oConexao->prepare("SELECT idaditivo, idcontrato, numero, valor, DATE_FORMAT(validade, '%d/%m/%Y') as validade, obs FROM aditivo WHERE idaditivo = :id");  
+		$stmt = $oConexao->prepare("SELECT idaditivo, idcontrato, numero, valor, DATE_FORMAT(validade, '%d%m%Y') as validade, obs FROM aditivo WHERE idaditivo = :id");  
 		$stmt->bindParam('id', $params->id);
 		$stmt->execute();
 		$fornecedor = $stmt->fetchObject();

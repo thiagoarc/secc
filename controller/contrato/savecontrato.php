@@ -19,19 +19,38 @@ try{
 		$stmt->bindParam('tipo', $params->tipo);
 		$stmt->bindParam('tipoobjetos', $params->tipoobjetos);
 		$stmt->bindParam('numerotali', $params->numerotali);
-		$stmt->bindParam('dataassinaturatali', $params->dataassinaturatali);
+
+		$data1 = substr($params->dataassinaturatali, 4, 4)."-".substr($params->dataassinaturatali, 2, 2)."-".substr($params->dataassinaturatali, 0, 2);//implode("-",array_reverse(explode("/",$params->dataassinaturatali)));//date('Y-m-d', strtotime());
+		$stmt->bindParam('dataassinaturatali', $data1);
+		//$stmt->bindParam('dataassinaturatali', $params->dataassinaturatali);
+
 		$stmt->bindParam('numeroata', $params->numeroata);
-		$stmt->bindParam('validadeata', $params->validadeata);
+
+		$data2 = substr($params->validadeata, 4, 4)."-".substr($params->validadeata, 2, 2)."-".substr($params->validadeata, 0, 2);//implode("-",array_reverse(explode("/",$params->validadeata)));
+		$stmt->bindParam('validadeata', $data2);
+		//$stmt->bindParam('validadeata', $params->validadeata);
+
 		$stmt->bindParam('numeropregao', $params->numeropregao);
 		$stmt->bindParam('numeroprocesso', $params->numeroprocesso);
 		$stmt->bindParam('numerocd', $params->numerocd);
 		$stmt->bindParam('numeroparecerjuridico', $params->numeroparecerjuridico);
-		$stmt->bindParam('datacompra', $params->datacompra);
+
+		$data3 = substr($params->datacompra, 4, 4)."-".substr($params->datacompra, 2, 2)."-".substr($params->datacompra, 0, 2);//implode("-",array_reverse(explode("/",$params->datacompra)));
+		$stmt->bindParam('datacompra', $data3);
+		//$stmt->bindParam('datacompra', $params->datacompra);
+
 		$stmt->bindParam('numerocontrato', $params->numerocontrato);
 		$stmt->bindParam('objeto', $params->objeto);
 		$stmt->bindParam('valor', $params->valor);
-		$stmt->bindParam('validade', $params->validade);
-		$stmt->bindParam('dataassinatura', $params->dataassinatura);
+
+		$data4 = substr($params->validade, 4, 4)."-".substr($params->validade, 2, 2)."-".substr($params->validade, 0, 2);//implode("-",array_reverse(explode("/",$params->validade)));
+		$stmt->bindParam('validade', $data4);
+		//$stmt->bindParam('validade', $params->validade);
+
+		$data5 = substr($params->dataassinatura, 4, 4)."-".substr($params->dataassinatura, 2, 2)."-".substr($params->dataassinatura, 0, 2);//implode("-",array_reverse(explode("/",$params->dataassinatura)));
+		$stmt->bindParam('dataassinatura', $data5);
+		//$stmt->bindParam('dataassinatura', $params->dataassinatura);
+
 		$stmt->bindParam('numeroempenho', $params->numeroempenho);
 		$stmt->bindParam('idcontrato', $params->idcontrato);
 		$stmt->execute();
@@ -51,19 +70,38 @@ try{
 		$stmt->bindParam('tipo', $params->tipo);
 		$stmt->bindParam('tipoobjetos', $params->tipoobjetos);
 		$stmt->bindParam('numerotali', $params->numerotali);
-		$stmt->bindParam('dataassinaturatali', $params->dataassinaturatali);
+
+		$data1 = substr($params->dataassinaturatali, 4, 4)."-".substr($params->dataassinaturatali, 2, 2)."-".substr($params->dataassinaturatali, 0, 2);//implode("-",array_reverse(explode("/",$params->dataassinaturatali)));//date('Y-m-d', strtotime());
+		$stmt->bindParam('dataassinaturatali', $data1);
+		//$stmt->bindParam('dataassinaturatali', $params->dataassinaturatali);
+
 		$stmt->bindParam('numeroata', $params->numeroata);
-		$stmt->bindParam('validadeata', $params->validadeata);
+
+		$data2 = substr($params->validadeata, 4, 4)."-".substr($params->validadeata, 2, 2)."-".substr($params->validadeata, 0, 2);//implode("-",array_reverse(explode("/",$params->validadeata)));
+		$stmt->bindParam('validadeata', $data2);
+		//$stmt->bindParam('validadeata', $params->validadeata);
+
 		$stmt->bindParam('numeropregao', $params->numeropregao);
 		$stmt->bindParam('numeroprocesso', $params->numeroprocesso);
 		$stmt->bindParam('numerocd', $params->numerocd);
-		$stmt->bindParam('numeroparacerjuridico', $params->numeroparacerjuridico);
-		$stmt->bindParam('datacompra', $params->datacompra);
+		$stmt->bindParam('numeroparecerjuridico', $params->numeroparecerjuridico);
+
+		$data3 = substr($params->datacompra, 4, 4)."-".substr($params->datacompra, 2, 2)."-".substr($params->datacompra, 0, 2);//implode("-",array_reverse(explode("/",$params->datacompra)));
+		$stmt->bindParam('datacompra', $data3);
+		//$stmt->bindParam('datacompra', $params->datacompra);
+
 		$stmt->bindParam('numerocontrato', $params->numerocontrato);
 		$stmt->bindParam('objeto', $params->objeto);
 		$stmt->bindParam('valor', $params->valor);
-		$stmt->bindParam('validade', $params->validade);
-		$stmt->bindParam('dataassinatura', $params->dataassinatura);
+
+		$data4 = substr($params->validade, 4, 4)."-".substr($params->validade, 2, 2)."-".substr($params->validade, 0, 2);//implode("-",array_reverse(explode("/",$params->validade)));
+		$stmt->bindParam('validade', $data4);
+		//$stmt->bindParam('validade', $params->validade);
+
+		$data5 = substr($params->dataassinatura, 4, 4)."-".substr($params->dataassinatura, 2, 2)."-".substr($params->dataassinatura, 0, 2);//implode("-",array_reverse(explode("/",$params->dataassinatura)));
+		$stmt->bindParam('dataassinatura', $data5);
+		//$stmt->bindParam('dataassinatura', $params->dataassinatura);
+
 		$stmt->bindParam('numeroempenho', $params->numeroempenho);
 		$stmt->execute();
 		$oConexao = null;

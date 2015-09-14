@@ -195,7 +195,7 @@ app
 						//show loading
 						$scope.isloading = true;
 						//$scope.contratoAditivo.idcontrato = $scope.newcontrato;
-						$scope.contratoAditivo.validade = $scope.formataData($scope.contratoAditivo.validade);
+						//$scope.contratoAditivo.validade = $scope.formataData($scope.contratoAditivo.validade);
 
 						//via http
 						$http.post('/controller/contrato/saveaditivo', $scope.contratoAditivo )
@@ -228,8 +228,8 @@ app
 
 				$scope.formataData = function(data){
 					if(data != null){
-						var dataFormatada = data.substring(4, 8)+"-"+data.substring(3, 4)+"-"+data.substring(1, 2);
-						//alert(dataFormatada);
+						var dataFormatada = data.substring(4, 8).toString()+"-"+data.substring(2, 4).toString()+"-"+data.substring(0, 2).toString();
+						alert(dataFormatada);
 						return dataFormatada;
 					}else{
 						return "0000-00-00";

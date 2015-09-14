@@ -29,7 +29,6 @@
     </div>
 </div>
 <!-- END Page Header -->
-
 <!-- Page Content -->
 <div class="content content-narrow">
 	<div class="block">
@@ -37,7 +36,7 @@
 			<div class="col-sm-12">
 
 				<!-- Messages -->
-		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!--<div ng-include="'views/messages.html'"></div>-->
 		        <!-- End Messages -->
 
 				<p></p><!-- clearfixed -->
@@ -70,12 +69,12 @@
 							<legend>Informações Básicas do Termo de Adesão/Licitação</legend>
 							<div class="col-sm-4">
 								<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contrato.numerotali" name="numerotali" placeholder="Informe o número" ng-required="tipo == 1 || tipo == 2 || tipo == 3">
+								<input type="text" class="form-control" ng-model="contrato.numerotali" name="numerotali" placeholder="Informe o número" ng-required="tipo == 1 || tipo == 2">
 								<span class="help-block" ng-show="createForm.numerotali.$dirty && createForm.numerotali.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
 								<label for="celular" class="control-label">Data Assinatura:</label>
-              					<input type="text" class="form-control" ng-model="contrato.dataassinaturatali" id="dataassinaturatali" name="dataassinaturatali" ui-mask="99/99/9999" ng-value="{{contrato.dataassinaturatali | date:'dd/MM/yyyy'}}" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2">
+              					<input type="text" class="form-control" ng-model="contrato.dataassinaturatali" id="dataassinaturatali" name="dataassinaturatali" ui-mask="99/99/9999" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2">
               					<span class="help-block" ng-show="createForm.dataassinaturatali.$dirty && createForm.dataassinaturatali.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
@@ -84,7 +83,7 @@
 							</div>
 							<div class="col-sm-4">
 								<label for="email" class="control-label">Validade da Ata: <span class="red">*</span></label>
-              					<input type="text" class="form-control" name="validadeata" ng-model="contrato.validadeata" ui-mask="99/99/9999" ng-value="{{contrato.validadeata | date:'dd/MM/yyyy'}}" ng-required="tipo == 1 || tipo == 2  || contrato.tipo == 1 || contrato.tipo == 2">
+              					<input type="text" class="form-control" name="validadeata" ng-model="contrato.validadeata" ui-mask="99/99/9999" ng-required="tipo == 1 || tipo == 2  || contrato.tipo == 1 || contrato.tipo == 2">
               					<span class="help-block" ng-show="createForm.validadeata.$dirty && createForm.validadeata.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
@@ -120,7 +119,7 @@
 							</div>
 							<div class="col-sm-4">
 								<label for="celular" class="control-label">Data Compra: <span class="red">*</span></label>
-              					<input type="text" class="form-control" name="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-value="{{contrato.datacompra | date:'dd/MM/yyyy'}}" ng-required="tipo == 3 || contrato.tipo == 3">
+              					<input type="text" class="form-control" name="datacompra" id="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-required="tipo == 3 || contrato.tipo == 3">
               					<span class="help-block" ng-show="createForm.datacompra.$dirty && createForm.datacompra.$error.required">O campo é obrigatório</span>
 							</div>
 							</fieldset>
@@ -140,12 +139,12 @@
 							</div>
 							<div class="col-sm-4">
 								<label for="celular" class="control-label">Data Assinatura: <span class="red">*</span></label>
-              					<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" ui-mask="99/99/9999" ng-value="{{contrato.dataassinatura | date:'dd/MM/yyyy'}}" required>
+              					<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" ui-mask="99/99/9999" required>
               					<span class="help-block" ng-show="createForm.dataassinatura.$dirty && createForm.dataassinatura.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-6">
 								<label for="celular" class="control-label">Validade: <span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contrato.validade" name="validade" ui-mask="99/99/9999" ng-value="{{contrato.validade | date:'dd/MM/yyyy'}}" required>
+								<input type="text" class="form-control" ng-model="contrato.validade" name="validade" ui-mask="99/99/9999" required>
 								<span class="help-block" ng-show="createForm.validade.$dirty && createForm.validade.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-6">
