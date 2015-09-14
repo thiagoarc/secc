@@ -19,7 +19,7 @@
                     {{contrato.tipoobjetos}}
                 </div>
             </div><!-- END INPUT -->
-            <div class="row form-group" ng-show="tipoDetalhe1">
+            <div class="row form-group" ng-show="contrato.tipo == 'Termo de Adesão' || contrato.tipo == 'Licitação'">
                 <fieldset>
                     <legend>Informações Básicas do Termo de Adesão/Licitação</legend>
                     <div class="col-sm-4">
@@ -52,7 +52,7 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="row form-group" ng-show="tipoDetalhe2">
+            <div class="row form-group" ng-show="contrato.tipo == 'Compra Direta'">
                 <fieldset>
                     <legend>Informações Básicas da Compra Direta</legend>
                     <div class="col-sm-4">

@@ -8,7 +8,7 @@ $params = json_decode(file_get_contents('php://input'));
 sleep(1);
 
 try{
-		if( $params->iditens_contrato != '' ){
+		if( $params->iditens_contrato != '0' ){
 			$stmt = $oConexao->prepare("UPDATE itens_contrato SET  idcontrato = :idcontrato, idunidade_medida = :idunidade_medida, descricao = :descricao, qtd = :qtd, valorunitario = :valorunitario, idfornecedor = :idfornecedor WHERE iditens_contrato = :iditens_contrato");  
 			$stmt->bindParam('idcontrato', $params->idcontrato);
 			$stmt->bindParam('idunidade_medida', $params->idunidade_medida);

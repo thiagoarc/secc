@@ -1,11 +1,12 @@
 'use strict';
 
 app
-	.controller('contratoItensAditivoCtrl', 
+	.controller('contratoItensCtrl', 
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
 				$scope.contratoItens 		= {};
+				$scope.contratoItens.iditens_contrato 		= 0;
 				$scope.totalgeral 			= 0; 	
 				$scope.contrato 			= {};
 				$scope.isloading 			= false;
@@ -61,6 +62,19 @@ app
 						$scope.contrato = data;
 					});
 					$scope.loadcontratositens(itemid);
+				}
+
+
+				$scope.pegaContrato = function(itemid){
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/getcontrato',
+						data: { id: itemid } 
+					}).success(function(data){
+						//console.log(data);
+						$scope.contrato = data;
+						$scope.contratoItens.idcontrato = $scope.contrato.idcontrato;
+					});
 				}
 
 				
@@ -126,9 +140,20 @@ app
 					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
 					$scope.totalgeral 			= 0; 
 					angular.forEach($scope.itenscadastrados, function(item) {
-						console.log(item.total);
+						//console.log(item.total);
 						$scope.totalgeral += parseFloat(item.total);
 					});
+				}
+
+				$scope.calculaTotalGeralParaEdicao = function(id){
+					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
+					var totalEdicao = 0;
+					angular.forEach($scope.itenscadastrados, function(item) {
+						//console.log(item.total);
+						if(id != item.iditens_contrato)
+							totalEdicao += parseFloat(item.total);
+					});
+					return totalEdicao;
 				}
 
 
@@ -138,35 +163,58 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
-						//via http
-						$http.post('/controller/contrato/savecontratoitens', $scope.contratoItens )
-						.success(function(data){
-							//saving set false
+						//$scope.pegaContrato(itemid);
+						console.log($scope.contratoItens.iditens_contrato);
+						console.log($scope.calculaTotalGeralParaEdicao($scope.contratoItens.iditens_contrato));
+						var totalTMP = 0;
+						//verifica se o total de itens e igual ou inferior ao total do contrato
+						if($scope.contratoItens.iditens_contrato > 0)
+							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.contratoItens.iditens_contrato) + ($scope.contratoItens.qtd*$scope.contratoItens.valorunitario);
+						else
+							totalTMP = $scope.totalgeral + ($scope.contratoItens.qtd*$scope.contratoItens.valorunitario);
+						//console.log(totalTMP);
+						if(totalTMP <= $scope.contrato.valor){
+							//via http
+							$http.post('/controller/contrato/savecontratoitens', $scope.contratoItens )
+							.success(function(data){
+								//saving set false
+								$scope.submitting = false;
+								//hide loading
+								$scope.isloading = false;
+								//success
+								//$location.path('/contrato');
+								$scope.loadcontratositens(itemid);
+								//show message
+								if(data.msg == 'success'){
+									//show message
+									appMessages.addMessage(data.msg_success, true, 'success');
+									$scope.contratoItens 				= {};
+									$scope.pegaContrato(itemid);
+								}else if(data.msg == 'error_existe'){
+									appMessages.addMessage(data.msg_success, true, 'danger');
+								}else{
+									appMessages.addMessage(data.msg_success, true, 'danger');
+								}
+								//show message in 5 seconds
+								$timeout(function(){
+									appMessages.show = false;
+								}, 5000);
+							})
+							.error(function(error){
+								console.log(error);
+							});
+						}else{
+							appMessages.addMessage("O valor da adição/edição deste produto/serviço é superior ao valor total do contrato.", true, 'danger');
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
-							//success
-							//$location.path('/contrato');
-							$scope.loadcontratositens($scope.contratoItens.idcontrato);
-							//show message
-							if(data.msg == 'success'){
-								//show message
-								appMessages.addMessage(data.msg_success, true, 'success');
-								$scope.contratoItens 				= {};
-							}else if(data.msg == 'error_existe'){
-								appMessages.addMessage(data.msg_success, true, 'danger');
-							}else{
-								appMessages.addMessage(data.msg_success, true, 'danger');
-							}
+							$scope.contratoItens = {};
+							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){
 								appMessages.show = false;
 							}, 5000);
-
-						})
-						.error(function(error){
-							console.log(error);
-						});
+						}
 				};
 
 				/* confirmação modal para excluir item */

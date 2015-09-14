@@ -73,6 +73,18 @@ app
 
 				};
 
+				$scope.mostraDetalhes = function(){
+					if($scope.contrato.tipo == 'Termo de Adesão' || $scope.contrato.tipo == 'Licitação'){
+						$scope.tipoDetalhe1			= true;
+			    		$scope.tipoDetalhe2			= false;
+			    		console.log("1 - "+$scope.tipoDetalhe1);
+					}else{
+						$scope.tipoDetalhe1			= false;
+			    		$scope.tipoDetalhe2			= true;
+			    		console.log("2 - "+$scope.tipoDetalhe2);
+					}
+				};
+
 				//modal detahes
 				$scope.detalhes = function(contrato){
 					if(contrato.tipo == 'Termo de Adesão' || contrato.tipo == 'Licitação'){
@@ -189,7 +201,7 @@ app
 
 				$scope.formataData = function(data){
 					if(data != null){
-						var dataFormatada = data.substring(4, 8)+"-"+data.substring(3, 4)+"-"+data.substring(1, 2);
+						var dataFormatada = data.substring(4, 8).toString()+"-"+data.substring(2, 4).toString()+"-"+data.substring(0, 2).toString();
 						alert(dataFormatada);
 						return dataFormatada;
 					}else{
@@ -223,78 +235,6 @@ app
 						}
 					);
 				};
-
-
-				/////////////////////////
-				//scopos do datapicker
-				/*$scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-  // Disable weekend selection
-  $scope.disabled = function(date, mode) {
-    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-  };
-
-  $scope.toggleMin = function() {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
-
-  $scope.open = function($event) {
-    $scope.status.opened = true;
-  };
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
-
-  $scope.status = {
-    opened: false
-  };
-
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var afterTomorrow = new Date();
-  afterTomorrow.setDate(tomorrow.getDate() + 2);
-  $scope.events =
-    [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
-    ];
-
-  $scope.getDayClass = function(date, mode) {
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-      for (var i=0;i<$scope.events.length;i++){
-        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
-      }
-    }
-
-    return '';
-  };*/
-				////////////////////////
-
 
 			}
 		]

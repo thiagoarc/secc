@@ -6,6 +6,7 @@ app
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
 				$scope.aditivoItens 		= {};
+				$scope.aditivoItens.iditens_aditivo 		= 0;
 				$scope.totalgeral 			= 0; 	
 				$scope.aditivo 				= {};
 				$scope.isloading 			= false;
@@ -65,6 +66,18 @@ app
 						$scope.loadfornecedores($scope.aditivo.idcontrato);
 					});
 					$scope.loadaditivoitens(itemid);
+				}
+
+				$scope.pegaAditivo = function(itemid){
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/getaditivo',
+						data: { id: itemid } 
+					}).success(function(data){
+						//console.log(data);
+						$scope.aditivo = data;
+						$scope.aditivoItens.idaditivo = $scope.aditivo.idaditivo;
+					});
 				}
 
 				
@@ -131,6 +144,17 @@ app
 					});
 				}
 
+				$scope.calculaTotalGeralParaEdicao = function(id){
+					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
+					var totalEdicao = 0;
+					angular.forEach($scope.itenscadastrados, function(item) {
+						//console.log(item.total);
+						if(id != item.iditens_aditivo)
+							totalEdicao += parseFloat(item.total);
+					});
+					return totalEdicao;
+				}
+
 
 				$scope.additens = function(){
 						$scope.mostraBotao = false;
@@ -138,35 +162,58 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
-						//via http
-						$http.post('/controller/contrato/saveaditivoitens', $scope.aditivoItens )
-						.success(function(data){
-							//saving set false
+						//$scope.pegaContrato(itemid);
+						console.log($scope.aditivoItens.iditens_aditivo);
+						console.log($scope.calculaTotalGeralParaEdicao($scope.aditivoItens.iditens_aditivo));
+						var totalTMP = 0;
+						//verifica se o total de itens e igual ou inferior ao total do contrato
+						if($scope.aditivoItens.iditens_aditivo > 0)
+							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.aditivoItens.iditens_aditivo) + ($scope.aditivoItens.qtd*$scope.aditivoItens.valorunitario);
+						else
+							totalTMP = $scope.totalgeral + ($scope.aditivoItens.qtd*$scope.aditivoItens.valorunitario);
+						//console.log(totalTMP);
+						if(totalTMP <= $scope.aditivo.valor){
+							//via http
+							$http.post('/controller/contrato/saveaditivoitens', $scope.aditivoItens )
+							.success(function(data){
+								//saving set false
+								$scope.submitting = false;
+								//hide loading
+								$scope.isloading = false;
+								//success
+								//$location.path('/contrato');
+								$scope.loadaditivoitens($scope.aditivoItens.idaditivo);
+								//show message
+								if(data.msg == 'success'){
+									//show message
+									appMessages.addMessage(data.msg_success, true, 'success');
+									$scope.aditivoItens 				= {};
+								}else if(data.msg == 'error_existe'){
+									appMessages.addMessage(data.msg_success, true, 'danger');
+								}else{
+									appMessages.addMessage(data.msg_success, true, 'danger');
+								}
+								//show message in 5 seconds
+								$timeout(function(){
+									appMessages.show = false;
+								}, 5000);
+
+							})
+							.error(function(error){
+								console.log(error);
+							});
+						}else{
+							appMessages.addMessage("O valor da adição/edição deste produto/serviço é superior ao valor total do aditivo.", true, 'danger');
 							$scope.submitting = false;
 							//hide loading
 							$scope.isloading = false;
-							//success
-							//$location.path('/contrato');
-							$scope.loadaditivoitens($scope.aditivoItens.idaditivo);
-							//show message
-							if(data.msg == 'success'){
-								//show message
-								appMessages.addMessage(data.msg_success, true, 'success');
-								$scope.aditivoItens 				= {};
-							}else if(data.msg == 'error_existe'){
-								appMessages.addMessage(data.msg_success, true, 'danger');
-							}else{
-								appMessages.addMessage(data.msg_success, true, 'danger');
-							}
+							$scope.aditivoItens = {};
+							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){
 								appMessages.show = false;
 							}, 5000);
-
-						})
-						.error(function(error){
-							console.log(error);
-						});
+						}
 				};
 
 				/* confirmação modal para excluir item */

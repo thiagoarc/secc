@@ -88,7 +88,7 @@
 									<!--<td>{{contrato.tipo}}</td>-->
 									<td>{{contrato.numerocontrato}}</td>
 									<td>{{contrato.valor  | finance:true:2}}</td>
-									<td>{{contrato.validade | date:'MM/dd/yyyy'}}</td>
+									<td>{{contrato.validade | date:'dd/MM/yyyy'}}</td>
 									<td><a class="btn btn-success btn-sm" href="#!/contrato/aditivos/{{contrato.idcontrato}}">
 										<i class="glyphicon glyphicon-plus"></i> Aditivo</a>
 										<a class="btn btn-warning btn-sm" href="#!/contrato/fornecedor/{{contrato.idcontrato}}">

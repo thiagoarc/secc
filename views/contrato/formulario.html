@@ -60,7 +60,8 @@
 							<select class="form-control" ng-model="contrato.tipoobjetos" name="tipoobjetos" ng-change="tipoobjetos=contrato.tipoobjetos" required>
 								<option value="">Escolha</option>
 								<option value="1">Material de Consumo</option>
-								<option value="2">Bens ou Serviços</option>
+								<option value="2">Bens</option>
+								<option value="3">Serviços</option>
 							</select>
 							<span class="help-block" ng-show="createForm.tipoobjetos.$dirty && createForm.tipoobjetos.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
@@ -69,30 +70,22 @@
 							<legend>Informações Básicas do Termo de Adesão/Licitação</legend>
 							<div class="col-sm-4">
 								<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contrato.numerotali" name="numerotali" placeholder="Informe o número" ng-required="tipo == 1 || tipo == 2">
+								<input type="text" class="form-control" ng-model="contrato.numerotali" name="numerotali" placeholder="Informe o número" ng-required="tipo == 1 || tipo == 2 || tipo == 3">
 								<span class="help-block" ng-show="createForm.numerotali.$dirty && createForm.numerotali.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
 								<label for="celular" class="control-label">Data Assinatura:</label>
-              					<!--<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" name="dataassinaturatali" ng-model="contrato.dataassinaturatali" ng-click="open1($event)" is-open="status1.opened" min-date="'1900-01-01'" max-date="'2020-06-22'" show-weeks="false" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2" close-text="Close" placeholder="Informe a data de assinatura"/>-->
-								<input type="text" class="form-control" ng-model="contrato.dataassinaturatali" id="dataassinaturatali" name="dataassinaturatali" ui-mask="99/99/9999">
-								<!--<input type="text" class="form-control" datepicker-popup="{{format}}" name="dataassinaturatali" ng-model="contrato.dataassinaturatali" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              					<span class="input-group-btn">
-                					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              					</span>-->
+              					<input type="text" class="form-control" ng-model="contrato.dataassinaturatali" id="dataassinaturatali" name="dataassinaturatali" ui-mask="99/99/9999" ng-value="{{contrato.dataassinaturatali | date:'dd/MM/yyyy'}}" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2">
+              					<span class="help-block" ng-show="createForm.dataassinaturatali.$dirty && createForm.dataassinaturatali.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
 								<label for="email" class="control-label">Número da Ata:</label>
 								<input type="text" class="form-control" ng-model="contrato.numeroata" name="numeroata" placeholder="Informe o número da ata" >
 							</div>
 							<div class="col-sm-4">
-								<label for="email" class="control-label">Validade da Ata:</label>
-								<!--<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" name="validadeata" ng-model="contrato.validadeata" ng-click="open2($event)" is-open="status2.opened" min-date="'1900-01-01'" max-date="'2020-06-22'" show-weeks="false" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2" close-text="Close" placeholder="Informe a validade da ata"/>-->
-								<!--<input type="text" class="form-control" datepicker-popup="{{format}}" name="validadeata" ng-model="contrato.validadeata" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              					<span class="input-group-btn">
-                					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              					</span>-->
-              					<input type="text" class="form-control" name="validadeata" ng-model="contrato.validadeata" ui-mask="99/99/9999" ng-required="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2">
+								<label for="email" class="control-label">Validade da Ata: <span class="red">*</span></label>
+              					<input type="text" class="form-control" name="validadeata" ng-model="contrato.validadeata" ui-mask="99/99/9999" ng-value="{{contrato.validadeata | date:'dd/MM/yyyy'}}" ng-required="tipo == 1 || tipo == 2  || contrato.tipo == 1 || contrato.tipo == 2">
+              					<span class="help-block" ng-show="createForm.validadeata.$dirty && createForm.validadeata.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
 								<label for="telefone" class="control-label">Número do Pregão:<span class="red">*</span></label>
@@ -126,13 +119,9 @@
 								<input type="text" class="form-control" ng-model="contrato.numeroparecerjuridico" name="numeroparecerjuridico" placeholder="Informe o número do parecer juridico">
 							</div>
 							<div class="col-sm-4">
-								<label for="celular" class="control-label">Data Compra:</label>
-								<!--<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" name="datacompra" ng-model="contrato.datacompra" ng-click="open3($event)" is-open="status3.opened" min-date="'1900-01-01'" max-date="'2020-06-22'" show-weeks="false"  ng-required="tipo == 3 || contrato.tipo == 3" close-text="Close" placeholder="Informe a data da compra"/>-->
-								<!--<input type="text" class="form-control" datepicker-popup="{{format}}" name="datacompra" ng-model="contrato.datacompra" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              					<span class="input-group-btn">
-                					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              					</span>-->
-              					<input type="text" class="form-control" name="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-required="tipo == 3 || contrato.tipo == 3">
+								<label for="celular" class="control-label">Data Compra: <span class="red">*</span></label>
+              					<input type="text" class="form-control" name="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-value="{{contrato.datacompra | date:'dd/MM/yyyy'}}" ng-required="tipo == 3 || contrato.tipo == 3">
+              					<span class="help-block" ng-show="createForm.datacompra.$dirty && createForm.datacompra.$error.required">O campo é obrigatório</span>
 							</div>
 							</fieldset>
 						</div>
@@ -145,30 +134,22 @@
 								<span class="help-block" ng-show="createForm.numerocontrato.$dirty && createForm.numerocontrato.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
-								<label for="email" class="control-label">Valor:</label>
+								<label for="email" class="control-label">Valor: <span class="red">*</span></label>
 								<input type="text" class="form-control" ng-model="contrato.valor" name="valor" placeholder="Informe o valor" ui-money-mask="2" required>
 								<span class="help-block" ng-show="createForm.valor.$dirty && createForm.valor.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-4">
-								<label for="celular" class="control-label">Data Assinatura:</label>
-								<!--<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="contrato.dataassinatura" name="dataassinatura" ng-click="open4($event)" is-open="status4.opened" min-date="'1900-01-01'" max-date="'2020-06-22'" show-weeks="false" ng-required="true" close-text="Close" placeholder="Informe data de assinatura"/>-->
-								<!--<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="contrato.dataassinatura" name="dataassinatura" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              					<span class="input-group-btn">
-                					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              					</span>-->
-              					<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" ui-mask="99/99/9999" required>
+								<label for="celular" class="control-label">Data Assinatura: <span class="red">*</span></label>
+              					<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" ui-mask="99/99/9999" ng-value="{{contrato.dataassinatura | date:'dd/MM/yyyy'}}" required>
+              					<span class="help-block" ng-show="createForm.dataassinatura.$dirty && createForm.dataassinatura.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-6">
-								<label for="celular" class="control-label">Validade:</label>
-								<!--<input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="contrato.validade" name="validade" ng-click="open5($event)" is-open="status5.opened" min-date="'1900-01-01'" max-date="'2020-06-22'" show-weeks="false" ng-required="true" close-text="Close" placeholder="Informe data de assinatura"/>-->
-								<!--<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="contrato.validade" name="validade" is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              					<span class="input-group-btn">
-                					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              					</span>-->
-              					<input type="text" class="form-control" ng-model="contrato.validade" name="validade" ui-mask="99/99/9999" ng-value="{{contrato.validade | date:'dd/MM/yyyy'}}" required>
+								<label for="celular" class="control-label">Validade: <span class="red">*</span></label>
+								<input type="text" class="form-control" ng-model="contrato.validade" name="validade" ui-mask="99/99/9999" ng-value="{{contrato.validade | date:'dd/MM/yyyy'}}" required>
+								<span class="help-block" ng-show="createForm.validade.$dirty && createForm.validade.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-6">
-								<label for="telefone" class="control-label">Número Empenho:<span class="red">*</span></label>
+								<label for="telefone" class="control-label">Número Empenho: <span class="red">*</span></label>
 								<input type="text" class="form-control" ng-model="contrato.numeroempenho" name="numeroempenho" placeholder="Informe o número do empenho" required>
 								<span class="help-block" ng-show="createForm.numeroempenho.$dirty && createForm.numeroempenho.$error.required">O campo é obrigatório</span>
 							</div>
