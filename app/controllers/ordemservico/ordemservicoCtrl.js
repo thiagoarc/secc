@@ -16,7 +16,8 @@ app
 			  	$scope.submitting 			= false;	// set label btn for false then save
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
-			    $scope.autocomplete			= false; // set autocomplete false;
+			    $scope.autocomplete			= false; // set the autocomplete false;
+			    $scope.produtosca			= {}; //set the default product in contract or additions
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -76,6 +77,8 @@ app
 				/* pesquisar numero de contrato e aditivo */
 				$scope.searchcontratoaditivo = function( numero ){
 					if( numero != undefined && numero.length >= 3 ){
+						$scope.iscontratoaditivo = false;
+						$scope.isprodutoscontratoaditivo = false;
 						$http.post('/controller/ordemservico/checkcontratoaditivo', {numero: numero})
 						.success(function( data ){
 							if( data && data.message != 'noresults' ){
@@ -101,9 +104,43 @@ app
 				/* setar o item ao selecionar da busca */
 				$scope.selectedcontratoaditivo = function( ibusca ){
 					$scope.ibusca = ibusca;
-					$scope.ordem.numero = ibusca.contrato;
 					$scope.autocomplete = false;
 					$scope.resultados = null;
+					$scope.iscontratoaditivo = true;
+					/* exibir dados do contrato */
+					$scope.ordem.numero = ibusca.contrato;
+					$scope.ordem.valor = ibusca.valor;
+					$scope.ordem.validade = ibusca.validade;
+					$scope.ordem.obs = ibusca.obs;
+					if( ibusca.idaditivo ){
+						$scope.ordem.contratoaditivo = ibusca.idaditivo;
+					}else{
+						$scope.ordem.contratoaditivo = ibusca.idcontrato;
+					}
+
+					/* carregar produtos do contrato ou aditivos */
+					$scope.isloadingitens = true;
+					$http.post('/controller/ordemservico/produtoscontratoaditivo', {numero: $scope.ordem.contratoaditivo})
+					.success(function(data){
+						$scope.isloadingitens = false;
+						$scope.isprodutoscontratoaditivo = true;
+						$scope.produtosca = data;
+					})
+					.error(function(error){
+						$scope.isloadingitens = false;
+						$scope.isprodutoscontratoaditivo = false;
+						console.log(error);
+					});
+				}
+
+				/* verificar a quantidade solicitada para apontar se o campo é obrigatório ou não  */
+				$scope.checkshowmessage = function( qtddisponivel, qtdordem ){
+					if ( parseInt(qtddisponivel) < parseInt(qtdordem) ){
+						$scope.createForm.$valid = false;
+						return true;
+					}else{
+						return false;
+					}
 				}
 
 				$scope.load = function(){
@@ -138,43 +175,7 @@ app
 				};
 
 				$scope.saveitem = function(){
-					//validate password and confirm password
-					if( $scope.usuario.senha != $scope.usuario.confirmasenha ){
-						$scope.createForm.$valid = false;	
-						//show message
-						appMessages.addMessage('Senhas não coincidem, favor verifique.', true, 'danger');
-						//show message in 5 seconds
-						$timeout(function(){
-							appMessages.show = false;
-						}, 5000);
-					}
-					if($scope.createForm.$valid){
-						//saving set true
-						$scope.submitting = true;
-						//show loading
-						$scope.isloading = true;
-						//via http
-						$http.post('/controller/usuario/saveusuario', $scope.usuario )
-						.success(function(data){
-							//saving set false
-							$scope.submitting = false;
-							//hide loading
-							$scope.isloading = false;
-							//success
-							$location.path('/usuario');
-							//show message
-							appMessages.addMessage(data.msg_success, true, 'success');
-							//show message in 5 seconds
-							$timeout(function(){
-								appMessages.show = false;
-							}, 5000);
-
-						})
-						.error(function(error){
-							console.log(error);
-						});
-
-					}
+					console.log($scope.produtosca);
 				};
 
 				$scope.deleteitem = function(itemid){

@@ -66,6 +66,27 @@
 						</div>
 					</div><!-- END INPUT -->
 
+					<div class="row form-group" ng-show="iscontratoaditivo">
+						<div class="col-sm-12">
+							<fieldset>
+								<h3 class="block-title">Informações do Nº de contrato ou aditivo</h3>
+							</fielset>
+						</div>
+						<p></p><!-- clearfixed -->
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">Nº: {{ordem.numero}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-success" style="margin-bottom: 10px;">{{ordem.valor | finance:true:2}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-muted" style="margin-bottom: 10px;">Validade: {{ordem.validade | datebr}}</p>
+						</div>
+						<div class="col-sm-12 text-white" ng-show="ordem.obs != undefined">
+							<p class="content-mini content-mini-full bg-warning" style="margin-bottom: 10px;">{{ordem.obs}}</p>
+						</div>
+					</div><!-- END INPUT -->
+
 					<div class="row form-group" ng-show="isloadingitens">
 						<div class="col-sm-12">
 							<div class="text-center">
@@ -75,30 +96,7 @@
 						</div>
 					</div>
 
-					<div class="row form-group" ng-show="iscontratoaditivo">
-						<div class="col-sm-12">
-							<fieldset>
-								<h3 class="block-title">Informações do Nº de contrato ou aditivo</h3>
-							</fielset>
-						</div>
-						<p></p><!-- clearfixed -->
-						<div class="col-sm-4 text-white">
-							<p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">Nº 986731</p>
-						</div>
-						<div class="col-sm-4 text-white">
-							<p class="content-mini content-mini-full bg-success" style="margin-bottom: 10px;">R$ 1.3820,00</p>
-						</div>
-						<div class="col-sm-4 text-white">
-							<p class="content-mini content-mini-full bg-muted" style="margin-bottom: 10px;">Validade: 10/05/2016</p>
-						</div>
-						<div class="col-sm-12 text-white">
-							<p class="content-mini content-mini-full bg-warning" style="margin-bottom: 10px;">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra tempor urna, nec eleifend sapien. Maecenas id eros metus. Vivamus auctor diam urna, porta elementum sapien maximus eu. Donec quis leo ex. Curabitur egestas felis nec accumsan semper. Duis at mi tincidunt, consequat lacus nec, accumsan magna.
-							</p>
-						</div>
-					</div><!-- END INPUT -->
-
-					<div class="row form-group" ng-show="iscontratoaditivo">
+					<div class="row form-group" ng-show="isprodutoscontratoaditivo">
 						<div class="col-sm-12">
 							<fieldset>
 								<h3 class="block-title">Produtos do Nº de contrato ou aditivo</h3>
@@ -108,60 +106,34 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th class="text-left" width="45%">Produto</th>
-										<th class="text-left" width="40%">Fornecedor</th>
+										<th class="text-left" width="30%">Produto</th>
+										<th class="text-left" width="25%">Fornecedor</th>
+										<th class="text-left" width="10%">Disponível</th>
+										<th class="text-left" width="10%">Sigla</th>
 										<th class="text-left" width="15%">Quantidade</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th class="text-left">
-											<input type="text" class="form-control" ng-model="ordem.produto" name="produto" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.fornecedor" name="fornecedor" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.qtd" name="qtd" required>
-										</th>
+									<tr ng-repeat="prod in produtosca">
+										<td class="text-left">
+											<input type="hidden" ng-model="prod.descricao" name="proddescricao">
+											<input type="hidden" ng-model="prod.valor" name="prodvalor">
+											{{prod.descricao}}
+										</td>
+										<td>
+											{{prod.razaosocial}}
+										</td>
+										<td class="hidden-xs">
+											<span class="label label-info">{{prod.qtd}}</span>
+										</td>
+										<td>
+											{{prod.sigla}}
+										</td>
+										<td>
+											<input type="text" class="form-control" ng-model="prod.qtdordem" name="prodqtdordem" ng-init="prod.qtdordem = 0" required>
+											<span class="help-block" ng-show="checkshowmessage(prod.qtd, prod.qtdordem)">A quantidade informada é superior a quantidade disponível</span>
+										</td>
 									</tr>
-
-									<tr>
-										<th class="text-left">
-											<input type="text" class="form-control" ng-model="ordem.produto" name="produto" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.fornecedor" name="fornecedor" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.qtd" name="qtd" required>
-										</th>
-									</tr>
-
-									<tr>
-										<th class="text-left">
-											<input type="text" class="form-control" ng-model="ordem.produto" name="produto" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.fornecedor" name="fornecedor" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.qtd" name="qtd" required>
-										</th>
-									</tr>
-
-									<tr>
-										<th class="text-left">
-											<input type="text" class="form-control" ng-model="ordem.produto" name="produto" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.fornecedor" name="fornecedor" readonly>
-										</th>
-										<th>
-											<input type="text" class="form-control" ng-model="ordem.qtd" name="qtd" required>
-										</th>
-									</tr>
-
 								</tbody>
 							</table>
 							</div>
