@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Sep 21, 2015 at 04:06 PM
+-- Generation Time: Sep 21, 2015 at 11:24 PM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -259,12 +259,21 @@ CREATE TABLE `produto` (
   `idunidade_medida` int(11) NOT NULL,
   `descricao` varchar(250) DEFAULT NULL,
   `valorunitario` decimal(10,2) DEFAULT NULL,
-  `qtdminima` int(11) DEFAULT NULL,
-  `qtdatual` int(11) DEFAULT NULL,
+  `qtdminima` int(11) DEFAULT '0',
+  `qtdatual` int(11) DEFAULT '0',
   `datacadastro` datetime DEFAULT NULL,
   `dataatualizacao` datetime DEFAULT NULL,
   `idsusuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `produto`
+--
+
+INSERT INTO `produto` (`idproduto`, `idfornecedor`, `idunidade_medida`, `descricao`, `valorunitario`, `qtdminima`, `qtdatual`, `datacadastro`, `dataatualizacao`, `idsusuario`) VALUES
+(1, 2, 1, 'Caneta BIC', '10.00', 1, 10, '2015-09-21 00:00:00', '2015-09-21 00:00:00', 1),
+(4, 2, 2, 'Borracha BIC', '15.00', 3, 2, '2015-09-21 00:00:00', '2015-09-21 00:00:00', 1),
+(5, 2, 2, 'Apontador BIC', '25.00', 5, 25, '2015-09-21 00:00:00', '2015-09-21 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -678,7 +687,7 @@ ALTER TABLE `orgao`
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idproduto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idproduto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `saida`
 --
@@ -782,15 +791,15 @@ ALTER TABLE `produto`
 -- Constraints for table `saida_produto`
 --
 ALTER TABLE `saida_produto`
-  ADD CONSTRAINT `fk_saida_has_produto_saida1` FOREIGN KEY (`saida_idsaida`) REFERENCES `saida` (`idsaida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_saida_has_produto_produto1` FOREIGN KEY (`produto_idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_saida_has_produto_produto1` FOREIGN KEY (`produto_idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_saida_has_produto_saida1` FOREIGN KEY (`saida_idsaida`) REFERENCES `saida` (`idsaida`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `solicitacao_produto`
 --
 ALTER TABLE `solicitacao_produto`
-  ADD CONSTRAINT `fk_solicitacao_has_produto_solicitacao1` FOREIGN KEY (`idsolicitacao`) REFERENCES `solicitacao` (`idsolicitacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_solicitacao_has_produto_produto1` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_solicitacao_has_produto_produto1` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_solicitacao_has_produto_solicitacao1` FOREIGN KEY (`idsolicitacao`) REFERENCES `solicitacao` (`idsolicitacao`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `usuario_permissao`

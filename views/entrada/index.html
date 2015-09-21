@@ -1,0 +1,142 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de entrada de produtos <small>adicione os produtos ao estoque</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a class="link-effect" href="#!/dashboard">Dashboard</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+
+					<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+
+					<div class="row form-group">
+						<div class="col-sm-12">
+							<label for="numero" class="control-label">Pesquise pelo nome do produto: <span class="red">*</span></label>
+							<div class="input-group">
+								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-model="nome" name="nome" autocomplete="off">
+								<div class="input-group-btn">
+									<button class="btn btn-default"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+							<div class="autocomplete" ng-show="autocomplete">
+								<ul>
+									<li ng-repeat="busca in resultados"><a href="javascript:void(0);" ng-click="selectedcontratoaditivo(busca)">{{busca.descricao}}</a></li>
+								</ul>
+								<ul ng-show="!totalresultados">
+									<li><p>Nenhum resultado encontrato</p></li>
+								</ul>
+							</div>
+						</div>
+					</div><!-- END INPUT -->
+
+					<div class="row form-group" ng-show="isloadingitens">
+						<div class="col-sm-12">
+							<div class="text-center">
+								<img src="assets/img/ajax-loader.gif">
+								<p>Aguarde processando...</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-group" ng-show="isproduto">
+						<div class="col-sm-12">
+							<fieldset>
+								<h3 class="block-title">Informações do Produto</h3>
+							</fielset>
+						</div>
+						<p></p><!-- clearfixed -->
+						<div class="col-sm-12 text-white">
+							<p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">{{produto.descricao}} - {{produto.fornecedor}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-success" style="margin-bottom: 10px;">{{produto.valorunitario | finance:true:2}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p ng-class="mudastyle" style="margin-bottom: 10px;">{{produto.qtdatual}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-muted" style="margin-bottom: 10px;">{{produto.sigla}}</p>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-6">
+									<label for="fornecedor" class="control-label">Estoque Mínimo: <span class="red">*</span></label>
+									<input type="text" class="form-control" ng-model="produto.qtdminima" name="qtdminima" placeholder="Informe a qtd mínima em estoque" required>
+									<span class="help-block" ng-show="createForm.qtdminima.$dirty && createForm.qtdminima.$error.required">O campo é obrigatório</span>
+								</div>
+								<div class="col-sm-6">
+									<label for="fornecedor" class="control-label">Quantidade Adicionada: <span class="red">*</span></label>
+									<input type="text" class="form-control" ng-model="produto.qtdadd" name="qtdadd" placeholder="Informe a qtd adicionada ao estoque" required>
+									<span class="help-block" ng-show="createForm.qtdadd.$dirty && createForm.qtdadd.$error.required">O campo é obrigatório</span>
+								</div>
+							</div>
+						</div>
+
+					</div><!-- END INPUT -->
+
+					
+					
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="gravaitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/dashboard" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
