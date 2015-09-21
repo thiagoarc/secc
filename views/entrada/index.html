@@ -17,7 +17,7 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Entrada de Produtos <small>adicione ao estoque os produtos</small>
+                Formulário de entrada de produtos <small>adicione os produtos ao estoque</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
@@ -41,71 +41,85 @@
 
 				<p></p><!-- clearfixed -->
 
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="col-sm-4">
-							<form>
-						    	<div class="form-group">
-							      <div class="input-group">
-							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
-							      </div>      
-						      	</div>
-						    </form>
-						</div><!-- search table -->
-						<div class="col-sm-8">
-							<a href="#!/entrada/add" class="btn btn-success btn-sm pull-right">
-								<i class="glyphicon glyphicon-plus"></i> Adicionar
-							</a>
-						</div>
-						<!-- end action add -->
-					</div>
-				</div><!-- end col-sm-12 -->
-
-				<p></p><!-- clearfixed -->
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
-				<div class="row">
-					<div class="col-sm-12">
+
+					<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+
+					<div class="row form-group">
 						<div class="col-sm-12">
-							<label for="fornecedor" class="control-label">Fornecedor: </label>
-							{{produto.fornecedor}}
+							<label for="numero" class="control-label">Pesquise pelo nome do produto: <span class="red">*</span></label>
+							<div class="input-group">
+								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-model="nome" name="nome" autocomplete="off">
+								<div class="input-group-btn">
+									<button class="btn btn-default"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+							<div class="autocomplete" ng-show="autocomplete">
+								<ul>
+									<li ng-repeat="busca in resultados"><a href="javascript:void(0);" ng-click="selectedcontratoaditivo(busca)">{{busca.descricao}}</a></li>
+								</ul>
+								<ul ng-show="!totalresultados">
+									<li><p>Nenhum resultado encontrato</p></li>
+								</ul>
+							</div>
 						</div>
-						<div class="col-sm-4">
-							<label for="fornecedor" class="control-label">Valor Unitário: </label>
-							{{produto.valorunitario}}
-						</div>
-						<div class="col-sm-4">
-							<label for="fornecedor" class="control-label">Estoque Atual: </label>
-							{{produto.qtdatual}}
-						</div>
-						<div class="col-sm-4">
-							<label for="fornecedor" class="control-label">UN: </label>
-							{{produto.unidademedida}}
+					</div><!-- END INPUT -->
+
+					<div class="row form-group" ng-show="isloadingitens">
+						<div class="col-sm-12">
+							<div class="text-center">
+								<img src="assets/img/ajax-loader.gif">
+								<p>Aguarde processando...</p>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="col-sm-6">
-							<label for="fornecedor" class="control-label">Estoque Mínimo: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="produto.qtdminima" name="qtdminima" placeholder="Informe a qtd mínima em estoque" required>
-						<span class="help-block" ng-show="createForm.qtdminima.$dirty && createForm.qtdminima.$error.required">O campo é obrigatório</span>
+					<div class="row form-group" ng-show="isproduto">
+						<div class="col-sm-12">
+							<fieldset>
+								<h3 class="block-title">Informações do Produto</h3>
+							</fielset>
 						</div>
-						<div class="col-sm-6">
-							<label for="fornecedor" class="control-label">Quantidade Adicionada: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="produto.qtdadd" name="qtdadd" placeholder="Informe a qtd adicionada ao estoque" required>
-						<span class="help-block" ng-show="createForm.qtdadd.$dirty && createForm.qtdadd.$error.required">O campo é obrigatório</span>
+						<p></p><!-- clearfixed -->
+						<div class="col-sm-12 text-white">
+							<p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">{{produto.descricao}} - {{produto.fornecedor}}</p>
 						</div>
-					</div>
-				</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-success" style="margin-bottom: 10px;">{{produto.valorunitario | finance:true:2}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p ng-class="mudastyle" style="margin-bottom: 10px;">{{produto.qtdatual}}</p>
+						</div>
+						<div class="col-sm-4 text-white">
+							<p class="content-mini content-mini-full bg-muted" style="margin-bottom: 10px;">{{produto.sigla}}</p>
+						</div>
 
-				<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-6">
+									<label for="fornecedor" class="control-label">Estoque Mínimo: <span class="red">*</span></label>
+									<input type="text" class="form-control" ng-model="produto.qtdminima" name="qtdminima" placeholder="Informe a qtd mínima em estoque" required>
+									<span class="help-block" ng-show="createForm.qtdminima.$dirty && createForm.qtdminima.$error.required">O campo é obrigatório</span>
+								</div>
+								<div class="col-sm-6">
+									<label for="fornecedor" class="control-label">Quantidade Adicionada: <span class="red">*</span></label>
+									<input type="text" class="form-control" ng-model="produto.qtdadd" name="qtdadd" placeholder="Informe a qtd adicionada ao estoque" required>
+									<span class="help-block" ng-show="createForm.qtdadd.$dirty && createForm.qtdadd.$error.required">O campo é obrigatório</span>
+								</div>
+							</div>
+						</div>
+
+					</div><!-- END INPUT -->
+
+					
+					
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="gravaitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+					<a href="#!/dashboard" class="btn btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 
