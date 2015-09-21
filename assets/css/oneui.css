@@ -16909,3 +16909,57 @@ div.tagsinput span.tag a:hover {
 .placeholder {
   color: #aaa;
 }
+.autocomplete {
+  padding: 0px;
+  background-color: white;
+  overflow: hidden;
+  z-index: 99999;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 #fff;
+  border-image: none;
+  border-style: solid;
+  border-color: #d9d9d9 #ccc #ccc;
+   border-right: 1px solid #ccc;
+  border-width: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
+.autocomplete ul {
+  width: 100%;
+  list-style-position: outside;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.autocomplete li {
+  margin: 0px;
+  padding: 0px;
+  cursor: default;
+  display: block;
+  text-align: left;
+  overflow: hidden;
+  outline:none;
+}
+.autocomplete li a{
+  width: 100%;
+  display: block;
+  padding: 0 10px;
+  line-height: 22px;
+  font-size: 14px;
+}
+.autocomplete li p{
+  width: 100%;
+  display: block;
+  padding: 0 10px;
+  line-height: 22px;
+  font-size: 14px;
+  margin: 0;
+}
+.autocomplete li:hover {
+  background-color: #eee;
+}
+
+

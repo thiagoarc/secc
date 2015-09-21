@@ -1,6 +1,5 @@
 <?php 
 
-session_start();
 $oConexao = Conexao::getInstance();
 
 try{

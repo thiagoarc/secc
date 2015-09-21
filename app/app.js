@@ -326,6 +326,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/os/add',
+			{ 
+				templateUrl: 'views/ordemservico/formulario.html',
+				controller: 'ordemservicoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/ordemservico/ordemservicoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/usuario',
 			{ 
 				templateUrl: 'views/usuario/index.html',
