@@ -55,6 +55,21 @@ app.config( function($routeProvider, $locationProvider){
 				title: 'application' 
 			}
 		)
+
+		.when('/entrada',
+			{ 
+				templateUrl: 'views/entrada/index.html',
+				controller: 'entradaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/entrada/entradaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
 		
 		.when('/produto',
 			{ 

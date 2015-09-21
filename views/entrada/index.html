@@ -1,0 +1,128 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Entrada de Produtos <small>adicione ao estoque os produtos</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a class="link-effect" href="#!/dashboard">Dashboard</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4">
+							<form>
+						    	<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
+							      </div>      
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-8">
+							<a href="#!/entrada/add" class="btn btn-success btn-sm pull-right">
+								<i class="glyphicon glyphicon-plus"></i> Adicionar
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-12">
+							<label for="fornecedor" class="control-label">Fornecedor: </label>
+							{{produto.fornecedor}}
+						</div>
+						<div class="col-sm-4">
+							<label for="fornecedor" class="control-label">Valor Unitário: </label>
+							{{produto.valorunitario}}
+						</div>
+						<div class="col-sm-4">
+							<label for="fornecedor" class="control-label">Estoque Atual: </label>
+							{{produto.qtdatual}}
+						</div>
+						<div class="col-sm-4">
+							<label for="fornecedor" class="control-label">UN: </label>
+							{{produto.unidademedida}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-6">
+							<label for="fornecedor" class="control-label">Estoque Mínimo: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="produto.qtdminima" name="qtdminima" placeholder="Informe a qtd mínima em estoque" required>
+						<span class="help-block" ng-show="createForm.qtdminima.$dirty && createForm.qtdminima.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-6">
+							<label for="fornecedor" class="control-label">Quantidade Adicionada: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="produto.qtdadd" name="qtdadd" placeholder="Informe a qtd adicionada ao estoque" required>
+						<span class="help-block" ng-show="createForm.qtdadd.$dirty && createForm.qtdadd.$error.required">O campo é obrigatório</span>
+						</div>
+					</div>
+				</div>
+
+				<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

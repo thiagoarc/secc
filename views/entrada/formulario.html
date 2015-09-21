@@ -1,0 +1,102 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de produto <small>adicione, edite os itens do produto</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/produto">Produto</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+
+					<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+
+					<div class="form-group">
+						<label for="nome" class="control-label">Nome: <span class="red">*</span></label>
+						<input type="text" class="form-control" ng-model="produto.nome" name="nome" placeholder="Informe o nome do produto" required>
+						<span class="help-block" ng-show="createForm.nome.$dirty && createForm.nome.$error.required">O campo é obrigatório</span>
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<label for="descricao" class="control-label">Descricao:</label>
+						<input type="text" class="form-control" ng-model="produto.descricao" name="descricao" placeholder="Informe a descrição do produto">
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<label for="preco" class="control-label">Marca: <span class="red">*</span></label>
+						<input type="text" class="form-control" ng-model="produto.marca" name="marca" placeholder="Informe a marca do produto" required>
+						<span class="help-block" ng-show="createForm.marca.$dirty && createForm.marca.$error.required">O campo é obrigatório</span>
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<label for="quantidade" class="control-label">Unidade de Medida: <span class="red">*</span></label>
+						<select class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" ng-init="loadunidademedidas()" required>
+						<option value="">Escolha</option>
+						<option ng-repeat="unidade in unidademedidas" value="{{unidade.idunidade_medida}}" ng-selected="produto.idunidade_medida==unidade.idunidade_medida">{{unidade.sigla}} - {{unidade.descricao}}</option>
+						</select>
+						<!-- <input type="text" class="form-control" ng-model="produto.idunidade_medida" name="idunidade_medida" placeholder="Informa a unidade de medida do produto" required> -->
+						<span class="help-block" ng-show="createForm.idunidade_medida.$dirty && createForm.idunidade_medida.$error.required">O campo é obrigatório</span>
+					</div><!-- END INPUT -->
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/produto" class="btn btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
