@@ -70,6 +70,36 @@ app.config( function($routeProvider, $locationProvider){
 				}
 			}
 		)
+
+		.when('/solicitacaouser',
+			{ 
+				templateUrl: 'views/solicitacaouser/index.html',
+				controller: 'solicitacaoUserCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacaouser/solicitacaoUserCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/solicitacaouser/add',
+			{ 
+				templateUrl: 'views/solicitacaouser/formulario.html',
+				controller: 'solicitacaoUserCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacaouser/solicitacaoUserCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
 		
 		.when('/produto',
 			{ 
