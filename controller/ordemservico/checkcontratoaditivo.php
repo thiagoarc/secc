@@ -11,7 +11,7 @@ try{
 
 		$keysearch = "%{$params->numero}%";
 
-		$stmt = $oConexao->prepare("SELECT idcontrato, numerocontrato as contrato, validade, valor FROM contrato WHERE numerocontrato LIKE :numero AND validade <= now() LIMIT 0,5");  
+		$stmt = $oConexao->prepare("SELECT idcontrato, numerocontrato as contrato, DATE_FORMAT(validade, '%d%m%Y') as validade, valor FROM contrato WHERE numerocontrato LIKE :numero AND validade <= now() LIMIT 0,5");  
 		$stmt->bindParam('numero', $keysearch, PDO::PARAM_STR);
 		$stmt->execute();
 		$contrato = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -20,7 +20,7 @@ try{
 			echo json_encode($contrato);
 		}else{
 
-			$stmt = $oConexao->prepare("SELECT idcontrato, numero as contrato, validade, valor, obs FROM aditivo WHERE numero LIKE :numero AND validade <= now() LIMIT 0,5");
+			$stmt = $oConexao->prepare("SELECT idcontrato, idaditivo, numero as contrato, DATE_FORMAT(validade, '%d%m%Y') as validade, valor, obs FROM aditivo WHERE numero LIKE :numero AND validade <= now() LIMIT 0,5");
 			$stmt->bindParam('numero', $keysearch, PDO::PARAM_STR);
 			$stmt->execute();
 			$aditivo = $stmt->fetchAll(PDO::FETCH_OBJ);
