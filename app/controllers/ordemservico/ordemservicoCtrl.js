@@ -136,11 +136,15 @@ app
 				/* verificar a quantidade solicitada para apontar se o campo é obrigatório ou não  */
 				$scope.checkshowmessage = function( qtddisponivel, qtdordem ){
 					if ( parseInt(qtddisponivel) < parseInt(qtdordem) ){
-						$scope.createForm.$valid = false;
+						$scope.createForm.$invalid = true;
 						return true;
 					}else{
 						return false;
 					}
+				}
+				$scope.checkrequiredprod = function( qtddisponivel, qtdordem ){
+					if ( parseInt(qtddisponivel) < parseInt(qtdordem) )
+						$scope.createForm.$valid = false;
 				}
 
 				$scope.load = function(){
@@ -175,6 +179,7 @@ app
 				};
 
 				$scope.saveitem = function(){
+					console.log($scope.ordem);
 					console.log($scope.produtosca);
 				};
 

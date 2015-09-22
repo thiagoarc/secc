@@ -50,7 +50,7 @@
 						<div class="col-sm-12">
 							<label for="numero" class="control-label">Pesquise por Nº de contrato ou aditivo: <span class="red">*</span></label>
 							<div class="input-group">
-								<input type="text" placeholder="Ex.: 092728198" class="form-control" ng-keyup="searchcontratoaditivo(ordem.numero)" ng-model="ordem.numero" name="numero" autocomplete="off" required>
+								<input type="text" placeholder="Ex.: 092728198" class="form-control" ng-keyup="searchcontratoaditivo(ordem.numero)" ng-model="ordem.numero" name="numero" autocomplete="off" ng-minlength="3" required>
 								<div class="input-group-btn">
 									<button class="btn btn-default"><i class="fa fa-search"></i></button>
 								</div>
@@ -118,6 +118,7 @@
 										<td class="text-left">
 											<input type="hidden" ng-model="prod.descricao" name="proddescricao">
 											<input type="hidden" ng-model="prod.valor" name="prodvalor">
+											<input type="hidden" ng-model="prod.idunidade_medida" name="produnidademedida">
 											{{prod.descricao}}
 										</td>
 										<td>
@@ -130,7 +131,7 @@
 											{{prod.sigla}}
 										</td>
 										<td>
-											<input type="text" class="form-control" ng-model="prod.qtdordem" name="prodqtdordem" ng-init="prod.qtdordem = 0" required>
+											<input type="text" class="form-control" ng-model="prod.qtdordem" name="prodqtdordem" ng-init="prod.qtdordem = 0" ng-change="checkrequiredprod(prod.qtd, prod.qtdordem)" required>
 											<span class="help-block" ng-show="checkshowmessage(prod.qtd, prod.qtdordem)">A quantidade informada é superior a quantidade disponível</span>
 										</td>
 									</tr>
@@ -147,7 +148,7 @@
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/usuario" class="btn btn-danger">Cancelar</a>
+					<a href="#!/os" class="btn btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 
