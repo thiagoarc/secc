@@ -18,6 +18,7 @@ app
 			    $scope.modalItem			= '';
 			    $scope.autocomplete			= false; // set the autocomplete false;
 			    $scope.produtosca			= {}; //set the default product in contract or additions
+			    $scope.totalprod			= 0; //set the default total itens products
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -27,52 +28,189 @@ app
 			        // console.log( 'Mensagem do scope: '+ $scope.message );
 			    });
 
+			    $scope.load = function(){
+					
+					$http.get('/controller/ordemservico/ordemservico')
+						.success(function(data){
+							$scope.ordem = data;
+							$scope.currentPage = 1; //current page
+							$scope.entryLimit = 5; //max no of items to display in a page
+							$scope.filteredItems = $scope.ordem.length; //Initially for no filter
+							$scope.totalItems = $scope.ordem.length;
+  							$scope.numPerPage = 10;
+						});
 
-				// var itemid = $routeParams.id || 0;
+				};
 
-				// if( itemid && itemid > 0){
-				// 	//via http
-				// 	$http({
-				// 		method: 'POST',
-				// 		url: '/controller/usuario/getusuario',
-				// 		data: { id: itemid } 
-				// 	}).success(function(data){
-				// 		$scope.usuario = data;
-				// 	});
-				// }
+				$scope.paginate = function(value) {
+    				var begin, end, index;
+    				begin = ($scope.currentPage - 1) * $scope.numPerPage;
+    				end = begin + $scope.numPerPage;
+    				index = $scope.ordem.indexOf(value);
+    				return (begin <= index && index < end);
+  				};
 
-				// /* confirmação modal para excluir item */
-				// $scope.deleteconfirm = function(usuariodelete){
-				// 	var modalInstance = $modal.open({
-				//       	templateUrl: 'views/confirm.html',
-				//       	controller: function ($scope, $modalInstance, usuarios) {
+  				/* salvar ordem de serviço */
+				$scope.saveitem = function(){
+					if($scope.createForm.$valid){
+						//saving set true
+						$scope.submitting = true;
+						//show loading
+						$scope.isloading = true;
+						//via http
+						$http.post('/controller/ordemservico/saveordemservico', {ordem: $scope.ordem, produtos: $scope.produtosca})
+						.success(function(data){
+							if( data.message == 'success' ){
+								//saving set false
+								$scope.submitting = false;
+								//hide loading
+								$scope.isloading = false;
+								//success
+								$location.path('/os');
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+								//show message in 5 seconds
+								$timeout(function(){
+									appMessages.show = false;
+								}, 5000);
+							}
+						})
+						.error(function(error){
+							console.log(error);
+						});
+					}
+				};
+
+				/* detahes da OS */
+				$scope.detalhes = function(os){
+					var modalInstance = $modal.open({
+						templateUrl: 'views/ordemservico/detalhes.html',
+						controller: function( $scope, $modalInstance, $http, osModal  ){
+
+							$scope.ordem = osModal;
+							$scope.isloadingmodal = true;
+							$http.post('/controller/ordemservico/itensordemservico', {idos: $scope.ordem.idos})
+							.success(function( data ){
+								$scope.itensOSTotal = data.length;
+								$scope.itensOS = data;
+								$scope.calcTotalValor = 0;
+								for( var i = 0; i < data.length; i++){
+									$scope.calcTotalValor += data[i].qtd * data[i].valorunitario;
+								}
+								$scope.isloadingmodal = false;
+							});
+
+							$scope.print = function( div ){
+								$modalInstance.close( div );
+								console.log('teste');
+							}
+
+							$scope.cancel = function(){
+								$modalInstance.dismiss('cancel');
+							}
+
+						},
+						resolve: {
+							osModal: function(){
+								return os;
+							}
+						}
+					});
+
+					modalInstance.result.then(function ( div ) {
+				      $scope.imprimir( div );
+				    }, function () {
+				    	/* funcao ao cancelar ou fechar o modal */
+				    });
+				}
+
+				/* imprimir bloco */
+				$scope.imprimir = function( divName ){
+					console.log('aqui');
+					var printContents = document.getElementById(divName).innerHTML;
+				    var originalContents = document.body.innerHTML;      
+
+				    if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+				        var popupWin = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+				        popupWin.window.focus();
+				        popupWin.document.write('<!DOCTYPE html><html><head>' +
+				            '<link rel="stylesheet" type="text/css" href="assets/css/oneui.css" />' +
+				            '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
+				        popupWin.onbeforeunload = function (event) {
+				            popupWin.close();
+				            return '.\n';
+				        };
+				        popupWin.onabort = function (event) {
+				            popupWin.document.close();
+				            popupWin.close();
+				        }
+				    } else {
+				        var popupWin = window.open('', '_blank', 'width=800,height=600');
+				        popupWin.document.open();
+				        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="assets/css/oneui.css" /></head><body onload="window.print()">' + printContents + '</html>');
+				        popupWin.document.close();
+				    }
+				    popupWin.document.close();
+
+				    return true;
+				}
+
+				/* cancelamento da OS */
+				$scope.cancelarOS = function(os){
+					var modalInstance = $modal.open({
+				      	templateUrl: 'views/cancel.html',
+				      	controller: function ($scope, $modalInstance, osModal) {
 				      	
-				// 	      	$scope.usuario 		= usuarios;
-				// 	      	$scope.modalItem 	= usuarios.nome;
+					      	$scope.ordem = osModal;
+					      	$scope.modalItem =  'OS '+osModal.idos;
 					      	
-				// 	      	$scope.ok = function () {
-				// 			    $modalInstance.close($scope.usuario);
-				// 			};
+					      	$scope.ok = function () {
+							    $modalInstance.close($scope.ordem);
+							};
 
-				// 			$scope.cancel = function () {
-				// 			    $modalInstance.dismiss('cancel');
-				// 			};
+							$scope.cancel = function () {
+							    $modalInstance.dismiss('cancel');
+							};
 
-				//       	},
-				//       	resolve: {
-				//         	usuarios: function () {
-				//           		return usuariodelete;
-				//         	}
-				//       	}
-				//   	});
+				      	},
+				      	resolve: {
+				        	osModal: function () {
+				          		return os;
+				        	}
+				      	}
+				  	});
 
-				//   	modalInstance.result.then(function (usuario) {
-				//       $scope.deleteitem( usuario.idusuario );
-				//     }, function () {
-				//     	/* funcao ao cancelar ou fechar o modal */
-				//     });
+				  	modalInstance.result.then(function (unidade) {
+				      $scope.deleteitem( unidade );
+				    }, function () {
+				    	/* funcao ao cancelar ou fechar o modal */
+				    });
+				}
 
-				// };
+				/* cancelar e deletar a ordem de serviço */
+				$scope.deleteitem = function(item){
+					$http.post('/controller/ordemservico/deleteordemservico', item )
+						.success(function(data){
+							if( data.message == 'success' ){
+								//saving set false
+								$scope.submitting = false;
+								//hide loading
+								$scope.isloading = false;
+								//success
+								$location.path('/os');
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+								//show message in 5 seconds
+								$timeout(function(){
+									appMessages.show = false;
+								}, 5000);
+							}
+						})
+						.error(function(error){
+							console.log(error);
+						});
+				}
+
 
 				/* pesquisar numero de contrato e aditivo */
 				$scope.searchcontratoaditivo = function( numero ){
@@ -114,8 +252,10 @@ app
 					$scope.ordem.obs = ibusca.obs;
 					if( ibusca.idaditivo ){
 						$scope.ordem.contratoaditivo = ibusca.idaditivo;
+						$scope.ordem.tipo	= 2; //aditivo
 					}else{
 						$scope.ordem.contratoaditivo = ibusca.idcontrato;
+						$scope.ordem.tipo	= 1; //contrato
 					}
 
 					/* carregar produtos do contrato ou aditivos */
@@ -125,6 +265,7 @@ app
 						$scope.isloadingitens = false;
 						$scope.isprodutoscontratoaditivo = true;
 						$scope.produtosca = data;
+						$scope.totalprod = data.length;
 					})
 					.error(function(error){
 						$scope.isloadingitens = false;
@@ -146,65 +287,6 @@ app
 					if ( parseInt(qtddisponivel) < parseInt(qtdordem) )
 						$scope.createForm.$valid = false;
 				}
-
-				$scope.load = function(){
-					
-					$http.get('/controller/usuario/usuarios')
-						.success(function(data){
-							$scope.usuarios = data;
-							$scope.currentPage = 1; //current page
-							$scope.entryLimit = 5; //max no of items to display in a page
-							$scope.filteredItems = $scope.usuarios.length; //Initially for no filter
-							$scope.totalItems = $scope.usuarios.length;
-  							$scope.numPerPage = 10;
-						});
-
-				};
-
-				$scope.paginate = function(value) {
-    				var begin, end, index;
-    				begin = ($scope.currentPage - 1) * $scope.numPerPage;
-    				end = begin + $scope.numPerPage;
-    				index = $scope.usuarios.indexOf(value);
-    				return (begin <= index && index < end);
-  				};
-
-				$scope.loadunidademedidas = function(){
-					
-					$http.get('/controller/unidademedida/unidadesmedida')
-						.success(function(data){
-							$scope.unidademedidas = data;
-						});
-
-				};
-
-				$scope.saveitem = function(){
-					console.log($scope.ordem);
-					console.log($scope.produtosca);
-				};
-
-				$scope.deleteitem = function(itemid){
-					var itemusuario = $resource('/controller/usuario/deleteusuario' , {id: itemid});
-					itemusuario.delete(
-						function(data){
-							//success
-							$scope.load();
-							if(data.msg == 'success'){
-								//show message
-								appMessages.addMessage(data.msg_success, true, 'success');
-							}else{
-								appMessages.addMessage(data.msg_success, true, 'danger');
-							}
-							//show message in 5 seconds
-							$timeout(function(){
-								appMessages.show = false;
-							}, 5000);
-						},
-						function(error){
-							console.log(error);
-						}
-					);
-				};
 
 			}
 		]

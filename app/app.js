@@ -52,7 +52,16 @@ app.config( function($routeProvider, $locationProvider){
 		.when('/app', 
 			{ 
 				templateUrl: 'views/app.html',  
-				title: 'application' 
+				title: 'application',
+				controller: 'dashboardCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/app/dashboardCtrl.js']
+                    	});
+					}]
+				}
 			}
 		)
 
@@ -371,6 +380,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/os/',
+			{ 
+				templateUrl: 'views/ordemservico/index.html',
+				controller: 'ordemservicoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/ordemservico/ordemservicoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+		
 		.when('/os/add',
 			{ 
 				templateUrl: 'views/ordemservico/formulario.html',

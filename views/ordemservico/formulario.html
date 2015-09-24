@@ -23,7 +23,7 @@
         <div class="col-sm-4 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>Dashboard</li>
-                <li><a class="link-effect" href="#!/ordemservico">Ordem de serviço</a></li>
+                <li><a class="link-effect" href="#!/os">Ordem de serviço</a></li>
             </ol>
         </div>
     </div>
@@ -103,7 +103,7 @@
 								<p class="help-block">* Abaixo todos campos são obrigatório ou adicione "Zero (0)" no campo de quantidade para o mesmo ser ignorado.</p>
 							</fielset>
 							<div class="table-responsive">
-							<table class="table">
+							<table class="table" ng-show="totalprod > 0">
 								<thead>
 									<tr>
 										<th class="text-left" width="30%">Produto</th>
@@ -116,27 +116,36 @@
 								<tbody>
 									<tr ng-repeat="prod in produtosca">
 										<td class="text-left">
+											<input type="hidden" ng-model="prod.iditem" name="prodiditem">
 											<input type="hidden" ng-model="prod.descricao" name="proddescricao">
 											<input type="hidden" ng-model="prod.valor" name="prodvalor">
 											<input type="hidden" ng-model="prod.idunidade_medida" name="produnidademedida">
+											<input type="hidden" ng-model="prod.idfornecedor" name="prodidfornecedor">
 											{{prod.descricao}}
 										</td>
 										<td>
 											{{prod.razaosocial}}
 										</td>
 										<td class="hidden-xs">
-											<span class="label label-info">{{prod.qtd}}</span>
+											<span class="label label-info">{{prod.qtdos}}</span>
 										</td>
 										<td>
 											{{prod.sigla}}
 										</td>
 										<td>
-											<input type="text" class="form-control" ng-model="prod.qtdordem" name="prodqtdordem" ng-init="prod.qtdordem = 0" ng-change="checkrequiredprod(prod.qtd, prod.qtdordem)" required>
-											<span class="help-block" ng-show="checkshowmessage(prod.qtd, prod.qtdordem)">A quantidade informada é superior a quantidade disponível</span>
+											<input type="text" class="form-control" ng-model="prod.qtdordem" name="prodqtdordem" ng-init="prod.qtdordem = 0" ng-change="checkrequiredprod(prod.qtdos, prod.qtdordem)" required>
+											<span class="help-block" ng-show="checkshowmessage(prod.qtdos, prod.qtdordem)">A quantidade informada é superior a quantidade disponível</span>
 										</td>
 									</tr>
 								</tbody>
 							</table>
+
+							<table class="table" ng-show="!totalprod">
+								<tr>
+					        		<td colspan="5">Nenhum item encontrado.</td>
+					        	</tr>
+							</table>
+
 							</div>
 						</div>
 

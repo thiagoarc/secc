@@ -100,33 +100,33 @@
                 <div class="col-sm-6 col-lg-3">
                     <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                         <div class="block-content block-content-full">
-                            <div class="h1 font-w700"><span class="h2 text-muted">R$</span>6.320,00</div>
+                            <div class="h1 font-w700" ng-init="totalCompras()"><span class="h2 text-muted"></span>{{ totalpurchases | finance:true:2 }}</div>
                             <div class="h5 text-muted text-uppercase push-5-t">Compras</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-success text-white">
-                            nesta semana
+                            no total
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
+                    <a class="block block-rounded block-link-hover3 text-center" href="#!/contrato">
                         <div class="block-content block-content-full">
-                            <div class="h1 font-w700">18</div>
+                            <div class="h1 font-w700" ng-init="totalContratoAtivo()"><span class="h2 text-muted">+</span>{{ totalcontract }}</div>
                             <div class="h5 text-muted text-uppercase push-5-t">Contratos</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-danger text-white">
-                            nesta semana
+                            ativos
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                         <div class="block-content block-content-full">
-                            <div class="h1 font-w700"><span class="h2 text-muted">+</span> 48</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Produtos</div>
+                            <div class="h1 font-w700" ng-init="totalAditivosAtivo()"><span class="h2 text-muted">+</span>{{ totaladditions }}</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Aditivos</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-warning text-white">
-                            nesta semana
+                            ativos
                         </div>
                     </a>
                 </div>
@@ -144,6 +144,49 @@
             </div>
             <!-- END Background Colored Text Tiles -->
             <!-- END Texts Tiles -->
+
+            <div class="block">
+                <div class="block-header">
+                    <h3 class="block-title">PRODUTOS ABAIXO DO ESTOQUE MÍNIMO</h3>
+                </div>
+                <div class="block-content">
+                    <table class="table table-striped table-borderless table-header-bg" ng-init="nivelestoqueprodutos()" ng-show="totalnivelproduto > 0">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;" class="text-center">#</th>
+                                <th>Produto</th>
+                                <th style="width: 25%;" class="hidden-xs">Fornecedor</th>
+                                <th style="width: 15%;" class="hidden-xs">Qtd Min.</th>
+                                <th style="width: 15%;" class="hidden-xs">Qtd Atual</th>
+                                <th style="width: 100px;" class="text-center">Sigla</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="prod in nivelproduto">
+                                <td class="text-center">{{$index+1}}</td>
+                                <td>{{prod.descricao}}</td>
+                                <td class="hidden-xs">
+                                    {{prod.razaosocial}}
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="label label-danger">{{prod.qtdminima}}</span>
+                                </td>
+                                <td class="hidden-xs">
+                                    {{prod.qtdatual}}
+                                </td>
+                                <td class="text-center">
+                                   <span class="label label-primary">{{prod.sigla}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" ng-show="!totalnivelproduto">
+                        <tr>
+                            <td colspan="6">Nenhum item encontrado.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
         </div>
         <!-- end conteudo do app -->

@@ -17,7 +17,38 @@ app
 	        		jQuery('body').css('background-image', 'url("/assets/img/photos/photo1@2x.jpg")');
 				}else{
 					var $lHtml              = jQuery('html');
-					var $lPage              = jQuery('#page-container');
+			        var $lBody              = jQuery('body');
+			        var $lPage              = jQuery('#page-container');
+			        var $lSidebar           = jQuery('#sidebar');
+			        var $lSidebarScroll     = jQuery('#sidebar-scroll');
+			        var $lSideOverlay       = jQuery('#side-overlay');
+			        var $lSideOverlayScroll = jQuery('#side-overlay-scroll');
+			        var $lHeader            = jQuery('#header-navbar');
+			        var $lMain              = jQuery('#main-container');
+			        var $lFooter            = jQuery('#page-footer');
+
+					// Initialize Tooltips
+			        jQuery('[data-toggle="tooltip"], .js-tooltip').tooltip({
+			            container: 'body',
+			            animation: false
+			        });
+
+			        // Initialize Popovers
+			        jQuery('[data-toggle="popover"], .js-popover').popover({
+			            container: 'body',
+			            animation: true,
+			            trigger: 'hover'
+			        });
+
+			        // Initialize Tabs
+			        jQuery('[data-toggle="tabs"] a, .js-tabs a').click(function(e){
+			            e.preventDefault();
+			            jQuery(this).tab('show');
+			        });
+
+			        // Init form placeholder (for IE9)
+			        jQuery('.form-control').placeholder();
+
 					/* enable menu */
 					jQuery('[data-toggle="nav-submenu"]').on('click', function(e){
 			            // Stop default behaviour
@@ -57,6 +88,7 @@ app
 			                $btn.blur();
 			            }
 			        });
+
 				}
 
 				$scope.login = function( data ){
