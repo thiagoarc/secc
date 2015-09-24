@@ -10,6 +10,7 @@ app
 				$scope.usuarioLogin 			= {};
 				$scope.isloading 				= false;
 				$scope.submitting 				= false;
+				$scope.profileUserLogged		= '';
 
 				if( $location.path() == '/' || $location.path() == '/login' ){
 					/* aplication background body */
@@ -149,6 +150,10 @@ app
 						}
 					}); 
 				};
+
+				$scope.getProfile = function(){
+					$scope.profileUserLogged = sessionSrv.get('ang_secc_profile');
+				}
 
 			}
 		]

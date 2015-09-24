@@ -8,6 +8,7 @@ app
 				$scope.totalpurchases = 0;
 				$scope.totalcontract = 0;
 				$scope.totaladditions = 0;
+				$scope.totalprovider = 0;
 
 				$scope.nivelestoqueprodutos = function(){
 					$http.post('/controller/dashboard/nivelestoqueprodutos')
@@ -38,6 +39,13 @@ app
 					var $promise = $http.post('/controller/dashboard/totaladitivos');
 					$promise.then(function(data) {
 						$scope.totaladditions = data.data[0].total;
+					});
+				}
+
+				$scope.totalFornecedores = function(){
+					var $promise = $http.post('/controller/dashboard/totalfornecedores');
+					$promise.then(function(data) {
+						$scope.totalprovider = data.data[0].total;
 					});
 				}
 
