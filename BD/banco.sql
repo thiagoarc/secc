@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.38)
 # Database: secc
-# Generation Time: 2015-09-09 22:14:04 +0000
+# Generation Time: 2015-09-24 14:31:21 +0000
 # ************************************************************
 
 
@@ -31,11 +31,25 @@ CREATE TABLE `aditivo` (
   `numero` varchar(45) DEFAULT NULL,
   `validade` date DEFAULT NULL,
   `valor` decimal(10,2) DEFAULT NULL,
+  `obs` text,
   PRIMARY KEY (`idaditivo`),
   KEY `fk_aditivo_compra1_idx` (`idcontrato`),
-  CONSTRAINT `fk_aditivo_compra1` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_aditivo_contrato` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `aditivo` WRITE;
+/*!40000 ALTER TABLE `aditivo` DISABLE KEYS */;
+
+INSERT INTO `aditivo` (`idaditivo`, `idcontrato`, `numero`, `validade`, `valor`, `obs`)
+VALUES
+	(1,9,'1332444','2016-09-20',10000.00,'teste 2'),
+	(5,9,'2323','2015-09-09',10000.00,NULL),
+	(6,7,'9988726','2015-09-09',12500.00,'Teste observação.'),
+	(7,7,'11225533','2015-09-00',5500.00,'oi'),
+	(8,10,'12344556','2016-09-09',121313.12,'Fase 2');
+
+/*!40000 ALTER TABLE `aditivo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table cidade
@@ -97,8 +111,9 @@ LOCK TABLES `contrato` WRITE;
 
 INSERT INTO `contrato` (`idcontrato`, `idorgao`, `tipo`, `tipoobjetos`, `numerotali`, `dataassinaturatali`, `numeroata`, `numeropregao`, `numeroprocesso`, `validadeata`, `numerocd`, `numeroparecerjuridico`, `datacompra`, `numerocontrato`, `objeto`, `valor`, `validade`, `dataassinatura`, `numeroempenho`)
 VALUES
-	(7,1,1,1,'45345','2015-08-25','98989','878787','09880','2015-08-25',NULL,NULL,NULL,'5552243','obj',1200.00,'2015-08-25','2015-08-25','234234'),
-	(9,NULL,3,1,NULL,NULL,NULL,NULL,NULL,NULL,'111111',NULL,'2015-09-02','111111','obj',100000.98,'2015-09-02','2015-09-02','2323');
+	(7,1,1,2,'45345','2015-09-29','98989','878787','09880','2015-09-29',NULL,NULL,'0000-00-00','5552243','obj',1200.00,'2015-09-29','2015-09-29','234234'),
+	(9,NULL,3,1,NULL,'0000-00-00',NULL,NULL,NULL,'0000-00-00','111111','12345','2015-09-20','111111','obj',100000.98,'2015-09-20','2015-09-20','23234'),
+	(10,1,1,1,'123456','2015-09-09','4321','PRP 123','321','2016-09-09',NULL,NULL,'0000-00-00','2112','Contratação de material de consumo',123.45,'2016-09-09','2015-09-09','2121');
 
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -164,7 +179,10 @@ INSERT INTO `fornecedor_contrato` (`idfornecedor_contrato`, `idfornecedor`, `idc
 VALUES
 	(1,3,9),
 	(2,4,7),
-	(3,2,7);
+	(3,2,7),
+	(4,2,9),
+	(5,4,9),
+	(8,3,10);
 
 /*!40000 ALTER TABLE `fornecedor_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -180,8 +198,10 @@ CREATE TABLE `itens_aditivo` (
   `idaditivo` int(11) NOT NULL,
   `idunidade_medida` int(11) NOT NULL,
   `descricao` varchar(255) NOT NULL,
-  `qtd` int(11) DEFAULT NULL,
+  `qtd` int(11) DEFAULT '0',
+  `qtdordem` int(11) DEFAULT '0',
   `valorunitario` decimal(10,2) DEFAULT NULL,
+  `idfornecedor` int(11) NOT NULL,
   PRIMARY KEY (`iditens_aditivo`),
   KEY `fk_itens_aditivo_aditivo1_idx` (`idaditivo`),
   KEY `fk_itens_aditivo_unidade_medida1_idx` (`idunidade_medida`),
@@ -189,6 +209,16 @@ CREATE TABLE `itens_aditivo` (
   CONSTRAINT `fk_itens_aditivo_unidade_medida1` FOREIGN KEY (`idunidade_medida`) REFERENCES `unidade_medida` (`idunidade_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `itens_aditivo` WRITE;
+/*!40000 ALTER TABLE `itens_aditivo` DISABLE KEYS */;
+
+INSERT INTO `itens_aditivo` (`iditens_aditivo`, `idaditivo`, `idunidade_medida`, `descricao`, `qtd`, `qtdordem`, `valorunitario`, `idfornecedor`)
+VALUES
+	(6,5,1,'Pendrive de 256gb',10,10,1000.00,3),
+	(8,1,1,'Pendrive de 256gb',20,15,1000.00,3);
+
+/*!40000 ALTER TABLE `itens_aditivo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table itens_contrato
@@ -200,7 +230,8 @@ CREATE TABLE `itens_contrato` (
   `iditens_contrato` int(11) NOT NULL AUTO_INCREMENT,
   `idcontrato` int(11) NOT NULL,
   `descricao` varchar(255) NOT NULL,
-  `qtd` int(11) DEFAULT NULL,
+  `qtd` int(11) DEFAULT '0',
+  `qtdordem` int(11) DEFAULT '0',
   `valorunitario` decimal(10,2) DEFAULT NULL,
   `idunidade_medida` int(11) NOT NULL,
   `idfornecedor` int(11) NOT NULL,
@@ -216,9 +247,12 @@ CREATE TABLE `itens_contrato` (
 LOCK TABLES `itens_contrato` WRITE;
 /*!40000 ALTER TABLE `itens_contrato` DISABLE KEYS */;
 
-INSERT INTO `itens_contrato` (`iditens_contrato`, `idcontrato`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `idfornecedor`)
+INSERT INTO `itens_contrato` (`iditens_contrato`, `idcontrato`, `descricao`, `qtd`, `qtdordem`, `valorunitario`, `idunidade_medida`, `idfornecedor`)
 VALUES
-	(1,9,'Pendrive de 256gb',20,1000.00,1,3);
+	(1,9,'Pendrive de 256gb',20,20,1000.00,1,3),
+	(2,10,'Borracha de Silicone',25,15,2.50,1,3),
+	(9,10,'Apontador Faber Castel Preto',25,15,1.00,1,3),
+	(10,10,'Mouse sem fio - Microsoft',10,7,25.00,1,3);
 
 /*!40000 ALTER TABLE `itens_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -236,6 +270,7 @@ CREATE TABLE `itens_ordem_servico` (
   `qtd` int(11) DEFAULT NULL,
   `valorunitario` decimal(10,2) DEFAULT NULL,
   `idunidade_medida` int(11) NOT NULL,
+  `iditens_contratoaditivo` int(11) DEFAULT '0',
   PRIMARY KEY (`iditens_ordem_servico`),
   KEY `fk_itens_ordem_servico_ordem_servico1_idx` (`idordem_servico`),
   KEY `fk_itens_ordem_servico_unidade_medida1_idx` (`idunidade_medida`),
@@ -243,6 +278,17 @@ CREATE TABLE `itens_ordem_servico` (
   CONSTRAINT `fk_itens_ordem_servico_unidade_medida1` FOREIGN KEY (`idunidade_medida`) REFERENCES `unidade_medida` (`idunidade_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `itens_ordem_servico` WRITE;
+/*!40000 ALTER TABLE `itens_ordem_servico` DISABLE KEYS */;
+
+INSERT INTO `itens_ordem_servico` (`iditens_ordem_servico`, `idordem_servico`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `iditens_contratoaditivo`)
+VALUES
+	(12,6,'Apontador Faber Castel Preto',10,1.00,1,9),
+	(13,6,'Borracha de Silicone',10,2.50,1,2),
+	(14,6,'Mouse sem fio - Microsoft',3,25.00,1,10);
+
+/*!40000 ALTER TABLE `itens_ordem_servico` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table ordem_servico
@@ -252,13 +298,21 @@ DROP TABLE IF EXISTS `ordem_servico`;
 
 CREATE TABLE `ordem_servico` (
   `idordem_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `idcontrato` int(11) NOT NULL,
   `datasolicitacao` date DEFAULT NULL,
-  PRIMARY KEY (`idordem_servico`),
-  KEY `fk_ordem_servico_contrato1_idx` (`idcontrato`),
-  CONSTRAINT `fk_ordem_servico_contrato1` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `idcontratoaditivo` int(11) DEFAULT NULL,
+  `tipo` int(10) DEFAULT NULL COMMENT '1 - Contrato | 2 - Aditivo',
+  PRIMARY KEY (`idordem_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `ordem_servico` WRITE;
+/*!40000 ALTER TABLE `ordem_servico` DISABLE KEYS */;
+
+INSERT INTO `ordem_servico` (`idordem_servico`, `datasolicitacao`, `idcontratoaditivo`, `tipo`)
+VALUES
+	(6,'2015-09-23',10,1);
+
+/*!40000 ALTER TABLE `ordem_servico` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table orgao
@@ -291,25 +345,115 @@ DROP TABLE IF EXISTS `produto`;
 
 CREATE TABLE `produto` (
   `idproduto` int(11) NOT NULL AUTO_INCREMENT,
+  `idfornecedor` int(11) NOT NULL,
   `idunidade_medida` int(11) NOT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `descricao` varchar(200) DEFAULT NULL,
-  `marca` varchar(100) DEFAULT NULL,
+  `descricao` varchar(250) DEFAULT NULL,
+  `valorunitario` decimal(10,2) DEFAULT NULL,
+  `qtdminima` int(11) DEFAULT '0',
+  `qtdatual` int(11) DEFAULT '0',
+  `datacadastro` datetime DEFAULT NULL,
+  `dataatualizacao` datetime DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idproduto`),
+  KEY `fk_produto_fornecedor1_idx` (`idfornecedor`),
   KEY `fk_produto_unidade_medida1_idx` (`idunidade_medida`),
+  CONSTRAINT `fk_produto_fornecedor1` FOREIGN KEY (`idfornecedor`) REFERENCES `fornecedor` (`idfornecedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_unidade_medida1` FOREIGN KEY (`idunidade_medida`) REFERENCES `unidade_medida` (`idunidade_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
 
-INSERT INTO `produto` (`idproduto`, `idunidade_medida`, `nome`, `descricao`, `marca`)
+INSERT INTO `produto` (`idproduto`, `idfornecedor`, `idunidade_medida`, `descricao`, `valorunitario`, `qtdminima`, `qtdatual`, `datacadastro`, `dataatualizacao`, `idusuario`)
 VALUES
-	(1,2,'iPhone 6','Celular','Apple'),
-	(2,2,'Honda City','Carro 1.5','Honda');
+	(1,2,1,'Caneta BIC',10.00,1,10,'2015-09-21 00:00:00','2015-09-21 00:00:00',1),
+	(4,2,2,'Borracha BIC',15.00,3,12,'2015-09-21 00:00:00','2015-09-21 16:36:49',1),
+	(5,2,2,'Apontador BIC',25.00,5,25,'2015-09-21 00:00:00','2015-09-21 00:00:00',1),
+	(6,3,1,'Apontador Faber Castel Preto',1.00,5,3,NULL,NULL,NULL),
+	(7,3,1,'Borracha de Silicone',2.50,2,1,NULL,NULL,NULL),
+	(8,3,1,'Mouse sem fio - Microsoft',25.00,6,5,NULL,NULL,NULL),
+	(9,3,1,'Pendrive de 256gb',1000.00,5,2,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table saida
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `saida`;
+
+CREATE TABLE `saida` (
+  `idsaida` int(11) NOT NULL AUTO_INCREMENT,
+  `datasaida` datetime DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idsaida`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table saida_produto
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `saida_produto`;
+
+CREATE TABLE `saida_produto` (
+  `idsaida_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `saida_idsaida` int(11) NOT NULL,
+  `produto_idproduto` int(11) NOT NULL,
+  `qtd` int(11) NOT NULL,
+  PRIMARY KEY (`idsaida_produto`),
+  KEY `fk_saida_has_produto_produto1_idx` (`produto_idproduto`),
+  KEY `fk_saida_has_produto_saida1_idx` (`saida_idsaida`),
+  CONSTRAINT `fk_saida_has_produto_produto1` FOREIGN KEY (`produto_idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_saida_has_produto_saida1` FOREIGN KEY (`saida_idsaida`) REFERENCES `saida` (`idsaida`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table solicitacao
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `solicitacao`;
+
+CREATE TABLE `solicitacao` (
+  `idsolicitacao` int(11) NOT NULL AUTO_INCREMENT,
+  `datasolicitacao` datetime DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `deferido` varchar(3) DEFAULT NULL,
+  `motivo` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`idsolicitacao`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `solicitacao` WRITE;
+/*!40000 ALTER TABLE `solicitacao` DISABLE KEYS */;
+
+INSERT INTO `solicitacao` (`idsolicitacao`, `datasolicitacao`, `idusuario`, `deferido`, `motivo`)
+VALUES
+	(1,'2015-09-21 00:00:00',1,'sim',NULL),
+	(2,'2015-09-24 00:00:00',1,'não','Acabou o Estoque.');
+
+/*!40000 ALTER TABLE `solicitacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table solicitacao_produto
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `solicitacao_produto`;
+
+CREATE TABLE `solicitacao_produto` (
+  `idsolicitacao_produto` int(11) NOT NULL,
+  `idsolicitacao` int(11) NOT NULL,
+  `idproduto` int(11) NOT NULL,
+  `qtd` int(11) NOT NULL,
+  PRIMARY KEY (`idsolicitacao_produto`),
+  KEY `fk_solicitacao_has_produto_produto1_idx` (`idproduto`),
+  KEY `fk_solicitacao_has_produto_solicitacao1_idx` (`idsolicitacao`),
+  CONSTRAINT `fk_solicitacao_has_produto_produto1` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_solicitacao_has_produto_solicitacao1` FOREIGN KEY (`idsolicitacao`) REFERENCES `solicitacao` (`idsolicitacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Dump of table uf
@@ -381,8 +525,9 @@ LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `perfil`, `liberado`)
 VALUES
 	(1,'Jaisson Santos','jaissonssantos@gmail.com','ab5f505601d22946514ef4de8a45345574e7414b',1,1),
-	(2,'Gestor de Contrato','gestor@ac.gov.br','40bd001563085fc35165329ea1ff5c5ecbdbbeef',5,1),
-	(3,'Thiago Chaves','thiagoarc@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1);
+	(2,'Gestor de Contrato','gestor@ac.gov.br','40bd001563085fc35165329ea1ff5c5ecbdbbeef',3,1),
+	(3,'Thiago Chaves','thiagoarc@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1),
+	(4,'Richard Oliveira','richardzero@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1);
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -461,7 +606,32 @@ VALUES
 	(55,'/contrato/fornecedor',3),
 	(56,'/contrato/aditivos',1),
 	(57,'/contrato/aditivos',2),
-	(58,'/contrato/aditivos',3);
+	(58,'/contrato/aditivos',3),
+	(59,'/contrato/aditivos/add',1),
+	(60,'/contrato/aditivos/add',2),
+	(61,'/contrato/aditivos/add',3),
+	(62,'/contrato/aditivos/edit',1),
+	(63,'/contrato/aditivos/edit',2),
+	(64,'/contrato/aditivos/edit',3),
+	(65,'/app',4),
+	(66,'/usuario',4),
+	(67,'/usuario/add',4),
+	(68,'/usuario/edit',4),
+	(69,'/unidademedida',4),
+	(70,'/unidademedida/add',4),
+	(71,'/unidademedida/edit',4),
+	(72,'/fornecedor',4),
+	(73,'/fornecedor/add',4),
+	(74,'/fornecedor/edit',4),
+	(75,'/produto',4),
+	(76,'/produto/add',4),
+	(77,'/produto/edit',4),
+	(78,'/contrato',4),
+	(79,'/contrato/add',4),
+	(80,'/contrato/edit',4),
+	(81,'/compras',4),
+	(82,'/estoque',4),
+	(83,'/relatorio',4);
 
 /*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
