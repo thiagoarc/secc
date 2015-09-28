@@ -5,13 +5,16 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
+$idusuario = 1;
+
 try{
 
 	if( $params->idproduto != '' ){
 
-		$stmt = $oConexao->prepare("UPDATE produto SET qtdminima = :qtdminima, qtdatual = :qtdatual WHERE idproduto = :idproduto");  
+		$stmt = $oConexao->prepare("UPDATE produto SET qtdminima = :qtdminima, qtdatual = :qtdatual, dataatualizacao = now(), idusuario = :idusuario WHERE idproduto = :idproduto");  
 		$stmt->bindParam('qtdminima', $params->qtdminima);
 		$stmt->bindParam('qtdatual', $params->qtdatual);
+		$stmt->bindParam('idusuario', $idusuario);
 		$stmt->bindParam('idproduto', $params->idproduto);
 		$stmt->execute();
 		$oConexao = null;

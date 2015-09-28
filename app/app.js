@@ -109,6 +109,36 @@ app.config( function($routeProvider, $locationProvider){
 				}
 			}
 		)
+
+		.when('/solicitacaouser/edit/:idsolicitacao',
+			{ 
+				templateUrl: 'views/solicitacaouser/formularioed.html',
+				controller: 'solicitacaoUserCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacaouser/solicitacaoUserCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/solicitacaouser/detalhes/:idsolicitacao',
+			{ 
+				templateUrl: 'views/solicitacaouser/detalhes.html',
+				controller: 'solicitacaoUserCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacaouser/solicitacaoUserCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
 		
 		.when('/produto',
 			{ 

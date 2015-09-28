@@ -180,7 +180,7 @@ app
 						$scope.isloading = true;
 
 						//atualiza o estoque
-						$scope.produto.qtdatual = $scope.produto.qtdatual + $scope.produto.qtdadd;
+						$scope.produto.qtdatual = parseInt($scope.produto.qtdatual) + parseInt($scope.produto.qtdadd);
 
 						//via http
 						$http.post('/controller/entrada/updateestoque', $scope.produto )

@@ -1,0 +1,125 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Minhas solicitações <small>visualize, edite ou crie novas solicitações de material</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/solicitacaouser">Minhas Solicitações</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4">
+							<form ng-show="totalItems">
+						    	<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
+							      </div>      
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-8">
+							<a href="#!/solicitacaouser/add" class="btn btn-success btn-sm pull-right">
+								<i class="glyphicon glyphicon-plus"></i> Adicionar
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div class="table-responsive" ng-show="totalItems > 0"  ng-init="load()">
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="20%" >Número Solicitação</th>
+								<th width="20%" >Data</th>
+								<th width="20%" >Situação</th>
+								<th width="39%"></th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="solicitacao in solicitacoes | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td>{{solicitacao.idsolicitacao}}</td>
+									<td>{{solicitacao.datasolicitacao  | date:'dd/MM/yyyy'}}</td>
+									<td>
+										<a ng-show="solicitacao.deferido == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
+										<a ng-show="solicitacao.deferido == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
+										<a ng-show="solicitacao.deferido == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
+										<a ng-show="solicitacao.deferido == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
+									</td>
+									<td>
+										<a class="btn btn-default btn-sm" href="javascript:;" ng-click="detalhes(solicitacao)"><i class="glyphicon glyphicon-trash"></i> Detalhes</a> 
+										<a ng-show="solicitacao.deferido == 'Aguardando'" class="btn btn-info btn-sm" href="#!/solicitacaouser/edit/{{solicitacao.idsolicitacao}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a> 
+										<a ng-show="solicitacao.deferido == 'Aguardando'" class="btn btn-danger btn-sm" href="javascript:;" ng-click="cancelar(solicitacao.idsolicitacao)"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+					</div>
+
+					<div class="col-md-12" ng-show="!totalItems">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum item encontrado.</td>
+				        	</tr>
+				        </table>
+				        </div>
+				    </div>
+
+				</div>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
