@@ -17,13 +17,13 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Minhas solicitações <small>visualize, edite ou crie novas solicitações de material</small>
+                Solicitações Realizadas <small>gerencie as solicitações realizadas de material</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>Dashboard</li>
-                <li><a class="link-effect" href="#!/solicitacaouser">Minhas Solicitações</a></li>
+                <li><a class="link-effect" href="#!/solicitacao">Solicitações Realizadas</a></li>
             </ol>
         </div>
     </div>
@@ -55,9 +55,9 @@
 						    </form>
 						</div><!-- search table -->
 						<div class="col-sm-8">
-							<a href="#!/solicitacaouser/add" class="btn btn-success btn-sm pull-right">
+							<!--<a href="#!/solicitacaouser/add" class="btn btn-success btn-sm pull-right">
 								<i class="glyphicon glyphicon-plus"></i> Adicionar
-							</a>
+							</a>-->
 						</div>
 						<!-- end action add -->
 					</div>
@@ -71,15 +71,19 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="20%" >Número Solicitação</th>
-								<th width="20%" >Data</th>
-								<th width="20%" >Situação</th>
-								<th width="39%"></th>
+								<th width="14%" >Nº Solicitação</th>
+								<th width="20%" >Usuário</th>
+								<th width="20%" >Setor</th>
+								<th width="15%" >Data</th>
+								<th width="15">Status</th>
+								<th width="15%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="solicitacao in solicitacoes | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
 									<td>{{solicitacao.idsolicitacao}}</td>
+									<td>{{solicitacao.nome}}</td>
+									<td>{{solicitacao.sigla}}</td>
 									<td>{{solicitacao.datasolicitacao  | date:'dd/MM/yyyy'}}</td>
 									<td>
 										<a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
@@ -88,8 +92,6 @@
 									</td>
 									<td>
 										<a class="btn btn-default btn-sm" href="javascript:;" ng-click="detalhes(solicitacao)"><i class="glyphicon glyphicon-trash"></i> Detalhes</a> 
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-info btn-sm" href="#!/solicitacaouser/edit/{{solicitacao.idsolicitacao}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a> 
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-danger btn-sm" href="javascript:;" ng-click="cancelar(solicitacao.idsolicitacao)"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
 									</td>
 								</tr>
 							</tbody>

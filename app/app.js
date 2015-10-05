@@ -80,6 +80,36 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/solicitacao',
+			{ 
+				templateUrl: 'views/solicitacao/index.html',
+				controller: 'solicitacaoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacao/solicitacaoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/solicitacao/detalhes/:idsolicitacao',
+			{ 
+				templateUrl: 'views/solicitacao/detalhes.html',
+				controller: 'solicitacaoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/solicitacao/solicitacaoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/solicitacaouser',
 			{ 
 				templateUrl: 'views/solicitacaouser/index.html',

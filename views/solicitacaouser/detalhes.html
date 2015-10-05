@@ -21,15 +21,9 @@
 
                     <div class="form-group">
                         <label for="descricao" class="control-label">Status:</label>
-                        <a ng-show="solicitacao.deferido == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
-                        <a ng-show="solicitacao.deferido == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
-                        <a ng-show="solicitacao.deferido == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
-                        <a ng-show="solicitacao.deferido == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.deferido}}</a>
-                    </div><!-- END INPUT -->
-
-                    <div class="form-group" ng-show="solicitacao.deferido == 'Indeferido'">
-                        <label for="preco" class="control-label">Motivo:</label>
-                        {{solicitacao.motivo}}
+                        <a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+                        <a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+                        <a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
                     </div><!-- END INPUT -->
 
                     <div class="form-group" ng-show="totalItemsP > 0">
@@ -40,13 +34,19 @@
                             <thead>
                                 <th width="1%" >#</th>
                                 <th width="60%" >Produto</th>
-                                <th width="39%" >QTD</th>
+                                <th width="19%" >QTD</th>
+                                <th width="20%" >Status</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="solprod in produtossolicitacao">
                                     <td>{{$index+1}}</td>
                                     <td>{{solprod.produto}}</td>
                                     <td>{{solprod.qtd}}</td>
+                                    <td>
+                                        <a ng-show="solprod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                        <a ng-show="solprod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                        <a ng-show="solprod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -85,8 +85,7 @@
 								<thead>
 									<th width="1%" >#</th>
 									<th width="50%" >Produto</th>
-									<th width="15%" >QTD</th>
-									<th width="15%" >Status</th>
+									<th width="30%" >QTD</th>
 									<th width="19%"></th>
 							</thead>
 							<tbody>
@@ -94,11 +93,6 @@
 									<td>{{$index+1}}</td>
 									<td>{{prod.nome}}</td>
 									<td>{{prod.qtd}}</td>
-									<td>
-                                        <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
-                                        <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
-                                        <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
-                                    </td>
 									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
 										ng-click="removeRow(prod.nome)">
 										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>

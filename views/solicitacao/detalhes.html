@@ -1,0 +1,125 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Solicitações Realizadas <small>gerencie as solicitações realizadas de material</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/solicitacao">Solicitações Realizadas</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow" ng-init="loadsolicitacao()">
+    <div class="block">
+        <div class="row">
+            <div class="col-sm-12">
+
+            <!-- Messages -->
+                <div ng-include="'views/messages.html'"></div>
+                <!-- End Messages -->
+
+                <p></p><!-- clearfixed -->
+
+                <div class="block-content">
+            <h3 class="block-title">Detalhes da Solicitação</h3>
+            <div class="form-group">
+                <label for="nome" class="control-label">Número da Solicitação:</label>
+                {{solicitacao.idsolicitacao}}
+            </div><!-- END INPUT -->
+            <div class="form-group">
+                <label for="nome" class="control-label">Usuário Solicitante:</label>
+                {{solicitacao.nome}}
+            </div><!-- END INPUT -->
+            <div class="form-group">
+                <label for="nome" class="control-label">Setor:</label>
+                {{solicitacao.sigla}}
+            </div><!-- END INPUT -->
+            <div class="form-group">
+                <label for="nome" class="control-label">Data Solicitação:</label>
+                {{solicitacao.datasolicitacao}}
+            </div><!-- END INPUT -->
+            <div class="form-group">
+                <label for="descricao" class="control-label">Status:</label>
+                <a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+                <a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+                <a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+            </div><!-- END INPUT -->
+            <div class="form-group" ng-show="totalItemsP > 0">
+                <fieldset >
+                    <legend>Produtos da Solicitação</legend>
+                    <div class="table-responsive" >
+                        <table class="table table-striped">
+                            <thead>
+                                <th width="1%" >#</th>
+                                <th width="30%" >Produto</th>
+                                <th width="20%" >Solicitada</th>
+                                <th width="20%" >Em Estoque</th>
+                                <th width="10%" >Status</th>
+                                <th width="19%" ></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="solprod in produtossolicitacao">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{solprod.produto}}</td>
+                                    <td>{{solprod.qtd}}</td>
+                                    <td>{{solprod.qtdatual}}</td>
+                                    <td>
+                                        <a ng-show="solprod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">Aguardando</a>
+                                        <a ng-show="solprod.status == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">Deferido</a>
+                                        <a ng-show="solprod.status == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">Indeferido</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" ng-show="solprod.status == 'Aguardando'" href="javascript:;" ng-click="deferirconfirm(solprod)"><i class="glyphicon glyphicon-ok"></i> Deferir</a>
+                                        <a class="btn btn-danger btn-sm" ng-show="solprod.status == 'Aguardando'" href="javascript:;" ng-click="indeferirconfirm(solprod)"><i class="glyphicon glyphicon-trash"></i> Indeferir</a>
+                                        </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <!--<button class="btn btn-success" ng-show="solicitacao.deferido == 'Aguardando'" ng-click="deferir()">Deferir</button>-->
+        <button class="btn btn-danger" ng-show="solicitacao.status == 'Aguardando'" ng-click="finalizar()">Finalizar Solicitação</button>
+        <a class="btn btn-warning" href="#!/solicitacao">Voltar</a>
+        <!--<button class="btn btn-warning" ng-click="cancel()">Fechar</button>-->
+    </div>
+
+            </div><!-- end col-sm-12 -->
+        </div><!-- end row -->
+    </div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
