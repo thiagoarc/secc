@@ -110,6 +110,51 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/saida',
+			{ 
+				templateUrl: 'views/saida/index.html',
+				controller: 'saidaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saida/saidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/saida/add',
+			{ 
+				templateUrl: 'views/saida/formulario.html',
+				controller: 'saidaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saida/saidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/saida/detalhes/:idsaida',
+			{ 
+				templateUrl: 'views/saida/detalhes.html',
+				controller: 'saidaCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saida/saidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/solicitacaouser',
 			{ 
 				templateUrl: 'views/solicitacaouser/index.html',
