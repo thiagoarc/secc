@@ -13,6 +13,7 @@ define("DB_HOST","localhost");
 define("DB_NAME","secc");
 define("DB_USER","root");
 define("DB_PASS","root");
+define("SALT","L0tw6oTnB7"); //nunca mudar
 
 // ADICIONAR CLASSE DE CONECAO
 include_once("Conexao.class.php");

@@ -560,6 +560,7 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/acessonegado', { templateUrl: 'accessdenied.html',  title: 'access denied application' })
 		.when('/404', { templateUrl: '404.html',  title: 'error application' })
 		.otherwise({ redirectTo: '/404' });
 
@@ -619,24 +620,36 @@ app.directive('mdFooter', function(){
 //run application
 app.run(function($rootScope, $location, authenticationSrv){
 	$rootScope.rolespermission = [];
-	
+
 	$rootScope.$on('$routeChangeStart', function (event, next, current){
+		
+		var $roles = 0;
+		var current_url = '';
 
 		var $getrolespermission = authenticationSrv.rolesPermission();
-		// $getrolespermission.then(function(data){
-		// 	for( var i = 0; i < data.data.length; i++ ) {
-		// 		$rootScope.rolespermission.push(data.data[i].roles);
-		// 	}
-		// 	// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
-		// 	if( $rootScope.rolespermission.indexOf( $location.path() ) == -1 ){
-		// 		var connectedsessionLogin = authenticationSrv.isLogged();
-		// 		connectedsessionLogin.then(function(data){
-		// 			if( data.data = 'notauthentified' ){
-		// 				$location.path('/login');
-		// 			}
-		// 		});
-		// 	}
-		// });
+		$getrolespermission.then(function(data){
+			for( var i = 0; i < data.data.length; i++ ) {
+				$rootScope.rolespermission.push(data.data[i].roles);
+			}
+			for( var $key = 0; $key < $rootScope.rolespermission.length; $key++ ){
+				current_url = $location.path();
+				if( current_url.indexOf( $rootScope.rolespermission[$key] ) >= 0  ){
+					$roles++;
+				}
+			}
+			// console.log( $rootScope.rolespermission.indexOf( $location.path() ) );
+			// if( $rootScope.rolespermission.indexOf( $location.path() ) == -1 ){
+			if( $roles >= 1 ){
+				var connectedsessionLogin = authenticationSrv.isLogged();
+				connectedsessionLogin.then(function(data){
+					if( data.data == 'notauthentified' ){
+						$location.path('/login');
+					}
+				});
+			}else{
+				$location.path('/acessonegado');
+			}
+		});
 
 	});
 });
