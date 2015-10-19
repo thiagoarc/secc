@@ -485,7 +485,7 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
-		.when('/os/',
+		.when('/ordemservico',
 			{ 
 				templateUrl: 'views/ordemservico/index.html',
 				controller: 'ordemservicoCtrl',
@@ -500,7 +500,7 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 		
-		.when('/os/add',
+		.when('/ordemservico/add',
 			{ 
 				templateUrl: 'views/ordemservico/formulario.html',
 				controller: 'ordemservicoCtrl',
