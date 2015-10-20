@@ -41,7 +41,7 @@ try{
                                             ("/contrato", :usuario),
                                             ("/contrato/add", :usuario),
                                             ("/contrato/edit", :usuario),
-                                            ("/compras", :usuario),
+                                            ("/ordemservico", :usuario),
                                             ("/estoque", :usuario),
                                             ("/relatorio", :usuario)
                                     ');
@@ -130,7 +130,7 @@ try{
                                             ("/contrato", :usuario),
                                             ("/contrato/add", :usuario),
                                             ("/contrato/edit", :usuario),
-    										("/compras", :usuario),
+    										("/ordemservico", :usuario),
     										("/estoque", :usuario),
     										("/relatorio", :usuario)
     								');

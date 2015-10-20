@@ -646,8 +646,8 @@ app.run(function($rootScope, $location, authenticationSrv){
 						$location.path('/login');
 					}
 				});
-			}else{
-				$location.path('/acessonegado');
+			}else if( $roles <= 0 ){
+				$location.path('/login');
 			}
 		});
 
