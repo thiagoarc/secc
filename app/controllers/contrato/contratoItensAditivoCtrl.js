@@ -163,9 +163,11 @@ app
 						//show loading
 						$scope.isloading = true;
 						//$scope.pegaContrato(itemid);
-						console.log($scope.aditivoItens.iditens_aditivo);
-						console.log($scope.calculaTotalGeralParaEdicao($scope.aditivoItens.iditens_aditivo));
+						//console.log($scope.aditivoItens.iditens_aditivo);
+						//console.log($scope.calculaTotalGeralParaEdicao($scope.aditivoItens.iditens_aditivo));
 						var totalTMP = 0;
+
+						$scope.aditivoItens.idaditivo = itemid;
 						//verifica se o total de itens e igual ou inferior ao total do contrato
 						if($scope.aditivoItens.iditens_aditivo > 0)
 							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.aditivoItens.iditens_aditivo) + ($scope.aditivoItens.qtd*$scope.aditivoItens.valorunitario);
@@ -182,7 +184,7 @@ app
 								$scope.isloading = false;
 								//success
 								//$location.path('/contrato');
-								$scope.loadaditivoitens($scope.aditivoItens.idaditivo);
+								$scope.loadaditivoitens($scope.aditivoItens.itemid);
 								//show message
 								if(data.msg == 'success'){
 									//show message

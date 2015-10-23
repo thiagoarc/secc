@@ -41,9 +41,27 @@ try{
                                             ("/contrato", :usuario),
                                             ("/contrato/add", :usuario),
                                             ("/contrato/edit", :usuario),
+                                            ("/contrato/fornecedor", :usuario),
+                                            ("/contrato/aditivos", :usuario),
+                                            ("/contrato/aditivo/add", :usuario),
+                                            ("/contrato/aditivo/edit", :usuario),
+                                            ("/contrato/aditivos/itens", :usuario),
+                                            ("/contrato/itens", :usuario),
                                             ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
                                             ("/estoque", :usuario),
-                                            ("/relatorio", :usuario)
+                                            ("/relatorio", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario)
+
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
             $stmtPerfil->execute();

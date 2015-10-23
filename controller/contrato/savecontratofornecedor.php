@@ -14,7 +14,7 @@ try{
 		$stmt->execute();
 
 		if($stmt->rowCount() > 0){
-			$msg['msg']         = 'error_existe';
+			$msg['msg']         = 'error';
     		$msg['msg_success'] = 'Este fornecesor já está vinculado.';
     		echo json_encode($msg);			
 		}else{

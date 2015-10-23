@@ -65,7 +65,7 @@ try{
 		$stmt = $oConexao->prepare("INSERT INTO contrato (idorgao, tipo, tipoobjetos, numerotali, dataassinaturatali, numeroata, validadeata, numeropregao, 
 			numeroprocesso, numerocd, numeroparecerjuridico, datacompra, numerocontrato, objeto, valor, validade, dataassinatura, numeroempenho) VALUES 
 		(:idorgao, :tipo, :tipoobjetos, :numerotali, :dataassinaturatali, :numeroata, :validadeata, :numeropregao, 
-			:numeroprocesso, :numerocd, :numeroparacerjuridico, :datacompra, :numerocontrato, :objeto, :valor, :validade, :dataassinatura, :numeroempenho)");  
+			:numeroprocesso, :numerocd, :numeroparecerjuridico, :datacompra, :numerocontrato, :objeto, :valor, :validade, :dataassinatura, :numeroempenho)");  
 		$stmt->bindParam('idorgao', $params->idorgao);
 		$stmt->bindParam('tipo', $params->tipo);
 		$stmt->bindParam('tipoobjetos', $params->tipoobjetos);

@@ -164,8 +164,8 @@ app
 						//show loading
 						$scope.isloading = true;
 						//$scope.pegaContrato(itemid);
-						console.log($scope.contratoItens.iditens_contrato);
-						console.log($scope.calculaTotalGeralParaEdicao($scope.contratoItens.iditens_contrato));
+						//console.log($scope.contratoItens.iditens_contrato);
+						//console.log($scope.calculaTotalGeralParaEdicao($scope.contratoItens.iditens_contrato));
 						var totalTMP = 0;
 						//verifica se o total de itens e igual ou inferior ao total do contrato
 						if($scope.contratoItens.iditens_contrato > 0)
@@ -174,6 +174,7 @@ app
 							totalTMP = $scope.totalgeral + ($scope.contratoItens.qtd*$scope.contratoItens.valorunitario);
 						//console.log(totalTMP);
 						if(totalTMP <= $scope.contrato.valor){
+							//console.log($scope.contratoItens.iditens_contrato);
 							//via http
 							$http.post('/controller/contrato/savecontratoitens', $scope.contratoItens )
 							.success(function(data){
@@ -189,6 +190,7 @@ app
 									//show message
 									appMessages.addMessage(data.msg_success, true, 'success');
 									$scope.contratoItens 				= {};
+									$scope.contratoItens.iditens_contrato 		= 0;
 									$scope.pegaContrato(itemid);
 								}else if(data.msg == 'error_existe'){
 									appMessages.addMessage(data.msg_success, true, 'danger');

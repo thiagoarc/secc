@@ -101,7 +101,7 @@
 									<span ng-switch-default>Editar</span>
 				    				<span ng-switch-when="true">Editando...</span>
 								</button>
-								<button type="reset" class="btn btn-default">
+								<button type="reset" class="btn btn-default" ng-click="contratoItens=''">
 									Limpar
 								</button>
 							</div>
@@ -150,7 +150,7 @@
 						</div><!-- END INPUT -->
 						<div>Total Geral: {{totalgeral  | finance:true:2}}</div>
 						</fieldset>
-					<a href="#!/contrato" class="btn btn-danger">Cancelar</a>
+					<a href="#!/contrato" class="btn btn-danger">Voltar</a>
 
 					<p></p><!-- clearfixed -->
 

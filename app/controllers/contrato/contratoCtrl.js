@@ -6,6 +6,7 @@ app
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
 				$scope.contrato 			= {};
+				$scope.contratoItens 		= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -15,6 +16,10 @@ app
 			    $scope.modalItem			= '';
 			    $scope.tipoDetalhe1			= false;
 			    $scope.tipoDetalhe2			= false;
+			    $scope.itenscadastrados 	= [];
+			    $scope.totalgeral 			= 0;
+			    $scope.totalItemsD			= 0;
+			    $scope.qtdAditivos			= 0;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -97,6 +102,8 @@ app
 			    		$scope.tipoDetalhe2			= true;
 			    		console.log("2 - "+$scope.tipoDetalhe2);
 					}
+					//console.log(contrato.idcontrato);
+					//$scope.loadcontratositens(contrato.idcontrato);
 
 					var modalInstance = $modal.open({
 						size: 'lg',
@@ -104,6 +111,30 @@ app
 						controller: function( $scope, $modalInstance, contratoRS ){
 
 							$scope.contrato = contratoRS;
+							//busca os itens cadastrados neste contrato
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/contratoitens',
+								data: { id: $scope.contrato.idcontrato } 
+							}).success(function(data){
+								$scope.itenscadastrados = data;
+								//$scope.calculaTotalGeral();
+								$scope.totalItemsD = $scope.itenscadastrados.length;
+								//faz o somatorio do total geral
+								$scope.totalgeral 			= 0; 
+								angular.forEach($scope.itenscadastrados, function(item) {
+									$scope.totalgeral += parseFloat(item.total);
+								});
+							});
+							//pega a qtd de aditivos do contrato
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/getQTDAditivos',
+								data: { id: $scope.contrato.idcontrato } 
+							}).success(function(data){
+								$scope.qtdAditivos = data.qtd;
+							});
+
 							$scope.cancel = function(){
 								$modalInstance.dismiss('cancel');
 							}
@@ -114,6 +145,36 @@ app
 								return contrato;
 							}
 						}
+					});
+				}
+
+				$scope.loadcontratositens = function(idcontrato){
+					
+					//$scope.contratoItens.idcontrato = idcontrato;
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/contratoitens',
+						data: { id: idcontrato } 
+					}).success(function(data){
+						//console.log(data);
+						$scope.itenscadastrados = data;
+						$scope.calculaTotalGeral();
+						//$scope.currentPage = 1; //current page
+						//$scope.entryLimit = 20; //max no of items to display in a page
+						//$scope.filteredItems = $scope.itenscadastrados.length; //Initially for no filter
+						$scope.totalItemsD = $scope.itenscadastrados.length;
+						console.log($scope.totalItemsD);
+  						//$scope.numPerPage = 20;
+					});
+
+				};
+
+				$scope.calculaTotalGeral = function(){
+					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
+					$scope.totalgeral 			= 0; 
+					angular.forEach($scope.itenscadastrados, function(item) {
+						//console.log(item.total);
+						$scope.totalgeral += parseFloat(item.total);
 					});
 				}
 
@@ -196,6 +257,9 @@ app
 						})
 						.error(function(error){
 							console.log(error);
+							$scope.submitting = false;
+							//hide loading
+							$scope.isloading = false;
 						});
 
 					}

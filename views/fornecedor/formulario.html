@@ -58,6 +58,7 @@
 								<label for="cnpj" class="control-label">CNPJ:<span class="red">*</span></label>
 								<input type="text" class="form-control" ng-model="fornecedor.cnpj" name="cnpj" placeholder="Informe o cnpj do fornecedor" ui-br-cnpj-mask required>
 								<span class="help-block" ng-show="createForm.cnpj.$dirty && createForm.cnpj.$error.required">O campo é obrigatório</span>
+								<span class="help-block" ng-show="createForm.cnpj.$invalid">O CNPJ tem que ser válido.</span>
 							</div>
 							<div class="col-sm-9">
 								<label for="responsavel" class="control-label">Responsável: <span class="red">*</span></label>

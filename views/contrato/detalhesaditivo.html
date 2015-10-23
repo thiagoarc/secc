@@ -1,0 +1,86 @@
+<section>
+    <div class="block block-themed block-transparent remove-margin-b">
+        <div class="block-header bg-primary-dark">
+            <ul class="block-options">
+                <li>
+                    <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
+                </li>
+            </ul>
+            <h3 class="block-title">Detalhes do Aditivo</h3>
+        </div>
+        <div class="block-content">
+            <div class="row form-group">
+                <div class="col-sm-6">
+                    <label for="nome" class="control-label">Número do Contrato:</label>
+                    {{contratoAditivo.numerocontrato}}
+                </div>
+                <div class="col-sm-6">
+                    <label for="cnpj" class="control-label">Numero do Aditivo:</label>
+                    {{contratoAditivo.numero}}
+                </div>
+            </div><!-- END INPUT -->
+            <div class="form-group">
+                <fieldset>
+                    <legend>Informações Básicas do Aditivo</legend>
+                    <div class="col-sm-6">
+                        <label for="telefone" class="control-label">Validade:</label>
+                        {{contratoAditivo.validade}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email" class="control-label">Valor:</label>
+                        {{contratoAditivo.valor  | finance:true:2}}
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="celular" class="control-label">Observação:</label>
+                        {{contratoAditivo.obs}}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group" ng-init="loadcontratositens(contrato.idcontrato);">
+                <fieldset>
+                    <legend>Itens Vinculados do Contrato</legend>
+                        <div class="row form-group">
+                            <div class="table-responsive" ng-show="totalItemsD > 0">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th width="1%" >#</th>
+                                        <th width="25%" >Descrição</th>
+                                        <th width="25"> Fornecedor</th>
+                                        <th width="12%" >Unidade Medida</th>
+                                        <th width="11%" >QTD</th>
+                                        <th width="13%" >Valor Unitário</th>
+                                        <th width="13%" >Total</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in itenscadastrados | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{item.descricao}}</td>
+                                            <td>{{item.razaosocial}}</td>
+                                            <td>{{item.sigla}}</td>
+                                            <td>{{item.qtd}}</td>
+                                            <td>{{item.valorunitario  | finance:true:2}}</td>
+                                            <td>{{item.total  | finance:true:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+                            </div>
+
+                            <div class="col-md-12" ng-show="!totalItemsD">
+                                <table class="table">
+                                    <tr>
+                                        <td colspan="7">Nenhum item vinculado.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div><!-- END INPUT -->
+                    <div ng-show="totalItemsD > 0">Total Geral: {{totalgeral  | finance:true:2}}</div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Fechar</button>
+    </div>
+</section>
+<!-- end modal -->

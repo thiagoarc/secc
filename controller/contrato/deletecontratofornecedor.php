@@ -6,7 +6,6 @@ $oConexao = Conexao::getInstance();
 $id = $_GET['id'];
 
 try{
-
 		$stmt = $oConexao->prepare("DELETE FROM fornecedor_contrato WHERE idfornecedor_contrato = :id");  
 		$stmt->bindParam('id', $id);
 		$stmt->execute();

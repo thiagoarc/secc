@@ -16,6 +16,10 @@ app
 			    $scope.modalItem			= '';
 			    $scope.newcontrato			= null;
 			    $scope.idcontrato			= null;
+			    $scope.itenscadastrados 	= [];
+			    $scope.totalgeral 			= 0;
+			    $scope.totalItemsD			= 0;
+			    $scope.qtdAditivos			= 0;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -73,7 +77,7 @@ app
 				      	controller: function ($scope, $modalInstance, contratos) {
 				      	
 					      	$scope.contrato = contratos;
-					      	$scope.modalItem =  "de número de contrato: "+contratos.numerocontrato;
+					      	$scope.modalItem =  "de número: "+contratos.numero;
 					      	
 					      	$scope.ok = function () {
 							    $modalInstance.close($scope.contrato);
@@ -100,7 +104,7 @@ app
 				};
 
 				$scope.aditivaritens = function(contratoAditivo){
-					alert(contratoAditivo.idcontrato);
+					//alert(contratoAditivo.idcontrato);
 					$http({
 						method: 'POST',
 						url: '/controller/contrato/copiaitens',
@@ -110,6 +114,8 @@ app
 						if(data.msg == 'success'){
 							$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
 							appMessages.addMessage(data.msg_success, true, 'success');
+						}else if(data.msg == 'success1'){	
+							$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
 						}else if(data.msg == 'warning'){
 								$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
 								appMessages.addMessage("O contrato não possui itens cadastrados", true, 'warning');
@@ -121,22 +127,60 @@ app
 				};
 
 				//modal detahes
-				$scope.detalhes = function(contratoAditivo){
+				// $scope.detalhes = function(contratoAditivo){
+
+				// 	var modalInstance = $modal.open({
+				// 		size: 'lg',
+				// 		templateUrl: 'views/contrato/detalhesaditivo.html',
+				// 		controller: function( $scope, $modalInstance, contratoRS ){
+
+				// 			$scope.contratoAditivo = contratoAditivo;
+				// 			$scope.cancel = function(){
+				// 				$modalInstance.dismiss('cancel');
+				// 			}
+
+				// 		},
+				// 		resolve: {
+				// 			contratoAditivo: function(){
+				// 				return contratoAditivo;
+				// 			}
+				// 		}
+				// 	});
+				// }
+
+				//modal detahes
+				$scope.detalhes = function(contrato){
 
 					var modalInstance = $modal.open({
 						size: 'lg',
 						templateUrl: 'views/contrato/detalhesaditivo.html',
 						controller: function( $scope, $modalInstance, contratoRS ){
 
-							$scope.contratoAditivo = contratoAditivo;
+							$scope.contratoAditivo = contratoRS;
+							//busca os itens cadastrados neste contrato
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/aditivoitens',
+								data: { id: $scope.contratoAditivo.idaditivo } 
+							}).success(function(data){
+								$scope.itenscadastrados = data;
+								//$scope.calculaTotalGeral();
+								$scope.totalItemsD = $scope.itenscadastrados.length;
+								//faz o somatorio do total geral
+								$scope.totalgeral 			= 0; 
+								angular.forEach($scope.itenscadastrados, function(item) {
+									$scope.totalgeral += parseFloat(item.total);
+								});
+							});
+
 							$scope.cancel = function(){
 								$modalInstance.dismiss('cancel');
 							}
 
 						},
 						resolve: {
-							contratoAditivo: function(){
-								return contratoAditivo;
+							contratoRS: function(){
+								return contrato;
 							}
 						}
 					});
@@ -229,7 +273,7 @@ app
 				$scope.formataData = function(data){
 					if(data != null){
 						var dataFormatada = data.substring(4, 8).toString()+"-"+data.substring(2, 4).toString()+"-"+data.substring(0, 2).toString();
-						alert(dataFormatada);
+						//alert(dataFormatada);
 						return dataFormatada;
 					}else{
 						return "0000-00-00";

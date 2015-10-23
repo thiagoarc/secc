@@ -5,8 +5,8 @@ app
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
-				$scope.contratoFornecedor 				= {};
-				$scope.contrato 				= {};
+				$scope.contratoFornecedor 	= {};
+				$scope.contrato 			= {};
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -75,6 +75,9 @@ app
 						$scope.submitting = true;
 						//show loading
 						$scope.isloading = true;
+
+						//console.log($scope.contratoFornecedor.idfornecedor+" -> "+$scope.contratoFornecedor.idcontrato);
+						$scope.contratoFornecedor.idcontrato = itemid;
 						//via http
 						$http.post('/controller/contrato/savecontratofornecedor', $scope.contratoFornecedor )
 						.success(function(data){
@@ -89,8 +92,6 @@ app
 							if(data.msg == 'success'){
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');
-							}else if(data.msg == 'error_existe'){
-								appMessages.addMessage(data.msg_success, true, 'danger');
 							}else{
 								appMessages.addMessage(data.msg_success, true, 'danger');
 							}
@@ -150,6 +151,7 @@ app
 							}else{
 								appMessages.addMessage(data.msg_success, true, 'danger');
 							}
+							//$scope.contratoFornecedor = {};
 							//show message in 5 seconds
 							$timeout(function(){
 								appMessages.show = false;

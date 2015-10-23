@@ -28,12 +28,12 @@ try{
 		if($qtdA == 0){
 
 			while($row = $stmt->fetch(PDO::FETCH_OBJ)){
-				$rs = $oConexao->prepare("INSERT INTO itens_aditivo (idaditivo, idunidade_medida, descricao, qtd, valorunitario, idfornecedor) VALUES (:idaditivo, :idunidade_medida, :descricao, :qtd, :valorunitario, :idfornecedor)");  
+				$rs = $oConexao->prepare("INSERT INTO itens_aditivo (idaditivo, idunidade_medida, descricao, qtd, valorunitario, idfornecedor) VALUES (:idaditivo, :idunidade_medida, :descricao, 0, 0, :idfornecedor)");  
 				$rs->bindParam('idaditivo', $idaditivo);
 				$rs->bindParam('idunidade_medida', $row->idunidade_medida);
 				$rs->bindParam('descricao', $row->descricao);
-				$rs->bindParam('qtd', $row->qtd);
-				$rs->bindParam('valorunitario', $row->valorunitario);
+				//$rs->bindParam('qtd', $row->qtd);
+				//$rs->bindParam('valorunitario', $row->valorunitario);
 				$rs->bindParam('idfornecedor', $row->idfornecedor);
 				$rs->execute();
 			}
@@ -43,7 +43,7 @@ try{
     		echo json_encode($msg);
     	}else{
     		//$oConexao->commit();
-			$msg['msg']         = 'success';
+			$msg['msg']         = 'success1';
 			$msg['msg_success'] = "";
     		echo json_encode($msg);
     	}
