@@ -50,7 +50,6 @@ try{
                                             ("/ordemservico", :usuario),
                                             ("/ordemservico/add", :usuario),
                                             ("/estoque", :usuario),
-                                            ("/relatorio", :usuario),
                                             ("/entrada", :usuario),
                                             ("/solicitacao", :usuario),
                                             ("/solicitacao/detalhes", :usuario),
@@ -60,18 +59,16 @@ try{
                                             ("/solicitacaouser", :usuario),
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
-                                            ("/solicitacaouser/detalhes", :usuario)
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
 
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
             $stmtPerfil->execute();
-        }else if( $params->perfil == 2 ){ // gestor
+        }else if( $params->perfil == 2 ){ // gestor de contrato
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
-                                            ("/usuario", :usuario),
-                                            ("/usuario/add", :usuario),
-                                            ("/usuario/edit", :usuario),
                                             ("/unidademedida", :usuario),
                                             ("/unidademedida/add", :usuario),
                                             ("/unidademedida/edit", :usuario),
@@ -88,25 +85,59 @@ try{
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
             $stmtPerfil->execute();
-        }else{ //observaor
+        }else if( $params->perfil == 3 ){ //gestor de compras
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
-                                            ("/usuario", :usuario),
-                                            ("/usuario/add", :usuario),
-                                            ("/usuario/edit", :usuario),
-                                            ("/unidademedida", :usuario),
-                                            ("/unidademedida/add", :usuario),
-                                            ("/unidademedida/edit", :usuario),
-                                            ("/fornecedor", :usuario),
-                                            ("/fornecedor/add", :usuario),
-                                            ("/fornecedor/edit", :usuario),
-                                            ("/produto", :usuario),
-                                            ("/produto/add", :usuario),
-                                            ("/produto/edit", :usuario),
-                                            ("/contrato", :usuario),
-                                            ("/contrato/add", :usuario),
-                                            ("/contrato/edit", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+         }else if( $params->perfil == 4 ){ //gestor de estoque
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 5 ){ //gestor de compras/estoque
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 6 ){ //observador
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
                                             ("/relatorio", :usuario)
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
@@ -129,78 +160,128 @@ try{
 		$stmt->execute();
 		$usuario = $oConexao->lastInsertId('idusuario');
 
-		if( $params->perfil == 1 ){ //adminstrador
-			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
-    									VALUES
-    										("/app", :usuario),
-    										("/usuario", :usuario),
-    										("/usuario/add", :usuario),
-    										("/usuario/edit", :usuario),
-    										("/unidademedida", :usuario),
-    										("/unidademedida/add", :usuario),
-    										("/unidademedida/edit", :usuario),
-    										("/fornecedor", :usuario),
-    										("/fornecedor/add", :usuario),
-    										("/fornecedor/edit", :usuario),
-    										("/produto", :usuario),
-    										("/produto/add", :usuario),
-    										("/produto/edit", :usuario),
+		//adicionar permissão do usuário
+        if( $params->perfil == 1 ){ //adminstrador
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/usuario", :usuario),
+                                            ("/usuario/add", :usuario),
+                                            ("/usuario/edit", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
                                             ("/contrato", :usuario),
                                             ("/contrato/add", :usuario),
                                             ("/contrato/edit", :usuario),
-    										("/ordemservico", :usuario),
-    										("/estoque", :usuario),
-    										("/relatorio", :usuario)
-    								');
-		    $stmtPerfil->bindParam('usuario', $usuario);
-		    $stmtPerfil->execute();
-		}else if( $params->perfil == 2 ){ // gestor
-			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
-    									VALUES
-    										("/app", :usuario),
-    										("/usuario", :usuario),
-    										("/usuario/add", :usuario),
-    										("/usuario/edit", :usuario),
-    										("/unidademedida", :usuario),
-    										("/unidademedida/add", :usuario),
-    										("/unidademedida/edit", :usuario),
-    										("/fornecedor", :usuario),
-    										("/fornecedor/add", :usuario),
-    										("/fornecedor/edit", :usuario),
-    										("/produto", :usuario),
-    										("/produto/add", :usuario),
-    										("/produto/edit", :usuario),
+                                            ("/contrato/fornecedor", :usuario),
+                                            ("/contrato/aditivos", :usuario),
+                                            ("/contrato/aditivo/add", :usuario),
+                                            ("/contrato/aditivo/edit", :usuario),
+                                            ("/contrato/aditivos/itens", :usuario),
+                                            ("/contrato/itens", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/estoque", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 2 ){ // gestor de contrato
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
                                             ("/contrato", :usuario),
                                             ("/contrato/add", :usuario),
                                             ("/contrato/edit", :usuario),
-    										("/relatorio", :usuario)
-    								');
-		    $stmtPerfil->bindParam('usuario', $usuario);
-		    $stmtPerfil->execute();
-		}else{ //observaor
-			$stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
-    									VALUES
-    										("/app", :usuario),
-    										("/usuario", :usuario),
-    										("/usuario/add", :usuario),
-    										("/usuario/edit", :usuario),
-    										("/unidademedida", :usuario),
-    										("/unidademedida/add", :usuario),
-    										("/unidademedida/edit", :usuario),
-    										("/fornecedor", :usuario),
-    										("/fornecedor/add", :usuario),
-    										("/fornecedor/edit", :usuario),
-    										("/produto", :usuario),
-    										("/produto/add", :usuario),
-    										("/produto/edit", :usuario),
-                                            ("/contrato", :usuario),
-                                            ("/contrato/add", :usuario),
-                                            ("/contrato/edit", :usuario),
-    										("/relatorio", :usuario)
-    								');
-		    $stmtPerfil->bindParam('usuario', $usuario);
-		    $stmtPerfil->execute();
-		}
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 3 ){ //gestor de compras
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+         }else if( $params->perfil == 4 ){ //gestor de estoque
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 5 ){ //gestor de compras/estoque
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 6 ){ //observador
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }
 
 		$oConexao = null;
 

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.38)
 # Base de Dados: secc
-# Tempo de Gera��o: 2015-10-20 14:11:35 +0000
+# Tempo de Gera��o: 2015-10-26 19:46:34 +0000
 # ************************************************************
 
 
@@ -33,8 +33,7 @@ CREATE TABLE `aditivo` (
   `valor` decimal(10,2) DEFAULT NULL,
   `obs` text,
   PRIMARY KEY (`idaditivo`),
-  KEY `fk_aditivo_compra1_idx` (`idcontrato`),
-  CONSTRAINT `fk_aditivo_contrato` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_aditivo_compra1_idx` (`idcontrato`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `aditivo` WRITE;
@@ -42,11 +41,8 @@ LOCK TABLES `aditivo` WRITE;
 
 INSERT INTO `aditivo` (`idaditivo`, `idcontrato`, `numero`, `validade`, `valor`, `obs`)
 VALUES
-	(1,9,'1332444','2015-09-20',10000.00,'teste 2'),
-	(5,9,'2323','2015-09-09',10000.00,NULL),
-	(6,7,'9988726','2015-09-09',12500.00,'Teste observação.'),
-	(7,7,'11225533','2015-09-00',5500.00,'oi'),
-	(8,10,'12344556','2016-09-09',121313.12,'Fase 2');
+	(13,13,'111111','2016-01-30',50000.00,'Teste de observação de Aditivo.'),
+	(14,14,'9898-1','2018-10-21',1000.00,'Teste');
 
 /*!40000 ALTER TABLE `aditivo` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -111,9 +107,8 @@ LOCK TABLES `contrato` WRITE;
 
 INSERT INTO `contrato` (`idcontrato`, `idorgao`, `tipo`, `tipoobjetos`, `numerotali`, `dataassinaturatali`, `numeroata`, `numeropregao`, `numeroprocesso`, `validadeata`, `numerocd`, `numeroparecerjuridico`, `datacompra`, `numerocontrato`, `objeto`, `valor`, `validade`, `dataassinatura`, `numeroempenho`)
 VALUES
-	(7,1,1,2,'45345','2015-09-29','98989','878787','09880','2015-09-29',NULL,NULL,'0000-00-00','5552243','obj',1200.00,'2015-10-29','2015-09-29','234234'),
-	(9,NULL,3,1,NULL,'0000-00-00',NULL,NULL,NULL,'0000-00-00','111111','12345','2015-09-20','111111','obj',100000.98,'2015-09-20','2015-09-20','23234'),
-	(10,1,1,1,'123456','2015-09-09','4321','PRP 123','321','2016-09-09',NULL,NULL,'0000-00-00','2112','Contratação de material de consumo',123.45,'2016-09-09','2015-09-09','2121');
+	(13,NULL,3,1,NULL,'0000-00-00',NULL,NULL,NULL,'0000-00-00','111111','111111','2015-10-20','111111','Teste de Cadastro de Contrato.',100000.00,'2015-12-31','2015-10-22','111111'),
+	(14,1,2,1,'010101','2015-10-10','10101','919191','909090','2018-10-10',NULL,NULL,'0000-00-00','989898','12121121121',1212.11,'2018-10-20','2015-10-20','818181');
 
 /*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -150,7 +145,9 @@ INSERT INTO `fornecedor` (`idfornecedor`, `idcidade`, `razaosocial`, `cnpj`, `ce
 VALUES
 	(2,1,'TARC Tecnologia','11444777000161','69900643','Rua Dom Bosco',89,NULL,'Bosque','6832248204','6899487908','thiagoarc@gmail.com','Thiago Chaves'),
 	(3,1,'Kambo Tecnologia','12345678910110','69900643','Rua Bartolomeu Bueno',89,NULL,'Bosque','6832248204','6899487908','thiagoarc@gmail.com','Thiago Chaves'),
-	(4,1,'Mil Presentes','53534757000121','69900000','Rua do Centro',90,'e','Centro','6832255555','6899009988','milton@gmail.com','Milton Cruz');
+	(4,1,'Mil Presentes','53534757000121','69900000','Rua do Centro',90,'e','Centro','6832255555','6899009988','milton@gmail.com','Milton Cruz'),
+	(5,1,'Móveis Gazin','11111111000000','69900000','Avenida Getúlio Vargas',1476,NULL,'Bosque','6832246565','6899887766','rufino@gmail.com','Rufino Maia'),
+	(6,1,'Teste em TI','11111111000000','69900000','Rua teste 1',1,'Casa','Teste','6832232323','6899880101','teste@ti.com.br','Teste');
 
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -167,9 +164,7 @@ CREATE TABLE `fornecedor_contrato` (
   `idcontrato` int(11) NOT NULL,
   PRIMARY KEY (`idfornecedor_contrato`),
   KEY `fk_fornecedor_has_contrato_contrato1_idx` (`idcontrato`),
-  KEY `fk_fornecedor_has_contrato_fornecedor1_idx` (`idfornecedor`),
-  CONSTRAINT `fk_fornecedor_has_contrato_contrato1` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fornecedor_has_contrato_fornecedor1` FOREIGN KEY (`idfornecedor`) REFERENCES `fornecedor` (`idfornecedor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_fornecedor_has_contrato_fornecedor1_idx` (`idfornecedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `fornecedor_contrato` WRITE;
@@ -177,12 +172,8 @@ LOCK TABLES `fornecedor_contrato` WRITE;
 
 INSERT INTO `fornecedor_contrato` (`idfornecedor_contrato`, `idfornecedor`, `idcontrato`)
 VALUES
-	(1,3,9),
-	(2,4,7),
-	(3,2,7),
-	(4,2,9),
-	(5,4,9),
-	(8,3,10);
+	(2,2,13),
+	(4,5,14);
 
 /*!40000 ALTER TABLE `fornecedor_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -214,11 +205,14 @@ LOCK TABLES `itens_aditivo` WRITE;
 
 INSERT INTO `itens_aditivo` (`iditens_aditivo`, `idaditivo`, `idunidade_medida`, `descricao`, `qtd`, `valorunitario`, `idfornecedor`, `qtdordem`)
 VALUES
-	(6,5,1,'Pendrive de 256gb',10,1000.00,3,0),
-	(8,1,1,'Pendrive de 256gb',20,1000.00,3,0),
-	(9,8,1,'Borracha de Silicone',25,2.50,3,0),
-	(10,8,1,'Apontador Faber Castel Preto',25,1.00,3,0),
-	(11,8,1,'Mouse sem fio - Microsoft',1,25.00,3,0);
+	(3,13,1,'Mouse sem fio - Microsoft',15,500.00,2,15),
+	(5,13,1,'Monitor de 25 Polegadas - Multilaser',5,1500.00,2,5),
+	(6,13,1,'Nobreak 1500VA - Multilaser',10,550.00,2,10),
+	(7,13,1,'Carregador de Pihas - Multilaser',5,55.00,2,5),
+	(8,13,5,'Cado de Rede CAT6 - Mondial',150,1.50,2,150),
+	(9,13,1,'Crimpador de Cado de Rede',1,150.00,2,1),
+	(10,14,5,'hdhdf',6,12.11,5,6),
+	(12,14,5,'teste',8,100.00,5,8);
 
 /*!40000 ALTER TABLE `itens_aditivo` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -252,10 +246,13 @@ LOCK TABLES `itens_contrato` WRITE;
 
 INSERT INTO `itens_contrato` (`iditens_contrato`, `idcontrato`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `idfornecedor`, `qtdordem`)
 VALUES
-	(1,9,'Pendrive de 256gb',20,1000.00,1,3,0),
-	(2,10,'Borracha de Silicone',25,2.50,1,3,0),
-	(9,10,'Apontador Faber Castel Preto',25,1.00,1,3,0),
-	(10,10,'Mouse sem fio - Microsoft',1,25.00,1,3,0);
+	(1,13,'Memória RAM - 8GB - 1600 - Kingstom',15,500.00,1,2,13),
+	(2,13,'HD 1TR - Samsung',15,1500.00,1,2,14),
+	(3,13,'Mouse sem fio - Microsoft',10,1000.00,1,2,7),
+	(4,13,'Teclado Sem Fio - Multilaser',15,1000.00,1,2,11),
+	(5,14,'hdhdf',6,1.21,5,5,3),
+	(6,14,'Teste',5,120.00,5,5,3),
+	(7,14,'teste',5,8.00,5,5,3);
 
 /*!40000 ALTER TABLE `itens_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -281,6 +278,31 @@ CREATE TABLE `itens_ordem_servico` (
   CONSTRAINT `fk_itens_ordem_servico_unidade_medida1` FOREIGN KEY (`idunidade_medida`) REFERENCES `unidade_medida` (`idunidade_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `itens_ordem_servico` WRITE;
+/*!40000 ALTER TABLE `itens_ordem_servico` DISABLE KEYS */;
+
+INSERT INTO `itens_ordem_servico` (`iditens_ordem_servico`, `idordem_servico`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `iditem_contratoaditivo`)
+VALUES
+	(1,4,'HD 1TR - Samsung',1,1500.00,1,2),
+	(2,4,'Memória RAM - 8GB - 1600 - Kingstom',2,500.00,1,1),
+	(3,4,'Mouse sem fio - Microsoft',3,1000.00,1,3),
+	(4,4,'Teclado Sem Fio - Multilaser',4,1000.00,1,4),
+	(5,5,'hdhdf',1,1.21,5,5),
+	(6,5,'teste',1,8.00,5,7),
+	(7,5,'Teste',1,120.00,5,6),
+	(8,7,'hdhdf',1,1.21,5,5),
+	(9,7,'teste',1,8.00,5,7),
+	(10,7,'Teste',1,120.00,5,6),
+	(11,8,'hdhdf',3,1.21,5,5),
+	(12,8,'teste',2,8.00,5,7),
+	(13,8,'Teste',2,120.00,5,6),
+	(14,9,'HD 1TR - Samsung',1,1500.00,1,2),
+	(15,9,'Memória RAM - 8GB - 1600 - Kingstom',2,500.00,1,1),
+	(16,9,'Mouse sem fio - Microsoft',3,1000.00,1,3),
+	(17,9,'Teclado Sem Fio - Multilaser',4,1000.00,1,4);
+
+/*!40000 ALTER TABLE `itens_ordem_servico` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump da tabela ordem_servico
@@ -296,6 +318,19 @@ CREATE TABLE `ordem_servico` (
   PRIMARY KEY (`idordem_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `ordem_servico` WRITE;
+/*!40000 ALTER TABLE `ordem_servico` DISABLE KEYS */;
+
+INSERT INTO `ordem_servico` (`idordem_servico`, `datasolicitacao`, `idcontratoaditivo`, `tipo`)
+VALUES
+	(4,'2015-10-26',13,1),
+	(5,'2015-10-26',14,1),
+	(7,'2015-10-26',14,1),
+	(8,'2015-10-26',14,1),
+	(9,'2015-10-26',13,1);
+
+/*!40000 ALTER TABLE `ordem_servico` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump da tabela orgao
@@ -349,9 +384,13 @@ LOCK TABLES `produto` WRITE;
 
 INSERT INTO `produto` (`idproduto`, `idfornecedor`, `idunidade_medida`, `descricao`, `valorunitario`, `qtdminima`, `qtdatual`, `datacadastro`, `dataatualizacao`, `idusuario`)
 VALUES
-	(1,2,1,'Caneta BIC',10.00,1,31,'2015-09-21 00:00:00','2015-10-15 09:38:06',1),
-	(4,2,2,'Borracha BIC',15.00,3,30,'2015-09-21 00:00:00','2015-09-21 16:36:49',1),
-	(5,2,2,'Apontador BIC',25.00,5,16,'2015-09-21 00:00:00','2015-09-21 00:00:00',1);
+	(1,2,1,'HD 1TR - Samsung',1500.00,0,0,NULL,NULL,NULL),
+	(2,2,1,'Memória RAM - 8GB - 1600 - Kingstom',500.00,0,0,NULL,NULL,NULL),
+	(3,2,1,'Mouse sem fio - Microsoft',1000.00,0,0,NULL,NULL,NULL),
+	(4,2,1,'Teclado Sem Fio - Multilaser',1000.00,0,0,NULL,NULL,NULL),
+	(5,5,5,'hdhdf',1.21,0,0,NULL,NULL,NULL),
+	(6,5,5,'teste',8.00,0,0,NULL,NULL,NULL),
+	(7,5,5,'Teste',120.00,0,0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -369,17 +408,6 @@ CREATE TABLE `saida` (
   PRIMARY KEY (`idsaida`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `saida` WRITE;
-/*!40000 ALTER TABLE `saida` DISABLE KEYS */;
-
-INSERT INTO `saida` (`idsaida`, `datasaida`, `idusuario`)
-VALUES
-	(2,'2015-10-08 10:42:24',1),
-	(3,'2015-10-08 11:23:12',1),
-	(4,'2015-10-15 09:38:45',1);
-
-/*!40000 ALTER TABLE `saida` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela saida_produto
@@ -399,17 +427,6 @@ CREATE TABLE `saida_produto` (
   CONSTRAINT `fk_saida_has_produto_saida1` FOREIGN KEY (`saida_idsaida`) REFERENCES `saida` (`idsaida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `saida_produto` WRITE;
-/*!40000 ALTER TABLE `saida_produto` DISABLE KEYS */;
-
-INSERT INTO `saida_produto` (`idsaida_produto`, `saida_idsaida`, `produto_idproduto`, `qtd`)
-VALUES
-	(1,2,1,5),
-	(2,3,4,10),
-	(3,4,1,10);
-
-/*!40000 ALTER TABLE `saida_produto` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela setor
@@ -449,18 +466,6 @@ CREATE TABLE `solicitacao` (
   PRIMARY KEY (`idsolicitacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `solicitacao` WRITE;
-/*!40000 ALTER TABLE `solicitacao` DISABLE KEYS */;
-
-INSERT INTO `solicitacao` (`idsolicitacao`, `datasolicitacao`, `idusuario`, `status`, `motivo`)
-VALUES
-	(1,'2015-09-21 00:00:00',1,0,NULL),
-	(2,'2015-09-24 00:00:00',1,2,''),
-	(5,'2015-09-22 11:36:55',1,1,'Acabou o Estoque.'),
-	(6,'2015-09-29 10:57:53',1,1,NULL);
-
-/*!40000 ALTER TABLE `solicitacao` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela solicitacao_produto
@@ -482,23 +487,6 @@ CREATE TABLE `solicitacao_produto` (
   CONSTRAINT `fk_solicitacao_has_produto_solicitacao1` FOREIGN KEY (`idsolicitacao`) REFERENCES `solicitacao` (`idsolicitacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `solicitacao_produto` WRITE;
-/*!40000 ALTER TABLE `solicitacao_produto` DISABLE KEYS */;
-
-INSERT INTO `solicitacao_produto` (`idsolicitacao_produto`, `idsolicitacao`, `idproduto`, `qtd`, `status`, `motivo`)
-VALUES
-	(8,5,5,2,1,NULL),
-	(10,5,4,10,1,NULL),
-	(11,5,1,4,1,NULL),
-	(12,2,1,5,0,NULL),
-	(13,2,5,5,0,NULL),
-	(14,6,1,20,1,'sfdgsdfgsdf'),
-	(15,6,4,20,2,'O material já foi bloqueado.'),
-	(16,6,5,10,1,NULL),
-	(17,1,1,10,0,NULL);
-
-/*!40000 ALTER TABLE `solicitacao_produto` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela uf
@@ -542,8 +530,9 @@ INSERT INTO `unidade_medida` (`idunidade_medida`, `sigla`, `descricao`)
 VALUES
 	(1,'UN','Unidade'),
 	(2,'KG','Quilograma'),
-	(3,'M','Metro'),
-	(4,'CM','Centimetro');
+	(4,'CM','Centimetro'),
+	(5,'M','Metro'),
+	(6,'CX','Caixa');
 
 /*!40000 ALTER TABLE `unidade_medida` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -570,10 +559,12 @@ LOCK TABLES `usuario` WRITE;
 
 INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `perfil`, `liberado`, `idsetor`)
 VALUES
-	(1,'Jaisson Santos','jaissonssantos@gmail.com','ab5f505601d22946514ef4de8a45345574e7414b',1,1,1),
-	(2,'Gestor de Contrato','gestor@ac.gov.br','40bd001563085fc35165329ea1ff5c5ecbdbbeef',3,1,1),
+	(1,'Jaisson Santos','jaissonssantos@gmail.com','ab5f505601d22946514ef4de8a45345574e7414b',5,1,1),
+	(2,'Gestor de Contrato','gestor@ac.gov.br','7c4a8d09ca3762af61e59520943dc26494f8941b',2,1,1),
 	(3,'Thiago Chaves','thiagoarc@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1,1),
-	(4,'Richard Oliveira','richardzero@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1,1);
+	(4,'Richard Oliveira','richardzero@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1,1),
+	(5,'Teste','teste@ti.com.br','682fe8b745dd5442773ba0e687bfa256af1cabe0',5,0,0),
+	(6,'Teste','teste@ac.gov.br','1d4ed28ea7990c050c7189cf25aefd66f06ed1fb',5,0,0);
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -598,20 +589,6 @@ LOCK TABLES `usuario_permissao` WRITE;
 
 INSERT INTO `usuario_permissao` (`idusuario_permissao`, `roles`, `idusuario`)
 VALUES
-	(13,'/app',2),
-	(14,'/usuario',2),
-	(15,'/usuario/add',2),
-	(16,'/usuario/edit',2),
-	(17,'/unidademedida',2),
-	(18,'/unidademedida/add',2),
-	(19,'/unidademedida/edit',2),
-	(20,'/fornecedor',2),
-	(21,'/fornecedor/add',2),
-	(22,'/fornecedor/edit',2),
-	(23,'/produto',2),
-	(24,'/produto/add',2),
-	(25,'/produto/edit',2),
-	(26,'/relatorio',2),
 	(27,'/usuario',3),
 	(28,'/usuario/add',3),
 	(29,'/usuario/edit',3),
@@ -627,61 +604,20 @@ VALUES
 	(39,'/contrato',3),
 	(40,'/contrato/add',3),
 	(41,'/contrato/edit',3),
-	(47,'/contrato',2),
-	(48,'/contrato/add',2),
-	(49,'/contrato/edit',2),
 	(53,'/app',3),
 	(54,'/404',3),
 	(55,'/contrato/fornecedor',3),
-	(57,'/contrato/aditivos',2),
 	(58,'/contrato/aditivos',3),
-	(60,'/contrato/aditivos/add',2),
 	(61,'/contrato/aditivos/add',3),
-	(63,'/contrato/aditivos/edit',2),
 	(64,'/contrato/aditivos/edit',3),
-	(65,'/app',4),
-	(66,'/usuario',4),
-	(67,'/usuario/add',4),
-	(68,'/usuario/edit',4),
-	(69,'/unidademedida',4),
-	(70,'/unidademedida/add',4),
-	(71,'/unidademedida/edit',4),
-	(72,'/fornecedor',4),
-	(73,'/fornecedor/add',4),
-	(74,'/fornecedor/edit',4),
-	(75,'/produto',4),
-	(76,'/produto/add',4),
-	(77,'/produto/edit',4),
-	(78,'/contrato',4),
-	(79,'/contrato/add',4),
-	(80,'/contrato/edit',4),
-	(81,'/compras',4),
-	(82,'/estoque',4),
-	(83,'/relatorio',4),
-	(85,'/solicitacaouser',2),
 	(86,'/solicitacaouser',3),
-	(87,'/solicitacaouser',4),
-	(89,'/solicitacaouser/add',2),
 	(90,'/solicitacaouser/add',3),
-	(91,'/solicitacaouser/add',4),
-	(93,'/solicitacaouser/edit',2),
 	(94,'/solicitacaouser/edit',3),
-	(95,'/solicitacaouser/edit',4),
-	(97,'/solicitacao',2),
 	(98,'/solicitacao',3),
-	(99,'/solicitacao',4),
-	(101,'/solicitacao/detalhes',2),
 	(102,'/solicitacao/detalhes',3),
-	(103,'/solicitacao/detalhes',4),
-	(105,'/saida/add',2),
 	(106,'/saida/add',3),
-	(107,'/saida/add',4),
-	(109,'/saida',2),
 	(110,'/saida',3),
-	(111,'/saida',4),
-	(113,'/saida/detalhes',2),
 	(114,'/saida/detalhes',3),
-	(115,'/saida/detalhes',4),
 	(116,'/app',NULL),
 	(117,'/usuario',NULL),
 	(118,'/usuario/add',NULL),
@@ -701,25 +637,91 @@ VALUES
 	(132,'/compras',NULL),
 	(133,'/estoque',NULL),
 	(134,'/relatorio',NULL),
-	(192,'/app',1),
-	(193,'/usuario',1),
-	(194,'/usuario/add',1),
-	(195,'/usuario/edit',1),
-	(196,'/unidademedida',1),
-	(197,'/unidademedida/add',1),
-	(198,'/unidademedida/edit',1),
-	(199,'/fornecedor',1),
-	(200,'/fornecedor/add',1),
-	(201,'/fornecedor/edit',1),
-	(202,'/produto',1),
-	(203,'/produto/add',1),
-	(204,'/produto/edit',1),
-	(205,'/contrato',1),
-	(206,'/contrato/add',1),
-	(207,'/contrato/edit',1),
-	(208,'/ordemservico',1),
-	(209,'/estoque',1),
-	(210,'/relatorio',1);
+	(300,'/app',4),
+	(301,'/usuario',4),
+	(302,'/usuario/add',4),
+	(303,'/usuario/edit',4),
+	(304,'/unidademedida',4),
+	(305,'/unidademedida/add',4),
+	(306,'/unidademedida/edit',4),
+	(307,'/fornecedor',4),
+	(308,'/fornecedor/add',4),
+	(309,'/fornecedor/edit',4),
+	(310,'/produto',4),
+	(311,'/produto/add',4),
+	(312,'/produto/edit',4),
+	(313,'/contrato',4),
+	(314,'/contrato/add',4),
+	(315,'/contrato/edit',4),
+	(316,'/ordemservico',4),
+	(317,'/estoque',4),
+	(318,'/relatorio',4),
+	(319,'/app',5),
+	(320,'/usuario',5),
+	(321,'/usuario/add',5),
+	(322,'/usuario/edit',5),
+	(323,'/unidademedida',5),
+	(324,'/unidademedida/add',5),
+	(325,'/unidademedida/edit',5),
+	(326,'/fornecedor',5),
+	(327,'/fornecedor/add',5),
+	(328,'/fornecedor/edit',5),
+	(329,'/produto',5),
+	(330,'/produto/add',5),
+	(331,'/produto/edit',5),
+	(332,'/contrato',5),
+	(333,'/contrato/add',5),
+	(334,'/contrato/edit',5),
+	(335,'/relatorio',5),
+	(336,'/app',6),
+	(337,'/usuario',6),
+	(338,'/usuario/add',6),
+	(339,'/usuario/edit',6),
+	(340,'/unidademedida',6),
+	(341,'/unidademedida/add',6),
+	(342,'/unidademedida/edit',6),
+	(343,'/fornecedor',6),
+	(344,'/fornecedor/add',6),
+	(345,'/fornecedor/edit',6),
+	(346,'/produto',6),
+	(347,'/produto/add',6),
+	(348,'/produto/edit',6),
+	(349,'/contrato',6),
+	(350,'/contrato/add',6),
+	(351,'/contrato/edit',6),
+	(352,'/relatorio',6),
+	(370,'/app',2),
+	(371,'/usuario',2),
+	(372,'/usuario/add',2),
+	(373,'/usuario/edit',2),
+	(374,'/unidademedida',2),
+	(375,'/unidademedida/add',2),
+	(376,'/unidademedida/edit',2),
+	(377,'/fornecedor',2),
+	(378,'/fornecedor/add',2),
+	(379,'/fornecedor/edit',2),
+	(380,'/produto',2),
+	(381,'/produto/add',2),
+	(382,'/produto/edit',2),
+	(383,'/contrato',2),
+	(384,'/contrato/add',2),
+	(385,'/contrato/edit',2),
+	(386,'/relatorio',2),
+	(461,'/app',1),
+	(462,'/ordemservico',1),
+	(463,'/ordemservico/add',1),
+	(464,'/relatorio',1),
+	(465,'/entrada',1),
+	(466,'/solicitacao',1),
+	(467,'/solicitacao/detalhes',1),
+	(468,'/saida',1),
+	(469,'/saida/add',1),
+	(470,'/saida/detalhes',1),
+	(471,'/solicitacaouser',1),
+	(472,'/solicitacaouser/add',1),
+	(473,'/solicitacaouser/edit',1),
+	(474,'/solicitacaouser/detalhes',1),
+	(475,'/relatorio',1);
 
 /*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
