@@ -50,13 +50,13 @@
             <!-- END Side Header -->
 
             <!-- Side Content -->
-            <div class="side-content">
-                <ul class="nav-main">
+            <div class="side-content" ng-controller="authenticationCtrl">
+                <ul class="nav-main" ng-init="getAccessProfilePermission()">
                     <li>
                         <a class="active" href="#!/app"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                     </li>
                     <li class="nav-main-heading"><span class="sidebar-mini-hide">Atividades</span></li>
-                    <li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-file-text"></i><span class="sidebar-mini-hide">Contratos</span></a>
                         <ul>
                             <li>
@@ -64,21 +64,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!--<li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Produto</span></a>
-                        <ul>
-                            <li>
-                                <a href="#!/produto/add">Adicionar produto</a>
-                            </li>
-                            <li>
-                                <a href="#!/produto">Lista de produto</a>
-                            </li>
-                            <li>
-                                <a href="#!/unidademedida">Unidade de medida</a>
-                            </li>
-                        </ul>
-                    </li>-->
-                    <li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-truck"></i><span class="sidebar-mini-hide">Fornecedor</span></a>
                         <ul>
                             <li>
@@ -89,18 +75,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-th"></i><span class="sidebar-mini-hide">Unidade de Medida</span></a>
                         <ul>
                             <li>
-                                <a href="#!/unidademedida/add">Adicionar Unidade de Medida</a>
+                                <a href="#!/unidademedida/add">Adicionar Und. de Medida</a>
                             </li>
                             <li>
-                                <a href="#!/unidademedida">Lista de Unidades de Medida</a>
+                                <a href="#!/unidademedida">Lista de Und. de Medida</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 3 || accessProfile == 5" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-dollar"></i><span class="sidebar-mini-hide">Compras</span></a>
                         <ul>
                             <li>
@@ -108,7 +94,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-if="accessProfile == 1  || accessProfile == 4 || accessProfile == 5" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-database"></i><span class="sidebar-mini-hide">Estoque</span></a>
                         <ul>
                             <li>
@@ -125,8 +111,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-main-heading"><span class="sidebar-mini-hide">Administrativo</span></li>
-                    <li>
+                    <li ng-if="accessProfile == 1"
+                     class="nav-main-heading"><span class="sidebar-mini-hide">Administrativo</span></li>
+                    <li ng-if="accessProfile == 1" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-users"></i><span class="sidebar-mini-hide">Usuários</span></a>
                         <ul>
                             <li>

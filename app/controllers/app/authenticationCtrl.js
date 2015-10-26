@@ -11,6 +11,7 @@ app
 				$scope.isloading 				= false;
 				$scope.submitting 				= false;
 				$scope.profileUserLogged		= '';
+				$scope.accessProfile 			= undefined;
 
 				if( $location.path() == '/' || $location.path() == '/login' ){
 					/* aplication background body */
@@ -51,28 +52,28 @@ app
 			        jQuery('.form-control').placeholder();
 
 					/* enable menu */
-					jQuery('[data-toggle="nav-submenu"]').on('click', function(e){
-			            // Stop default behaviour
-			            e.stopPropagation();
-			            // Get link
-			            var $link = jQuery(this);
-			            // Get link's parent
-			            var $parentLi = $link.parent('li');
-			            if ($parentLi.hasClass('open')) { // If submenu is open, close it..
-			                $parentLi.removeClass('open');
-			            } else { // .. else if submenu is closed, close all other (same level) submenus first before open it
-			                $link
-			                    .closest('ul')
-			                    .find('> li')
-			                    .removeClass('open');
-			                $parentLi
-			                    .addClass('open');
-			            }
-			            // Remove focus from submenu link
-			            if ($lHtml.hasClass('no-focus')) {
-			                $link.blur();
-			            }
-			        });
+					// jQuery('[data-toggle="nav-submenu"]').on('click', function(e){
+			  //           // Stop default behaviour
+			  //           e.stopPropagation();
+			  //           // Get link
+			  //           var $link = jQuery(this);
+			  //           // Get link's parent
+			  //           var $parentLi = $link.parent('li');
+			  //           if ($parentLi.hasClass('open')) { // If submenu is open, close it..
+			  //               $parentLi.removeClass('open');
+			  //           } else { // .. else if submenu is closed, close all other (same level) submenus first before open it
+			  //               $link
+			  //                   .closest('ul')
+			  //                   .find('> li')
+			  //                   .removeClass('open');
+			  //               $parentLi
+			  //                   .addClass('open');
+			  //           }
+			  //           // Remove focus from submenu link
+			  //           if ($lHtml.hasClass('no-focus')) {
+			  //               $link.blur();
+			  //           }
+			  //       });
 			        /* enable menu mobile */
 			        // Call layout API on button click
 			        jQuery('[data-toggle="layout"]').on('click', function(){
@@ -153,6 +154,15 @@ app
 
 				$scope.getProfile = function(){
 					$scope.profileUserLogged = sessionSrv.get('ang_secc_profile');
+				}
+
+				$scope.getAccessProfilePermission = function(){
+					var $promise = $http.post('/controller/authentication/checkprofile');
+					$promise.then(function(item){
+						if( item.data.profile != 'null' ){
+							$scope.accessProfile = item.data.profile;
+						}
+					});
 				}
 
 			}
