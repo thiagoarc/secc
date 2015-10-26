@@ -18,7 +18,7 @@ try{
 
 				//devolução da quantidade os itens do contrato
 				while ( $l = $stmtOS->fetch(PDO::FETCH_OBJ) ) {
-					$stmt = $oConexao->prepare("UPDATE itens_contrato SET qtdordem = (qtdordem + ?) WHERE iditens_contrato = ?");
+					$stmt = $oConexao->prepare("UPDATE itens_contrato SET qtdordem = (qtdordem - ?) WHERE iditens_contrato = ?");
 					$stmt->bindValue(1, $l->qtd);
 					$stmt->bindValue(2, $l->iditem);
 					$stmt->execute();

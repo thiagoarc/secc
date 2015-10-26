@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.38)
 # Base de Dados: secc
-# Tempo de Gera玢o: 2015-10-26 19:46:34 +0000
+# Tempo de Gera玢o: 2015-10-26 22:32:33 +0000
 # ************************************************************
 
 
@@ -246,13 +246,13 @@ LOCK TABLES `itens_contrato` WRITE;
 
 INSERT INTO `itens_contrato` (`iditens_contrato`, `idcontrato`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `idfornecedor`, `qtdordem`)
 VALUES
-	(1,13,'Mem贸ria RAM - 8GB - 1600 - Kingstom',15,500.00,1,2,13),
-	(2,13,'HD 1TR - Samsung',15,1500.00,1,2,14),
-	(3,13,'Mouse sem fio - Microsoft',10,1000.00,1,2,7),
-	(4,13,'Teclado Sem Fio - Multilaser',15,1000.00,1,2,11),
-	(5,14,'hdhdf',6,1.21,5,5,3),
-	(6,14,'Teste',5,120.00,5,5,3),
-	(7,14,'teste',5,8.00,5,5,3);
+	(1,13,'Mem贸ria RAM - 8GB - 1600 - Kingstom',15,500.00,1,2,0),
+	(2,13,'HD 1TR - Samsung',15,1500.00,1,2,0),
+	(3,13,'Mouse sem fio - Microsoft',10,1000.00,1,2,0),
+	(4,13,'Teclado Sem Fio - Multilaser',15,1000.00,1,2,0),
+	(5,14,'hdhdf',6,1.21,5,5,0),
+	(6,14,'Teste',5,120.00,5,5,0),
+	(7,14,'teste',5,8.00,5,5,0);
 
 /*!40000 ALTER TABLE `itens_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -278,31 +278,6 @@ CREATE TABLE `itens_ordem_servico` (
   CONSTRAINT `fk_itens_ordem_servico_unidade_medida1` FOREIGN KEY (`idunidade_medida`) REFERENCES `unidade_medida` (`idunidade_medida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `itens_ordem_servico` WRITE;
-/*!40000 ALTER TABLE `itens_ordem_servico` DISABLE KEYS */;
-
-INSERT INTO `itens_ordem_servico` (`iditens_ordem_servico`, `idordem_servico`, `descricao`, `qtd`, `valorunitario`, `idunidade_medida`, `iditem_contratoaditivo`)
-VALUES
-	(1,4,'HD 1TR - Samsung',1,1500.00,1,2),
-	(2,4,'Mem贸ria RAM - 8GB - 1600 - Kingstom',2,500.00,1,1),
-	(3,4,'Mouse sem fio - Microsoft',3,1000.00,1,3),
-	(4,4,'Teclado Sem Fio - Multilaser',4,1000.00,1,4),
-	(5,5,'hdhdf',1,1.21,5,5),
-	(6,5,'teste',1,8.00,5,7),
-	(7,5,'Teste',1,120.00,5,6),
-	(8,7,'hdhdf',1,1.21,5,5),
-	(9,7,'teste',1,8.00,5,7),
-	(10,7,'Teste',1,120.00,5,6),
-	(11,8,'hdhdf',3,1.21,5,5),
-	(12,8,'teste',2,8.00,5,7),
-	(13,8,'Teste',2,120.00,5,6),
-	(14,9,'HD 1TR - Samsung',1,1500.00,1,2),
-	(15,9,'Mem贸ria RAM - 8GB - 1600 - Kingstom',2,500.00,1,1),
-	(16,9,'Mouse sem fio - Microsoft',3,1000.00,1,3),
-	(17,9,'Teclado Sem Fio - Multilaser',4,1000.00,1,4);
-
-/*!40000 ALTER TABLE `itens_ordem_servico` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela ordem_servico
@@ -318,19 +293,6 @@ CREATE TABLE `ordem_servico` (
   PRIMARY KEY (`idordem_servico`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `ordem_servico` WRITE;
-/*!40000 ALTER TABLE `ordem_servico` DISABLE KEYS */;
-
-INSERT INTO `ordem_servico` (`idordem_servico`, `datasolicitacao`, `idcontratoaditivo`, `tipo`)
-VALUES
-	(4,'2015-10-26',13,1),
-	(5,'2015-10-26',14,1),
-	(7,'2015-10-26',14,1),
-	(8,'2015-10-26',14,1),
-	(9,'2015-10-26',13,1);
-
-/*!40000 ALTER TABLE `ordem_servico` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump da tabela orgao
@@ -559,7 +521,7 @@ LOCK TABLES `usuario` WRITE;
 
 INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `perfil`, `liberado`, `idsetor`)
 VALUES
-	(1,'Jaisson Santos','jaissonssantos@gmail.com','ab5f505601d22946514ef4de8a45345574e7414b',5,1,1),
+	(1,'Jaisson Santos','jaissonssantos@gmail.com','ab5f505601d22946514ef4de8a45345574e7414b',1,1,1),
 	(2,'Gestor de Contrato','gestor@ac.gov.br','7c4a8d09ca3762af61e59520943dc26494f8941b',2,1,1),
 	(3,'Thiago Chaves','thiagoarc@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1,1),
 	(4,'Richard Oliveira','richardzero@gmail.com','7c4a8d09ca3762af61e59520943dc26494f8941b',1,1,1),
@@ -707,21 +669,42 @@ VALUES
 	(384,'/contrato/add',2),
 	(385,'/contrato/edit',2),
 	(386,'/relatorio',2),
-	(461,'/app',1),
-	(462,'/ordemservico',1),
-	(463,'/ordemservico/add',1),
-	(464,'/relatorio',1),
-	(465,'/entrada',1),
-	(466,'/solicitacao',1),
-	(467,'/solicitacao/detalhes',1),
-	(468,'/saida',1),
-	(469,'/saida/add',1),
-	(470,'/saida/detalhes',1),
-	(471,'/solicitacaouser',1),
-	(472,'/solicitacaouser/add',1),
-	(473,'/solicitacaouser/edit',1),
-	(474,'/solicitacaouser/detalhes',1),
-	(475,'/relatorio',1);
+	(476,'/app',1),
+	(477,'/usuario',1),
+	(478,'/usuario/add',1),
+	(479,'/usuario/edit',1),
+	(480,'/unidademedida',1),
+	(481,'/unidademedida/add',1),
+	(482,'/unidademedida/edit',1),
+	(483,'/fornecedor',1),
+	(484,'/fornecedor/add',1),
+	(485,'/fornecedor/edit',1),
+	(486,'/produto',1),
+	(487,'/produto/add',1),
+	(488,'/produto/edit',1),
+	(489,'/contrato',1),
+	(490,'/contrato/add',1),
+	(491,'/contrato/edit',1),
+	(492,'/contrato/fornecedor',1),
+	(493,'/contrato/aditivos',1),
+	(494,'/contrato/aditivo/add',1),
+	(495,'/contrato/aditivo/edit',1),
+	(496,'/contrato/aditivos/itens',1),
+	(497,'/contrato/itens',1),
+	(498,'/ordemservico',1),
+	(499,'/ordemservico/add',1),
+	(500,'/estoque',1),
+	(501,'/entrada',1),
+	(502,'/solicitacao',1),
+	(503,'/solicitacao/detalhes',1),
+	(504,'/saida',1),
+	(505,'/saida/add',1),
+	(506,'/saida/detalhes',1),
+	(507,'/solicitacaouser',1),
+	(508,'/solicitacaouser/add',1),
+	(509,'/solicitacaouser/edit',1),
+	(510,'/solicitacaouser/detalhes',1),
+	(511,'/relatorio',1);
 
 /*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
 UNLOCK TABLES;

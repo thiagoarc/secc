@@ -21,13 +21,13 @@ try{
 				if( $params->produtos[$i]->qtdordem > 0 ){
 					//deduzir a quantidade do item
 					if( $params->ordem->tipo == 1 ){ //deduzir do itens_contrato
-						$stmt = $oConexao->prepare("UPDATE itens_contrato SET qtdordem = (qtd - ?) WHERE idcontrato = ? AND iditens_contrato = ?");  
+						$stmt = $oConexao->prepare("UPDATE itens_contrato SET qtdordem = (qtdordem + ?) WHERE idcontrato = ? AND iditens_contrato = ?");  
 						$stmt->bindValue(1, $params->produtos[$i]->qtdordem);
 						$stmt->bindValue(2, $params->ordem->contratoaditivo);
 						$stmt->bindValue(3, $params->produtos[$i]->iditem);
 						$stmt->execute();
 					}else if( $params->ordem->tipo == 2 ){ //deduzir do itens_aditivo
-						$stmt = $oConexao->prepare("UPDATE itens_aditivo SET qtdordem = (qtd - ?) WHERE idaditivo = ? AND iditens_aditivo = ?");  
+						$stmt = $oConexao->prepare("UPDATE itens_aditivo SET qtdordem = (qtdordem + ?) WHERE idaditivo = ? AND iditens_aditivo = ?");  
 						$stmt->bindValue(1, $params->produtos[$i]->qtdordem);
 						$stmt->bindValue(2, $params->ordem->contratoaditivo);
 						$stmt->bindValue(3, $params->produtos[$i]->iditem);

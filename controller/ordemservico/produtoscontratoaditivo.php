@@ -9,7 +9,7 @@ try{
 
 	if( $params->numero != '' ){
 
-		$stmt = $oConexao->prepare("SELECT ic.iditens_contrato as iditem, ic.idcontrato as contrato, ic.descricao, ic.qtd, ic.qtdordem as qtdos, ic.valorunitario, und.sigla, und.idunidade_medida, fnc.idfornecedor, fnc.razaosocial 
+		$stmt = $oConexao->prepare("SELECT ic.iditens_contrato as iditem, ic.idcontrato as contrato, ic.descricao, ic.qtd, (ic.qtd - ic.qtdordem) as qtdos, ic.valorunitario, und.sigla, und.idunidade_medida, fnc.idfornecedor, fnc.razaosocial 
 									FROM itens_contrato ic
 										INNER JOIN unidade_medida und ON(ic.idunidade_medida = und.idunidade_medida)
 										INNER JOIN fornecedor fnc ON(ic.idfornecedor = fnc.idfornecedor)
@@ -22,7 +22,7 @@ try{
 			echo json_encode($contrato);
 		}else{
 
-			$stmt = $oConexao->prepare("SELECT iad.iditens_aditivo as iditem, iad.idaditivo as contrato, iad.descricao, iad.qtd, iad.qtdordem as qtdos, iad.valorunitario, und.sigla, und.idunidade_medida, fnc.idfornecedor, fnc.razaosocial 
+			$stmt = $oConexao->prepare("SELECT iad.iditens_aditivo as iditem, iad.idaditivo as contrato, iad.descricao, iad.qtd, (iad.qtd - iad.qtdordem) as qtdos, iad.valorunitario, und.sigla, und.idunidade_medida, fnc.idfornecedor, fnc.razaosocial 
 										FROM itens_aditivo iad
 											INNER JOIN unidade_medida und ON(iad.idunidade_medida = und.idunidade_medida)
 											INNER JOIN fornecedor fnc ON(iad.idfornecedor = fnc.idfornecedor)
