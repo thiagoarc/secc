@@ -66,7 +66,7 @@ app
 								//hide loading
 								$scope.isloading = false;
 								//success
-								$location.path('/os');
+								$location.path('/ordemservico');
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');
 								//show message in 5 seconds
@@ -92,6 +92,8 @@ app
 							$http.post('/controller/ordemservico/itensordemservico', {idos: $scope.ordem.idos})
 							.success(function( data ){
 								$scope.itensOSTotal = data.length;
+								if( $scope.itensOSTotal == undefined )
+									$scope.itensOSTotal = 0;
 								$scope.itensOS = data;
 								$scope.calcTotalValor = 0;
 								for( var i = 0; i < data.length; i++){
@@ -102,7 +104,6 @@ app
 
 							$scope.print = function( div ){
 								$modalInstance.close( div );
-								console.log('teste');
 							}
 
 							$scope.cancel = function(){
@@ -126,7 +127,6 @@ app
 
 				/* imprimir bloco */
 				$scope.imprimir = function( divName ){
-					console.log('aqui');
 					var printContents = document.getElementById(divName).innerHTML;
 				    var originalContents = document.body.innerHTML;      
 
@@ -196,8 +196,9 @@ app
 								$scope.submitting = false;
 								//hide loading
 								$scope.isloading = false;
-								//success
-								$location.path('/os');
+								//clear object
+								$scope.ordem.splice( $scope.ordem.indexOf(item), 1 );
+								// $location.path('/ordemservico');
 								//show message
 								appMessages.addMessage(data.msg_success, true, 'success');
 								//show message in 5 seconds

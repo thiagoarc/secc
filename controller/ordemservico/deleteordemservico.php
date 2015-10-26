@@ -9,7 +9,7 @@ try{
 
 	if( $params->idos != '' ){
 
-		$stmtOS = $oConexao->prepare("SELECT idordem_servico as idos, qtd, iditens_contratoaditivo as iditem FROM itens_ordem_servico WHERE idordem_servico = ?");  
+		$stmtOS = $oConexao->prepare("SELECT idordem_servico as idos, qtd, iditem_contratoaditivo as iditem FROM itens_ordem_servico WHERE idordem_servico = ?");  
 		$stmtOS->bindValue(1, $params->idos);
 		$osItem = $stmtOS->execute();
 		
@@ -37,7 +37,7 @@ try{
 				echo '{ "message": "success", "msg_success": "Ordem de serviço cancelado com sucesso." }';
 
 			}else if( $params->tipo == 2 ){ //aditivo
-
+				echo "CHEGOU AQUI é ADITIVO!";
 			}
 		}else{
 			echo '{ "message": "noresults" }';

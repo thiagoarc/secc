@@ -9,10 +9,6 @@ try{
 
 	if( $params->ordem && $params->produtos && sizeof($params->produtos) > 0 ){
 
-
-		// print_r($params->ordem);
-		// print_r($params->produtos);
-
 		//inserção da ordem de serviço
 		$stmt = $oConexao->prepare("INSERT INTO ordem_servico(idcontratoaditivo, tipo, datasolicitacao) VALUES(?, ?, now())");  
 		$stmt->bindValue(1, $params->ordem->contratoaditivo);
@@ -38,7 +34,7 @@ try{
 						$stmt->execute();
 					}
 					//inserção dos itens do serviço
-					$stmt = $oConexao->prepare("INSERT INTO itens_ordem_servico(idordem_servico, descricao, qtd, valorunitario, idunidade_medida, iditens_contratoaditivo) 
+					$stmt = $oConexao->prepare("INSERT INTO itens_ordem_servico(idordem_servico, descricao, qtd, valorunitario, idunidade_medida, iditem_contratoaditivo) 
 												VALUES(?, ?, ?, ?, ?, ?)");
 					$stmt->bindValue(1, $idos);
 					$stmt->bindValue(2, $params->produtos[$i]->descricao);
