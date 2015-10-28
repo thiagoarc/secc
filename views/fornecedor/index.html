@@ -91,14 +91,30 @@
 									<td>{{fornecedor.cnpj | brCnpj}}</td>
 									<td>{{fornecedor.responsavel}}</td>
 									<td>{{fornecedor.celular | brPhoneNumber}}</td>
-									<td><a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(fornecedor)">
-										<i class="glyphicon glyphicon-trash"></i> Detalhes</a></td>
-									<td><a class="btn btn-info btn-sm" href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}">
-										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(fornecedor)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									<td>
+										<a class="btn btn-default btn-sm" href="javascript:;" 
+											ng-click="detalhes(fornecedor)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes do fornecedor">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-info btn-sm" 
+											href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Editar">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-danger btn-sm" href="javascript:;" 
+											ng-click="deleteconfirm(fornecedor)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Excluir">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

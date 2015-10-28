@@ -95,14 +95,31 @@
 									<td ng-if="usuario.perfil == 4">Gestor de estoque</td>
 									<td ng-if="usuario.perfil == 5">Gestor de compras/estoque</td>
 									<td ng-if="usuario.perfil == 6">Observador</td>
-									<td><a class="btn btn-default btn-sm" href="javascript:void(0);" 
-										ng-click="redefinirsenha(usuario)">
-										<i class="glyphicon glyphicon-lock"></i> Redefinir senha</a></td>
-									<td><a class="btn btn-info btn-sm" href="#!/usuario/edit/{{usuario.idusuario}}">
-										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(usuario)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									<td>
+
+										<a class="btn btn-default btn-sm" href="javascript:void(0);" 
+											ng-click="redefinirsenha(usuario)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Redefinir senha">
+											<i class="glyphicon glyphicon-lock"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-info btn-sm" 
+											href="#!/usuario/edit/{{usuario.idusuario}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Editar">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-danger btn-sm" href="javascript:;" 
+											ng-click="deleteconfirm(usuario)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Excluir">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

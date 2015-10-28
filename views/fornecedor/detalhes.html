@@ -18,21 +18,21 @@
                         </div><!-- END INPUT -->
 
                         <div class="row form-group">
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <label for="cnpj" class="control-label">CNPJ:</label>
                                 {{fornecedor.cnpj | brCnpj}}
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                                 <label for="responsavel" class="control-label">Responsável:</label>
                                 {{fornecedor.responsavel}}
                             </div>
                         </div><!-- END INPUT -->
                         <div class="row form-group">
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <label for="telefone" class="control-label">Telefone:</label>
                                 {{fornecedor.telefone | brPhoneNumber}}
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <label for="celular" class="control-label">Celular:</label>
                                 {{fornecedor.celular | brPhoneNumber}}
                             </div>
@@ -45,11 +45,11 @@
                     <fieldset>
                     <legend>Endereço do Fornecedor</legend>
                         <div class="row form-group">
-                            <div class="col-sm-10">
+                            <div class="col-sm-6">
                                 <label for="logradouro" class="control-label">Logradouro:</label>
                                 {{fornecedor.logradouro}}
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-6">
                                 <label for="numero" class="control-label">Número:</label>
                                 {{fornecedor.numero}}
                             </div>
@@ -59,15 +59,15 @@
                             {{fornecedor.complemento}}
                         </div><!-- END INPUT -->
                         <div class="row form-group">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="cidade" class="control-label">Cidade:</label>
                                 {{fornecedor.cidade}}
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="bairro" class="control-label">Bairro:</label>
                                 {{fornecedor.bairro}}
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label for="cep" class="control-label">Cep:</label>
                                 {{fornecedor.cep | brCep}}
                             </div>
@@ -77,7 +77,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Fechar</button>
+        <button class="btn btn-sm btn-warning" ng-click="cancel()">Fechar</button>
     </div>
 </section>
 <!-- end modal -->

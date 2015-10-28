@@ -46,12 +46,15 @@
 					<input type="hidden" ng-model="aditivoItens.idaditivo" name="idaditivo">
 					<input type="hidden" ng-model="aditivoItens.iditens_aditivo" name="iditens_aditivo">
 						<div class="row form-group">
-							<div class="col-sm-12">
-								<label for="nome" class="control-label">Número Aditivo:</label>
-								{{aditivo.numero}}
-								<br>
-								<label for="nome" class="control-label">Valor:</label>
-								{{aditivo.valor | finance:true:2}}
+							<div class="col-sm-8">
+								<h3 class="block-title pull-left"><small>Número Aditivo:</small> {{aditivo.numero}}</h3>
+								<p></p><!-- clearfixed -->
+								<h3 class="block-title pull-left"><small>Valor:</small> {{aditivo.valor | finance:true:2}}</h3>
+							</div>
+							<div class="col-sm-4">
+								<a href="#!/contrato/aditivos/{{aditivo.idcontrato}}"
+								class="link pull-right fc-mg-right-default-1x fc-mg-top-default">
+								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
 							</div>
 						</div><!-- END INPUT -->
 						<div class="row form-group">
@@ -93,64 +96,72 @@
 						</div><!-- END INPUT -->
 						<div class="row form-group">
 							<div class="col-sm-12">
-								<button type="submit" ng-show="!mostraBotao" ng-hide="mostraBotao" ng-click="additens()" class="btn btn-primary" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+								<button type="submit" ng-show="!mostraBotao" ng-hide="mostraBotao" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
 									<span ng-switch-default>Adicionar</span>
 				    				<span ng-switch-when="true">Adicionando...</span>
 								</button>
-								<button type="submit" ng-show="mostraBotao" ng-hide="!mostraBotao" ng-click="additens()" class="btn btn-primary" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+								<button type="submit" ng-show="mostraBotao" ng-hide="!mostraBotao" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
 									<span ng-switch-default>Editar</span>
 				    				<span ng-switch-when="true">Editando...</span>
 								</button>
-								<button type="reset" class="btn btn-default" ng-click="aditivoItens=''">
+								<button type="reset" class="btn btn-sm btn-default" ng-click="aditivoItens=''">
 									Limpar
 								</button>
 							</div>
 						</div><!-- END INPUT -->
 						<fieldset>
-							<legend>Itens Vinculados ao Aditivo</legend>
-						<div class="row form-group">
-							<div class="table-responsive" ng-show="totalItems > 0">
-								<table class="table table-striped">
-									<thead>
-										<th width="1%" >#</th>
-										<th width="49%" >Descrição</th>
-										<th width="10%" >UnidadeMedida</th>
-										<th width="10%" >QTD</th>
-										<th width="10%" >Valor Unitário</th>
-										<th width="10%" >Total</th>
-										<th width="10%"></th>
-									</thead>
-									<tbody>
-										<tr ng-repeat="item in itenscadastrados | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
-											<td>{{$index+1}}</td>
-											<td>{{item.descricao}}</td>
-											<td>{{item.sigla}}</td>
-											<td>{{item.qtd}}</td>
-											<td>{{item.valorunitario  | finance:true:2}}</td>
-											<td>{{item.total  | finance:true:2}}</td>
-											<td><a class="btn btn-info btn-sm"  href="javascript:;" 
-												ng-click="editar(item);mudaBotao()">
-												<i class="glyphicon glyphicon-pencil"></i></a>
-												<a class="btn btn-danger btn-sm" href="javascript:;" 
-												ng-click="deleteconfirm(item)">
-												<i class="glyphicon glyphicon-trash"></i></a></td>
-										</tr>
-									</tbody>
-								</table>
-								<!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
-							</div>
+							<legend>Itens vinculados ao aditivo</legend>
+							<div class="form-group">
+								<div class="table-responsive" ng-show="totalItems > 0">
+									<table class="table table-striped">
+										<thead>
+											<th width="1%" >#</th>
+											<th width="39%" >Desc.</th>
+											<th width="10%" >Unid. Medida</th>
+											<th width="10%" >QTD</th>
+											<th width="10%" >Valor Unit.</th>
+											<th width="10%" >Total</th>
+											<th width="15%"></th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in itenscadastrados | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+												<td>{{$index+1}}</td>
+												<td>{{item.descricao}}</td>
+												<td>{{item.sigla}}</td>
+												<td>{{item.qtd}}</td>
+												<td>{{item.valorunitario  | finance:true:2}}</td>
+												<td>{{item.total  | finance:true:2}}</td>
+												<td>
+													<a class="btn btn-info btn-sm"  href="javascript:;" 
+														ng-click="editar(item);mudaBotao()"
+														tooltips tooltip-title="tip" tooltip-side="top"
+														title="Editar">
+														<i class="glyphicon glyphicon-pencil"></i>
+													</a>
+													
+													<a class="btn btn-danger btn-sm" href="javascript:;" 
+														ng-click="deleteconfirm(item)"
+														tooltips tooltip-title="tip" tooltip-side="top"
+														title="Excluir">
+														<i class="glyphicon glyphicon-trash"></i>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+								</div>
 
-							<div class="col-md-12" ng-show="!totalItems">
-				        		<table class="table">
-				        			<tr>
-				        				<td colspan="7">Nenhum forcenedor vinculado.</td>
-				        			</tr>
-				        		</table>
-				        	</div>
-						</div><!-- END INPUT -->
-						<div>Total Geral: {{totalgeral  | finance:true:2}}</div>
+								<div class="col-md-12" ng-show="!totalItems">
+					        		<table class="table">
+					        			<tr>
+					        				<td colspan="7">Nenhum forcenedor vinculado.</td>
+					        			</tr>
+					        		</table>
+					        	</div>
+							</div><!-- END INPUT -->
+							<h3 class="block-title pull-left"><small>Total geral:</small> {{ totalgeral | finance:true:2 }}</h3>
 						</fieldset>
-					<a href="#!/contrato/aditivos/{{aditivo.idcontrato}}" class="btn btn-danger">Voltar</a>
 
 					<p></p><!-- clearfixed -->
 

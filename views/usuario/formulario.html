@@ -241,11 +241,11 @@
 					
 
 					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/usuario" class="btn btn-danger">Cancelar</a>
+					<a href="#!/usuario" class="btn btn-sm btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 

@@ -8,7 +8,8 @@ var app = angular.module('app', [
 		    'oc.lazyLoad',
 		    'ui.utils.masks',
 		    'ui.mask',
-		    'idf.br-filters'
+		    'idf.br-filters',
+		    '720kb.tooltips'
 		  ]);
 
 

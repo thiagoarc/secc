@@ -91,12 +91,23 @@
 									<td ng-if="os.tipo == 1"><span class="label label-info">Contrato</span></td>
 									<td ng-if="os.tipo == 2"><span class="label label-info">Aditivo</span></td>
 									<td>{{os.datasolicitacao | datebr}}</td>
-									<td><a class="btn btn-default btn-sm" href="javascript:void(0);" 
-										ng-click="detalhes(os)" title="" data-placement="top" data-toggle="tooltip" data-original-title="Detalhes">
-										<i class="glyphicon glyphicon-list"></i></a></td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:void(0);"
-									 	ng-click="cancelarOS(os)" title="" data-placement="top" data-toggle="tooltip" data-original-title="Cancelar OS">
-										<i class="glyphicon glyphicon-trash"></i></a></td>
+									<td>
+										<a class="btn btn-default btn-sm" 
+											href="javascript:void(0);" 
+											ng-click="detalhes(os)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-danger btn-sm" href="javascript:void(0);"
+									 		ng-click="cancelarOS(os)"
+									 		tooltips tooltip-title="tip" tooltip-side="top"
+											title="Cancelar OS">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

@@ -46,33 +46,36 @@
 					<input type="hidden" ng-model="contratoAditivo.idcontrato" name="idcontrato">
 					<input type="hidden" ng-model="contratoAditivo.idaditivo" name="idaditivo">
 					<fieldset>
-					<legend>Informações do Aditivo</legend>
-						<div class="col-sm-4">
-								<label for="telefone" class="control-label">Número Aditivo:<span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contratoAditivo.numero" name="numerocontrato" placeholder="Informe o número" required>
-								<span class="help-block" ng-show="createForm.numero.$dirty && createForm.numero.$error.required">O campo é obrigatório</span>
-							</div>
-							<div class="col-sm-4">
-								<label for="email" class="control-label">Valor:</label>
-								<input type="text" class="form-control" ng-model="contratoAditivo.valor" name="valor" placeholder="Informe o valor" ui-money-mask="2" required>
-								<span class="help-block" ng-show="createForm.valor.$dirty && createForm.valor.$error.required">O campo é obrigatório</span>
-							</div>
-							<div class="col-sm-4">
-								<label for="celular" class="control-label">Validade:</label>
-              					<input type="text" class="form-control" ng-model="contratoAditivo.validade" name="validade" ui-mask="99/99/9999" required>
-              					<span class="help-block" ng-show="createForm.validade.$dirty && createForm.validade.$error.required">O campo é obrigatório</span>
-							</div>
-							<div class="col-sm-12">
-								<label for="email" class="control-label">Observação:</label>
-								<textarea class="form-control" ng-model="contratoAditivo.obs" name="obs" placeholder="Informe a observação do aditivo"></textarea>
-							</div>
+					<legend>Informações do aditivo</legend>
+						<div class="row">
+							<div class="col-sm-4 form-group">
+									<label for="telefone" class="control-label">Número Aditivo:<span class="red">*</span></label>
+									<input type="text" class="form-control" ng-model="contratoAditivo.numero" name="numerocontrato" placeholder="Informe o número" required>
+									<span class="help-block" ng-show="createForm.numero.$dirty && createForm.numero.$error.required">O campo é obrigatório</span>
+								</div>
+								<div class="col-sm-4 form-group">
+									<label for="email" class="control-label">Valor:</label>
+									<input type="text" class="form-control" ng-model="contratoAditivo.valor" name="valor" placeholder="Informe o valor" ui-money-mask="2" required>
+									<span class="help-block" ng-show="createForm.valor.$dirty && createForm.valor.$error.required">O campo é obrigatório</span>
+								</div>
+								<div class="col-sm-4 form-group">
+									<label for="celular" class="control-label">Validade:</label>
+	              					<input type="text" class="form-control" ng-model="contratoAditivo.validade" name="validade" ui-mask="99/99/9999" required>
+	              					<span class="help-block" ng-show="createForm.validade.$dirty && createForm.validade.$error.required">O campo é obrigatório</span>
+								</div>
+								<div class="col-sm-12 form-group">
+									<label for="email" class="control-label">Observação:</label>
+									<textarea class="form-control" ng-model="contratoAditivo.obs" name="obs" placeholder="Informe a observação do aditivo"></textarea>
+								</div>
+						</div>
 					</fieldset>
+
 					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/contrato/aditivos/{{contratoAditivo.idcontrato}}" class="btn btn-danger">Cancelar</a>
+					<a href="#!/contrato/aditivos/{{contratoAditivo.idcontrato}}" class="btn btn-sm btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 

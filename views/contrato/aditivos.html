@@ -58,6 +58,9 @@
 										 class="btn btn-success btn-sm pull-right">
 								<i class="glyphicon glyphicon-plus"></i> Adicionar
 							</a>
+							<a href="#!/contrato" 
+								class="link pull-right fc-mg-right-default-1x fc-mg-top-default">
+								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
 						</div>
 						<!-- end action add -->
 					</div>
@@ -78,11 +81,11 @@
 			            				<span ng-show="sortType == 'tipo' && sortReverse" class="fa fa-caret-up"></span>
 									</a>
 								</th>-->
-								<th width="15%" >Número Contrato</th>
-								<th width="15%" >Número Aditivo</th>
+								<th width="30%" >Número Contrato</th>
+								<th width="25%" >Número Aditivo</th>
 								<th width="15%" >Valor</th>
-								<th width="15%" >Validade</th>
-								<th width="39%"></th>
+								<th width="10%" >Validade</th>
+								<th width="30%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="contratoAditivo in contratoAditivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
@@ -92,13 +95,36 @@
 									<td>{{contratoAditivo.numero}}</td>
 									<td>{{contratoAditivo.valor  | finance:true:2}}</td>
 									<td>{{contratoAditivo.validade | date:'dd/MM/yyyy'}}</td>
-									<td><a class="btn btn-success btn-sm" href="javascript:;" ng-click="aditivaritens(contratoAditivo)">
-										<i class="glyphicon glyphicon-plus"></i> Itens</a> <a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(contratoAditivo)">
-										<i class="glyphicon glyphicon-trash"></i> Detalhes</a> <a class="btn btn-info btn-sm" href="#!/contrato/aditivo/edit/{{contratoAditivo.idaditivo}}">
-										<i class="glyphicon glyphicon-pencil"></i> Editar</a> <a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(contratoAditivo)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									<td>
+										<a class="btn btn-default btn-sm" href="javascript:void(0);" 
+										   ng-click="aditivaritens(contratoAditivo)"
+										   tooltips tooltip-title="tip" tooltip-side="top"
+										   title="Itens do aditivo">
+											<i class="glyphicon glyphicon-plus"></i>
+										</a> 
+
+										<a class="btn btn-default btn-sm" href="javascript:void(0);" 
+											ng-click="detalhes(contratoAditivo)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+										   	title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a> 
+
+										<a class="btn btn-info btn-sm" 
+											href="#!/contrato/aditivo/edit/{{contratoAditivo.idaditivo}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+										   	title="Editar">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a> 
+
+										<a class="btn btn-danger btn-sm" href="javascript:void(0);" 
+											ng-click="deleteconfirm(contratoAditivo)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+										   	title="Excluir">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -112,7 +138,6 @@
 				        	</tr>
 				        </table>
 				        </div>
-				        <a href="#!/contrato" class="btn btn-danger">Voltar</a>
 				        <p></p>
 				    </div>
 

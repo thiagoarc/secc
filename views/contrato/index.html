@@ -77,10 +77,10 @@
 			            				<span ng-show="sortType == 'tipo' && sortReverse" class="fa fa-caret-up"></span>
 									</a>
 								</th>-->
-								<th width="15%" >Número Contrato</th>
+								<th width="40%" >Número Contrato</th>
 								<th width="15%" >Valor</th>
 								<th width="15%" >Validade</th>
-								<th width="54%"></th>
+								<th width="30%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="contrato in contratos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
@@ -89,16 +89,51 @@
 									<td>{{contrato.numerocontrato}}</td>
 									<td>{{contrato.valor  | finance:true:2}}</td>
 									<td>{{contrato.validade | date:'dd/MM/yyyy'}}</td>
-									<td><a class="btn btn-success btn-sm" href="#!/contrato/aditivos/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-plus"></i> Aditivo</a>
-										<a class="btn btn-warning btn-sm" href="#!/contrato/fornecedor/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-shopping-cart"></i> Fornecedor</a> <a class="btn btn-success btn-sm" href="#!/contrato/itens/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-plus"></i> Itens</a> <a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(contrato)">
-										<i class="glyphicon glyphicon-trash"></i> Detalhes</a> <a class="btn btn-info btn-sm" href="#!/contrato/edit/{{contrato.idcontrato}}">
-										<i class="glyphicon glyphicon-pencil"></i> Editar</a> <a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(contrato)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									<td>
+										<a class="btn btn-default btn-sm" 
+											href="#!/contrato/aditivos/{{contrato.idcontrato}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Aditivo">
+											<i class="glyphicon glyphicon-plus"></i> 
+										</a>
+										
+										<a class="btn btn-default btn-sm" 
+											href="#!/contrato/fornecedor/{{contrato.idcontrato}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Fornecedor">
+											<i class="glyphicon glyphicon-shopping-cart"></i>
+										</a> 
+
+										<a class="btn btn-default btn-sm" 
+											href="#!/contrato/itens/{{contrato.idcontrato}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Itens do contrato">
+											<i class="glyphicon glyphicon-indent-left"></i>
+										</a> 
+
+										<a class="btn btn-default btn-sm" 
+											href="javascript:void(0);" 
+											ng-click="detalhes(contrato)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes do contrato">
+											<i class="glyphicon glyphicon-list"></i>
+										</a> 
+
+										<a class="btn btn-info btn-sm" 
+											href="#!/contrato/edit/{{contrato.idcontrato}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Editar">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a> 
+
+										<a class="btn btn-danger btn-sm" 
+											href="javascript:;" 
+											ng-click="deleteconfirm(contrato)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Excluir">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

@@ -88,14 +88,30 @@
 									<td>{{$index+1}}</td>
 									<td>{{unidademedida.sigla}}</td>
 									<td>{{unidademedida.descricao}}</td>
-									<td><a class="btn btn-default btn-sm" href="javascript:;" 
-										ng-click="detalhes(unidademedida)">
-										<i class="glyphicon glyphicon-list"></i> Detalhes</a></td>
-									<td><a class="btn btn-info btn-sm" href="#!/unidademedida/edit/{{unidademedida.idunidade_medida}}">
-										<i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="deleteconfirm(unidademedida)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									<td>
+										<a class="btn btn-default btn-sm" href="javascript:;" 
+											ng-click="detalhes(unidademedida)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-info btn-sm" 
+											href="#!/unidademedida/edit/{{unidademedida.idunidade_medida}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Editar">
+											<i class="glyphicon glyphicon-pencil"></i>
+										</a>
+									</td>
+									<td>
+										<a class="btn btn-danger btn-sm" href="javascript:;" 
+											ng-click="deleteconfirm(unidademedida)"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Excluir">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

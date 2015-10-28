@@ -16906,6 +16906,21 @@ div.tagsinput span.tag a:hover {
 .fc-unthemed .fc-popover {
   border-color: #eee;
 }
+.fc-mg-left-default{
+  margin-left: 10px;
+}
+.fc-mg-right-default-1x{
+  margin-right: 15px;
+}
+.fc-mg-right-default-1x i.glyphicon{
+  font-size: 10px
+}
+.fc-mg-top-default{
+  margin-top: 5px;
+}
+.fc-mg-top-default-5x{
+  margin-top: 25px;
+}
 .placeholder {
   color: #aaa;
 }
@@ -16960,6 +16975,11 @@ div.tagsinput span.tag a:hover {
 }
 .autocomplete li:hover {
   background-color: #eee;
+}
+.border-h3{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 7px;
+  margin-bottom: 10px;
 }
 
 
