@@ -62,6 +62,20 @@
 					</div><!-- END INPUT -->
 
 					<div class="row form-group">
+						<div class="col-sm-12">
+							<label for="setor" class="control-label">Setor: <span class="red">*</span></label>
+							<select name="setor" id="setor" class="form-control"
+									ng-init="loadsetor()"
+									ng-model="usuario.idsetor" 
+									ng-options="e.id as e.nome for e in setor"
+									ng-selected="usuario.idsetor == e.id">
+									<option value="">Selecione um setor</option>
+							</select>
+							<span class="help-block" ng-show="createForm.setor.$dirty && createForm.setor.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+
+					<div class="row form-group">
 						<div class="col-sm-6">
 							<label for="senha" class="control-label">Senha: <span class="red">*</span></label>
 							<input type="password" class="form-control" ng-model="usuario.senha" name="senha" placeholder="" ng-disabled="usuario.idusuario != null" ng-required="usuario.idusuario == null">
