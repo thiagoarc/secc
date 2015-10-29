@@ -13,6 +13,7 @@ app
 			  	$scope.submitting 			= false;	// set label btn for false then save
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
+			    $scope.setor				= {};
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -159,11 +160,11 @@ app
     				return (begin <= index && index < end);
   				};
 
-				$scope.loadunidademedidas = function(){
+				$scope.loadsetor = function(){
 					
-					$http.get('/controller/unidademedida/unidadesmedida')
+					$http.get('/controller/usuario/getsetor')
 						.success(function(data){
-							$scope.unidademedidas = data;
+							$scope.setor = data;
 						});
 
 				};

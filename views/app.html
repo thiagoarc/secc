@@ -14,7 +14,7 @@
     <!-- end Header -->
 
     <!-- Main Container -->
-    <main id="main-container" >
+    <main id="main-container" ng-controller="authenticationCtrl" ng-init="getAccessProfilePermission()">
 
         <!-- pageheader -->
         <div class="content bg-gray-lighter">
@@ -33,14 +33,14 @@
         <!-- end pageheader -->
 
         <!-- conteudo do app -->
-        <div class="content">
+        <div class="content" ng-init="getAccessProfilePermission()">
 
             <!-- Icon Tiles -->
-            <h2 class="content-heading">Atividades</h2>
-            <div class="content-grid push-50">
+            <h2 class="content-heading" ng-if="accessProfile == 1">Atividades</h2>
+            <div class="content-grid push-50" ng-if="accessProfile == 1">
                 <div class="row">
                     <div class="col-xs-6 col-sm-4 col-lg-2">
-                        <a class="block block-link-hover3 text-center" href="#!/contrato">
+                        <a class="block block-link-hover3 text-center" href="#!/contrato" >
                             <div class="block-content block-content-full">
                                 <i class="fa fa-file-text fa-4x text-danger"></i>
                                 <div class="font-w600 push-15-t">Contratos</div>
@@ -51,7 +51,7 @@
                         <a class="block block-link-hover3 text-center" href="#!/unidademedida">
                             <div class="block-content block-content-full">
                                 <i class="fa fa-sliders fa-4x text-danger"></i>
-                                <div class="font-w600 push-15-t">Unidade de médida</div>
+                                <div class="font-w600 push-15-t">Unid. de medida</div>
                             </div>
                         </a>
                     </div>
@@ -72,7 +72,7 @@
                         </a>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-lg-2">
-                        <a class="block block-link-hover3 text-center" href="#!/compras">
+                        <a class="block block-link-hover3 text-center" href="#!/ordemservico">
                             <div class="block-content block-content-full">
                                 <i class="fa fa-dollar fa-4x text-success"></i>
                                 <div class="font-w600 push-15-t">Compras</div>
@@ -80,7 +80,7 @@
                         </a>
                     </div>
                     <div class="col-xs-6 col-sm-4 col-lg-2">
-                        <a class="block block-link-hover3 text-center" href="#!/estoque">
+                        <a class="block block-link-hover3 text-center" href="#!/entrada">
                             <div class="block-content block-content-full">
                                 <i class="fa fa-database fa-4x text-muted"></i>
                                 <div class="font-w600 push-15-t">Estoque</div>
@@ -93,10 +93,10 @@
             <!-- END Icon Tiles -->
 
             <!-- Vertical Tiles -->
-            <h2 class="content-heading">Desempenho rápido</h2>
+            <h2 class="content-heading" ng-if="accessProfile == 1 || accessProfile == 2">Desempenho rápido</h2>
 
             <!-- Background Colored Text Tiles -->
-            <div class="row">
+            <div class="row" ng-if="accessProfile == 1 || accessProfile == 2">
                 <div class="col-sm-6 col-lg-3">
                     <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                         <div class="block-content block-content-full">
@@ -131,7 +131,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <a class="block block-rounded block-link-hover3 text-center" href="#!/usuario">
+                    <a class="block block-rounded block-link-hover3 text-center" href="#!/fornecedor">
                         <div class="block-content block-content-full">
                             <div class="h1 font-w700" ng-init="totalFornecedores()"><span class="h2 text-muted">+</span> {{ totalprovider }}</div>
                             <div class="h5 text-muted text-uppercase push-5-t">Fornecedores</div>
@@ -145,7 +145,7 @@
             <!-- END Background Colored Text Tiles -->
             <!-- END Texts Tiles -->
 
-            <div class="block">
+            <div class="block" ng-if="accessProfile == 1 || accessProfile == 2">
                 <div class="block-header">
                     <h3 class="block-title">PRODUTOS ABAIXO DO ESTOQUE MÍNIMO</h3>
                 </div>

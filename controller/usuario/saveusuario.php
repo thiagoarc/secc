@@ -9,10 +9,11 @@ try{
 
 	if( $params->idusuario != '' ){
 
-		$stmt = $oConexao->prepare("UPDATE usuario SET nome = :nome, email = :email,  perfil = :perfil WHERE idusuario = :idusuario");  
+		$stmt = $oConexao->prepare("UPDATE usuario SET nome = :nome, email = :email,  perfil = :perfil, idsetor = :idsetor WHERE idusuario = :idusuario");  
 		$stmt->bindParam('nome', $params->nome);
 		$stmt->bindParam('email', $params->email);
 		$stmt->bindParam('perfil', $params->perfil);
+        $stmt->bindParam('idsetor', $params->idsetor);
 		$stmt->bindParam('idusuario', $params->idusuario);
 		$stmt->execute();
 
@@ -152,11 +153,12 @@ try{
 
 	}else{
  
-		$stmt = $oConexao->prepare("INSERT INTO usuario (nome, email, senha, perfil, liberado) VALUES(:nome, :email, :senha, :perfil, 1)");  
+		$stmt = $oConexao->prepare("INSERT INTO usuario (nome, email, senha, perfil, liberado, idsetor) VALUES(:nome, :email, :senha, :perfil, 1, :idsetor)");  
 		$stmt->bindParam('nome', $params->nome);
 		$stmt->bindParam('email', $params->email);
 		$stmt->bindParam('senha', sha1( SALT. $params->senha ) );
 		$stmt->bindParam('perfil', $params->perfil);
+        $stmt->bindParam('idsetor', $params->idsetor);
 		$stmt->execute();
 		$usuario = $oConexao->lastInsertId('idusuario');
 
