@@ -55,9 +55,14 @@
 						    </form>
 						</div><!-- search table -->
 						<div class="col-sm-8">
-							<a href="#!/solicitacaouser/add" class="btn btn-success btn-sm pull-right">
-								<i class="glyphicon glyphicon-plus"></i> Adicionar
-							</a>
+							<div ng-show="hoje >= 10 && hoje <= 15">
+								<a href="#!/solicitacaouser/add" class="btn btn-success btn-sm pull-right">
+									<i class="glyphicon glyphicon-plus"></i> Adicionar
+								</a>
+							</div>
+							<div ng-show="hoje < 10 || hoje > 15">
+							A solicitação de material só pode ser feita entre os dias 10 e 15 de cada mês.
+							</div>
 						</div>
 						<!-- end action add -->
 					</div>

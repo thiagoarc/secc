@@ -5,7 +5,7 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-$idusuario = 1;
+$idusuario = $_SESSION['ang_secc_uid'];
 
 try{
 	$oConexao->beginTransaction(); 

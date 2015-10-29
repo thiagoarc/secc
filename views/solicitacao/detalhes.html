@@ -73,10 +73,11 @@
                         <table class="table table-striped">
                             <thead>
                                 <th width="1%" >#</th>
-                                <th width="30%" >Produto</th>
-                                <th width="20%" >Solicitada</th>
-                                <th width="20%" >Em Estoque</th>
+                                <th width="25%" >Produto</th>
+                                <th width="15%" >Solicitada</th>
+                                <th width="15%" >Em Estoque</th>
                                 <th width="10%" >Status</th>
+                                <th width="15%" >Motivo</th>
                                 <th width="19%" ></th>
                             </thead>
                             <tbody>
@@ -89,6 +90,9 @@
                                         <a ng-show="solprod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">Aguardando</a>
                                         <a ng-show="solprod.status == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">Deferido</a>
                                         <a ng-show="solprod.status == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">Indeferido</a>
+                                    </td>
+                                    <td>
+                                        <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
                                     </td>
                                     <td>
                                         <a class="btn btn-success btn-sm" ng-show="solprod.status == 'Aguardando'" href="javascript:;" ng-click="deferirconfirm(solprod)"><i class="glyphicon glyphicon-ok"></i> Deferir</a>

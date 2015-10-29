@@ -113,15 +113,14 @@
 				        </div>
 				    </div>
 
-				    <div ng-show="totalItemsP > 0">
+				    <div>
 				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-						<button type="submit" ng-click="retirarMaterial()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<button ng-show="totalItemsP > 0" type="submit" ng-click="retirarMaterial()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
 							<span ng-switch-default>Retirar Material</span>
 				    		<span ng-switch-when="true">Enviando...</span>
 						</button>
 						<a href="#!/saida" class="btn btn-danger">Cancelar</a>
 					</div>
-
 				</form>
 
 			</div><!-- end col-sm-12 -->

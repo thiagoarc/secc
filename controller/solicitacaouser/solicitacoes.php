@@ -4,7 +4,7 @@ $oConexao = Conexao::getInstance();
 
 $params = json_decode(file_get_contents('php://input'));
 
-$idusuario = 1;
+$idusuario = $_SESSION['ang_secc_uid'];
 
 $limit = $params->limit != '' ?  $params->limit : 10;
 

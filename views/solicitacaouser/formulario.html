@@ -84,10 +84,11 @@
 							<table class="table table-striped">
 								<thead>
 									<th width="1%" >#</th>
-									<th width="50%" >Produto</th>
-									<th width="15%" >QTD</th>
-									<th width="15%" >Status</th>
-									<th width="19%"></th>
+									<th width="30%" >Produto</th>
+									<th width="10%" >QTD</th>
+									<th width="14%" >Status</th>
+									<th width="20%" >Motivo</th>
+									<th width="15%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="prod in produtossolicitacao">
@@ -95,6 +96,11 @@
 									<td>{{prod.nome}}</td>
 									<td>{{prod.qtd}}</td>
 									<td>
+                                        <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
+                                        <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
+                                        <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
+                                    </td>
+                                    <td>
                                         <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
                                         <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
                                         <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
@@ -116,9 +122,9 @@
 				        </div>
 				    </div>
 
-				    <div ng-show="totalItemsP > 0">
+				    <div >
 				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-						<button type="submit" ng-click="enviarSolicitacao()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<button ng-show="totalItemsP > 0" type="submit" ng-click="enviarSolicitacao()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
 							<span ng-switch-default>Enviar Solicitação</span>
 				    		<span ng-switch-when="true">Enviando...</span>
 						</button>

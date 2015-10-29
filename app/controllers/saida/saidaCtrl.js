@@ -268,7 +268,8 @@ app
 					if( index === -1 ) {
 						alert( "Something gone wrong" );
 					}
-					$scope.produtossolicitacao.splice( index, 1 );		
+					$scope.produtossolicitacao.splice( index, 1 );	
+					$scope.totalItemsP = $scope.produtossolicitacao.length;	
 				};
 
 

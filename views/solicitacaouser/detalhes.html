@@ -33,9 +33,10 @@
                         <table class="table table-striped">
                             <thead>
                                 <th width="1%" >#</th>
-                                <th width="60%" >Produto</th>
+                                <th width="40%" >Produto</th>
                                 <th width="19%" >QTD</th>
                                 <th width="20%" >Status</th>
+                                <th width="20%" >Motivo</th>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="solprod in produtossolicitacao">
@@ -43,9 +44,12 @@
                                     <td>{{solprod.produto}}</td>
                                     <td>{{solprod.qtd}}</td>
                                     <td>
-                                        <a ng-show="solprod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                        <a ng-show="solprod.status == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">{{solprod.status}}</a>
                                         <a ng-show="solprod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solprod.status}}</a>
-                                        <a ng-show="solprod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                        <a ng-show="solprod.status == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">{{solprod.status}}</a>
+                                    </td>
+                                    <td>
+                                        <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
                                     </td>
                                 </tr>
                             </tbody>

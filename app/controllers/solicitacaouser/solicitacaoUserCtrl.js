@@ -21,6 +21,7 @@ app
 				$scope.autocomplete			= false;
 				$scope.totalItems			= 0;
 				$scope.produtoed			= {};
+				$scope.hoje					= (new Date()).getDate();
 
 				$scope.produtossolicitacao	= [];
 
@@ -339,6 +340,7 @@ app
 						alert( "Something gone wrong" );
 					}
 					$scope.produtossolicitacao.splice( index, 1 );		
+					$scope.totalItemsP = $scope.produtossolicitacao.length;
 				};
 
 				$scope.removeRowEd = function(id){				
@@ -363,6 +365,7 @@ app
 							console.log(error);
 						}
 					);	
+					$scope.totalItemsP = $scope.produtossolicitacao.length;
 				};
 
 				$scope.enviarSolicitacao = function(){
