@@ -366,6 +366,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/contrato/empenho/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/empenho.html',
+				controller: 'contratoEmpenhoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoEmpenhoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/contrato/add',
 			{ 
 				templateUrl: 'views/contrato/formulario.html',

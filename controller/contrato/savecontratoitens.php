@@ -9,12 +9,12 @@ sleep(1);
 
 try{
 		if( $params->iditens_contrato != '0' ){
-			$stmt = $oConexao->prepare("UPDATE itens_contrato SET  idcontrato = :idcontrato, idunidade_medida = :idunidade_medida, descricao = :descricao, qtd = :qtd, qtdordem = :qtdordem, valorunitario = :valorunitario, idfornecedor = :idfornecedor WHERE iditens_contrato = :iditens_contrato");  
+			$stmt = $oConexao->prepare("UPDATE itens_contrato SET  idcontrato = :idcontrato, idunidade_medida = :idunidade_medida, descricao = :descricao, qtd = :qtd, valorunitario = :valorunitario, idfornecedor = :idfornecedor WHERE iditens_contrato = :iditens_contrato");  
 			$stmt->bindParam('idcontrato', $params->idcontrato);
 			$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
 			$stmt->bindParam('descricao', $params->descricao);
 			$stmt->bindParam('qtd', $params->qtd);
-			$stmt->bindParam('qtdordem', $params->qtd);
+			//$stmt->bindParam('qtdordem', 0);
 			$stmt->bindParam('valorunitario', $params->valorunitario);
 			$stmt->bindParam('idfornecedor', $params->idfornecedor);
 			$stmt->bindParam('iditens_contrato', $params->iditens_contrato);
@@ -25,12 +25,11 @@ try{
     		$msg['msg_success'] = 'Item alterado com sucesso.';
     		echo json_encode($msg);
 		}else{
-			$stmt = $oConexao->prepare("INSERT INTO itens_contrato (idcontrato, idunidade_medida, descricao, qtd, qtdordem, valorunitario, idfornecedor) VALUES (:idcontrato, :idunidade_medida, :descricao, :qtd, :qtdordem, :valorunitario, :idfornecedor)");  
+			$stmt = $oConexao->prepare("INSERT INTO itens_contrato (idcontrato, idunidade_medida, descricao, qtd, valorunitario, idfornecedor) VALUES (:idcontrato, :idunidade_medida, :descricao, :qtd, :valorunitario, :idfornecedor)");  
 			$stmt->bindParam('idcontrato', $params->idcontrato);
 			$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
 			$stmt->bindParam('descricao', $params->descricao);
 			$stmt->bindParam('qtd', $params->qtd);
-			$stmt->bindParam('qtdordem', $params->qtd);
 			$stmt->bindParam('valorunitario', $params->valorunitario);
 			$stmt->bindParam('idfornecedor', $params->idfornecedor);
 			$stmt->execute();
