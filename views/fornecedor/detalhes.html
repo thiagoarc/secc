@@ -10,69 +10,70 @@
         </div>
         <div class="block-content">
 
-           <fieldset>
-                    <legend>Informações Básicas do Fornecedor</legend>
-                        <div class="form-group">
-                            <label for="nome" class="control-label">Razão Social:</label>
-                            {{fornecedor.razaosocial}}
-                        </div><!-- END INPUT -->
+            <fieldset>
+            <legend>Informações Básicas do Fornecedor</legend>
+                <div class="form-group">
+                    <label for="nome" class="control-label">Razão Social:</label>
+                    {{fornecedor.razaosocial}}
+                </div><!-- END INPUT -->
 
-                        <div class="row form-group">
-                            <div class="col-sm-6">
-                                <label for="cnpj" class="control-label">CNPJ:</label>
-                                {{fornecedor.cnpj | brCnpj}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="responsavel" class="control-label">Responsável:</label>
-                                {{fornecedor.responsavel}}
-                            </div>
-                        </div><!-- END INPUT -->
-                        <div class="row form-group">
-                            <div class="col-sm-6">
-                                <label for="telefone" class="control-label">Telefone:</label>
-                                {{fornecedor.telefone | brPhoneNumber}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="celular" class="control-label">Celular:</label>
-                                {{fornecedor.celular | brPhoneNumber}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="email" class="control-label">Email:</label>
-                                {{fornecedor.email}}
-                            </div>
-                        </div><!-- END INPUT -->
-                    </fieldset>
-                    <fieldset>
-                    <legend>Endereço do Fornecedor</legend>
-                        <div class="row form-group">
-                            <div class="col-sm-6">
-                                <label for="logradouro" class="control-label">Logradouro:</label>
-                                {{fornecedor.logradouro}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="numero" class="control-label">Número:</label>
-                                {{fornecedor.numero}}
-                            </div>
-                        </div><!-- END INPUT -->
-                        <div class="form-group">
-                            <label for="complemento" class="control-label">Complemento:</label>
-                            {{fornecedor.complemento}}
-                        </div><!-- END INPUT -->
-                        <div class="row form-group">
-                            <div class="col-sm-6">
-                                <label for="cidade" class="control-label">Cidade:</label>
-                                {{fornecedor.cidade}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="bairro" class="control-label">Bairro:</label>
-                                {{fornecedor.bairro}}
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="cep" class="control-label">Cep:</label>
-                                {{fornecedor.cep | brCep}}
-                            </div>
-                        </div>
-                    </fieldset>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="cnpj" class="control-label">CNPJ:</label>
+                        {{fornecedor.cnpj | brCnpj}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="responsavel" class="control-label">Responsável:</label>
+                        {{fornecedor.responsavel}}
+                    </div>
+                </div><!-- END INPUT -->
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="telefone" class="control-label">Telefone:</label>
+                        {{fornecedor.telefone | brPhoneNumber}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="celular" class="control-label">Celular:</label>
+                        {{fornecedor.celular | brPhoneNumber}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email" class="control-label">Email:</label>
+                        {{fornecedor.email}}
+                    </div>
+                </div><!-- END INPUT -->
+            </fieldset>
+            
+            <fieldset>
+            <legend>Endereço do Fornecedor</legend>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="logradouro" class="control-label">Logradouro:</label>
+                        {{fornecedor.logradouro}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="numero" class="control-label">Número:</label>
+                        {{fornecedor.numero}}
+                    </div>
+                </div><!-- END INPUT -->
+                <div class="form-group">
+                    <label for="complemento" class="control-label">Complemento:</label>
+                    {{fornecedor.complemento}}
+                </div><!-- END INPUT -->
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label for="cidade" class="control-label">Cidade:</label>
+                        {{fornecedor.cidade}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="bairro" class="control-label">Bairro:</label>
+                        {{fornecedor.bairro}}
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="cep" class="control-label">Cep:</label>
+                        {{fornecedor.cep | brCep}}
+                    </div>
+                </div>
+            </fieldset>
 
         </div>
     </div>

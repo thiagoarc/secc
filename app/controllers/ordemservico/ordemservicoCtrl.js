@@ -94,10 +94,10 @@ app
 								$scope.itensOSTotal = data.length;
 								if( $scope.itensOSTotal == undefined )
 									$scope.itensOSTotal = 0;
-								$scope.itensOS = data;
+								$scope.itensOS = data[0];
 								$scope.calcTotalValor = 0;
-								for( var i = 0; i < data.length; i++){
-									$scope.calcTotalValor += data[i].qtd * data[i].valorunitario;
+								for( var i = 0; i < data[0].item.length; i++){
+									$scope.calcTotalValor += data[0].item[i].qtd * data[0].item[i].valorunitario;
 								}
 								$scope.isloadingmodal = false;
 							});

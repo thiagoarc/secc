@@ -20,11 +20,51 @@
             </div>
 
             <div id="blcdetalhes">
-            
+
+                <fieldset ng-if="ordem.tipo == 1">
+                <legend>Informações do contrato</legend>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label for="nome" class="control-label">Número:</label>
+                            {{itensOS.numerocontrato}}
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="cnpj" class="control-label">Valor:</label>
+                            {{itensOS.valorcontrato | finance:true:2}}
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="responsavel" class="control-label">Validade:</label>
+                            {{itensOS.validadecontrato | datebr}}
+                        </div>
+                    </div><!-- END INPUT -->
+                </fieldset>
+
+                <fieldset ng-if="ordem.tipo == 2">
+                <legend>Informações do aditivo</legend>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label for="nome" class="control-label">Número:</label>
+                            {{itensOS.numeroaditivo}}
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="cnpj" class="control-label">Valor:</label>
+                            {{itensOS.valoraditivo | finance:true:2}}
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="responsavel" class="control-label">Validade:</label>
+                            {{itensOS.validadeaditivo | datebr}}
+                        </div>
+                    </div><!-- END INPUT -->
+                </fieldset>
+
+                <fieldset>
+                    <legend>Informações da ordem de serviço</legend>
+                </fieldset>
+
                 <div class="row form-group">
                     <div class="col-sm-12">
                         <div class="col-sm-4 text-white">
-                            <p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">Nº: {{ordem.idos}}</p>
+                            <p class="content-mini content-mini-full bg-primary-dark" style="margin-bottom: 10px;">Nº: {{itensOS.idos}}</p>
                         </div>
                         <div class="col-sm-4 text-white">
                             <p class="content-mini content-mini-full bg-success" ng-if="ordem.tipo == 1" style="margin-bottom: 10px;">Tipo: Contrato</p>
@@ -49,7 +89,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="prod in itensOS">
+                                <tr ng-repeat="prod in itensOS.item">
                                     <td class="text-left">
                                         {{prod.descricao}}
                                     </td>
