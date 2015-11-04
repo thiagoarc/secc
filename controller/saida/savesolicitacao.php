@@ -5,15 +5,16 @@ $oConexao = Conexao::getInstance();
 //params
 $params = json_decode(file_get_contents('php://input'));
 
-$idusuario = 1;
+$idusuario = $_SESSION['ang_secc_uid'];
 
 try{
 	$oConexao->beginTransaction(); 
 //print_r($params);
 
-	$stmt = $oConexao->prepare("INSERT INTO saida (datasaida, idusuario) VALUES 
-		(now(), :idusuario)");  
+	$stmt = $oConexao->prepare("INSERT INTO saida (datasaida, idusuario, tipo, idsetor) VALUES 
+		(now(), :idusuario, 1, :idsetor)");  
 		$stmt->bindParam('idusuario', $idusuario);
+		$stmt->bindParam('idsetor', $params[0]->setor);
 		$stmt->execute();
 		//$oConexao = null;
 

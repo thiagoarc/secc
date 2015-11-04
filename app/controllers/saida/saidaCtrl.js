@@ -7,6 +7,7 @@ app
 
 				$scope.solicitacao 			= {};
 				$scope.solicitacoes 		= [];
+				$scope.setores		 		= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -22,6 +23,7 @@ app
 				$scope.totalItems			= 0;
 				$scope.produtoed			= {};
 				$scope.qtdestoque			= 0;
+				$scope.setor				= {};
 
 				$scope.produtossolicitacao	= [];
 
@@ -187,6 +189,14 @@ app
 
 				};
 
+				$scope.loadsetor = function(itemid){
+
+					$http.get('/controller/saida/setores')
+						.success(function(data){
+							$scope.setores = data;
+						});
+				};
+
 				$scope.loadprodutossolicitacao = function(itemid){
 
 					$http({
@@ -236,7 +246,8 @@ app
 	      						id: $scope.produto.idproduto,
 	      						nome: $scope.nome,
 	      						qtd: $scope.produto.qtd,
-	      						qtdestoque: $scope.qtdestoque
+	      						qtdestoque: $scope.qtdestoque,
+	      						setor: $scope.setor
 	    					});
 	    					appMessages.addMessage("Material adicionado com sucesso.", true, 'success');
 	    				}else{

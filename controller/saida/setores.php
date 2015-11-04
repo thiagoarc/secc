@@ -4,15 +4,10 @@ $oConexao = Conexao::getInstance();
 
 $params = json_decode(file_get_contents('php://input'));
 
-$idusuario = $_SESSION['ang_secc_uid'];
-
-$limit = $params->limit != '' ?  $params->limit : 10;
-
 try{
 
-	$sql = "SELECT s.idsaida, DATE_FORMAT(s.datasaida, '%d/%m/%Y') as datasaida, s.idusuario, se.sigla, se.nome FROM saida s, setor se WHERE s.idsetor = se.idsetor AND s.idusuario = :idusuario ORDER BY s.datasaida desc LIMIT 0, $limit";
+	$sql = "SELECT * FROM setor ORDER BY sigla";
 	$stmt = $oConexao->prepare($sql);  
-	$stmt->bindParam('idusuario', $idusuario);
 	$stmt->execute();
 	$solicitacao = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
