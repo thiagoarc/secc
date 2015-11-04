@@ -44,7 +44,7 @@
 
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
 					<div class="row form-group">
-						<div class="col-sm-6">
+						<div class="col-sm-10">
 							<label for="nome" class="control-label">Setor: <span class="red">*</span></label>
 							<select class="form-control" ng-model="setor" name="setor" ng-init="loadsetor()" required>
 								<option value="">Escolha</option>
@@ -52,6 +52,10 @@
 							</select>
 							<span class="help-block" ng-show="createForm.setor.$dirty && createForm.setor.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
+						<div class="col-sm-2">
+							<a class="link pull-right fc-mg-right-default-1x fc-mg-top-default-6x" href="#!/saida">
+								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
+						</div>
 					</div>
 					<div class="row form-group">
 						<div class="col-sm-6">
@@ -89,47 +93,55 @@
 
 					<p></p><!-- clearfixed -->
 
-					<div class="col-sm-12">
+					<div class="row">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="table-responsive col-sm-12" ng-show="totalItemsP > 0">
+										<table class="table table-striped">
+											<thead>
+												<th width="1%" >#</th>
+												<th width="45%" >Produto</th>
+												<th width="20%" >Solicitada</th>
+			                                	<th width="20%" >Em Estoque</th>
+												<th width="14%"></th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="prod in produtossolicitacao">
+												<td>{{$index+1}}</td>
+												<td>{{prod.nome}}</td>
+												<td>{{prod.qtd}}</td>
+												<td>{{prod.qtdestoque}}</td>
+												<td>
+													<a class="btn btn-danger btn-sm" href="javascript:void(0);"
+												 		ng-click="removeRow(prod.nome)"
+												 		tooltips tooltip-title="tip" tooltip-side="top"
+														title="Excluir">
+														<i class="glyphicon glyphicon-trash"></i>
+													</a>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 
-						<div class="table-responsive" ng-show="totalItemsP > 0">
-							<table class="table table-striped">
-								<thead>
-									<th width="1%" >#</th>
-									<th width="45%" >Produto</th>
-									<th width="20%" >Solicitada</th>
-                                	<th width="20%" >Em Estoque</th>
-									<th width="14%"></th>
-							</thead>
-							<tbody>
-								<tr ng-repeat="prod in produtossolicitacao">
-									<td>{{$index+1}}</td>
-									<td>{{prod.nome}}</td>
-									<td>{{prod.qtd}}</td>
-									<td>{{prod.qtdestoque}}</td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="removeRow(prod.nome)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+								<div class="col-md-12" ng-show="!totalItemsP">
+							        <table class="table">
+							        	<tr>
+							        		<td colspan="7">Nenhum produto adicionado.</td>
+							        	</tr>
+							        </table>
+							    </div>
+						    </div>
+					    </div>
+				    </div><!-- row -->
 
-					<div class="col-md-12" ng-show="!totalItemsP">
-				        <table class="table">
-				        	<tr>
-				        		<td colspan="7">Nenhum produto adicionado.</td>
-				        	</tr>
-				        </table>
-				        </div>
-				    </div>
-
-				    <div>
+				    <div class="row col-sm-12">
 				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
 						<button ng-show="totalItemsP > 0" type="submit" ng-click="retirarMaterial()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
 							<span ng-switch-default>Retirar Material</span>
 				    		<span ng-switch-when="true">Enviando...</span>
 						</button>
-						<a href="#!/saida" class="btn btn-danger">Cancelar</a>
+						<p></p><!-- clearfixed -->
+						<p></p><!-- clearfixed -->
 					</div>
 				</form>
 
