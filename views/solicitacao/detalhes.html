@@ -44,90 +44,114 @@
 
                 <div class="block-content">
 
-                <div class="form-group">
-                    <a href="#!/solicitacao"
-                                    class="link pull-right fc-mg-right-default-1x fc-mg-top-default-1x">
-                                    <i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
-                    <h3 class="block-title border-h3">Detalhes da Solicitação</h3>
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label for="nome" class="control-label">Número da Solicitação:</label>
-                            {{solicitacao.idsolicitacao}}
-                        </div><!-- END INPUT -->
-                        <div class="form-group col-sm-6">
-                            <label for="nome" class="control-label">Usuário Solicitante:</label>
-                            {{solicitacao.nome}}
-                        </div><!-- END INPUT -->
-                        <div class="form-group col-sm-6">
-                            <label for="nome" class="control-label">Setor:</label>
-                            {{solicitacao.sigla}}
-                        </div><!-- END INPUT -->
-                        <div class="form-group col-sm-6">
-                            <label for="nome" class="control-label">Data Solicitação:</label>
-                            {{solicitacao.datasolicitacao}}
-                        </div><!-- END INPUT -->
-                        <div class="form-group col-sm-6">
-                            <label for="descricao" class="control-label">Status:</label>
+                    <div class="form-group">
+                        <a href="#!/solicitacao"
+                                        class="link pull-right fc-mg-right-default-1x fc-mg-top-default-1x">
+                                        <i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
+                        <h3 class="block-title border-h3">Detalhes da Solicitação</h3>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="nome" class="control-label">Número da Solicitação:</label>
+                                {{solicitacao.idsolicitacao}}
+                            </div><!-- END INPUT -->
+                            <div class="form-group col-sm-6">
+                                <label for="nome" class="control-label">Usuário Solicitante:</label>
+                                {{solicitacao.nome}}
+                            </div><!-- END INPUT -->
+                            <div class="form-group col-sm-6">
+                                <label for="nome" class="control-label">Setor:</label>
+                                {{solicitacao.sigla}}
+                            </div><!-- END INPUT -->
+                            <div class="form-group col-sm-6">
+                                <label for="nome" class="control-label">Data Solicitação:</label>
+                                {{solicitacao.datasolicitacao}}
+                            </div><!-- END INPUT -->
+                            <div class="form-group col-sm-6">
+                                <label for="descricao" class="control-label">Status:</label>
 
-                            <span ng-show="solicitacao.status == 'Finalizado'" 
-                                        class="label label-success">{{solicitacao.status}}</span>
+                                <span ng-show="solicitacao.status == 'Finalizado'" 
+                                            class="label label-success">{{solicitacao.status}}</span>
 
-                            <span ng-show="solicitacao.status == 'Aguardando'" 
-                                        class="label label-warning">{{solicitacao.status}}</span>
+                                <span ng-show="solicitacao.status == 'Aguardando'" 
+                                            class="label label-warning">{{solicitacao.status}}</span>
 
-                            <span ng-show="solicitacao.status == 'Cancelado'" 
-                                        class="label label-danger">{{solicitacao.status}}</span>
-                        </div><!-- END INPUT -->
+                                <span ng-show="solicitacao.status == 'Cancelado'" 
+                                            class="label label-danger">{{solicitacao.status}}</span>
+                            </div><!-- END INPUT -->
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="totalItemsP > 0">
+                        <h3 class="block-title border-h3">Produtos da Solicitação</h3>
+                            <div class="table-responsive" >
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th width="1%" >#</th>
+                                        <th width="25%" >Produto</th>
+                                        <th width="15%" >Solicitada</th>
+                                        <th width="15%" >Em Estoque</th>
+                                        <th width="10%" >Status</th>
+                                        <th width="15%" >Motivo</th>
+                                        <th width="19%" ></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="solprod in produtossolicitacao">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{solprod.produto}}</td>
+                                            <td>{{solprod.qtd}}</td>
+                                            <td>{{solprod.qtdatual}}</td>
+                                            <td>
+                                                <span ng-show="solprod.status == 'Aguardando'" 
+                                                        class="label label-warning">Aguardando</span>
+
+                                                <span ng-show="solprod.status == 'Deferido'" 
+                                                        class="label label-success">Deferido</span>
+
+                                                <span ng-show="solprod.status == 'Indeferido'" 
+                                                        class="label label-danger">Indeferido</span>
+                                            </td>
+                                            <td>
+                                                <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
+                                            </td>
+                                            <td>
+                                                
+                                                <a class="btn btn-success btn-sm" href="javascript:void(0);"
+                                                    ng-show="solprod.status == 'Aguardando'"
+                                                    ng-click="deferirconfirm(solprod)"
+                                                    tooltips tooltip-title="tip" tooltip-side="top"
+                                                    title="Deferir">
+                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                </a>
+
+                                                <a class="btn btn-danger btn-sm" href="javascript:void(0);"
+                                                    ng-show="solprod.status == 'Aguardando'"
+                                                    ng-click="indeferirconfirm(solprod)"
+                                                    tooltips tooltip-title="tip" tooltip-side="top"
+                                                    title="Indeferir">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                     </div>
                 </div>
-            <div class="form-group" ng-show="totalItemsP > 0">
-                <h3 class="block-title border-h3">Produtos da Solicitação</h3>
-                    <div class="table-responsive" >
-                        <table class="table table-striped">
-                            <thead>
-                                <th width="1%" >#</th>
-                                <th width="25%" >Produto</th>
-                                <th width="15%" >Solicitada</th>
-                                <th width="15%" >Em Estoque</th>
-                                <th width="10%" >Status</th>
-                                <th width="15%" >Motivo</th>
-                                <th width="19%" ></th>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="solprod in produtossolicitacao">
-                                    <td>{{$index+1}}</td>
-                                    <td>{{solprod.produto}}</td>
-                                    <td>{{solprod.qtd}}</td>
-                                    <td>{{solprod.qtdatual}}</td>
-                                    <td>
-                                        <span ng-show="solprod.status == 'Aguardando'" 
-                                                class="label label-warning">Aguardando</span>
 
-                                        <span ng-show="solprod.status == 'Deferido'" 
-                                                class="label label-success">Deferido</span>
+                <div class="col-sm-12">
+                    <button class="btn btn-sm btn-success" 
+                            ng-show="solicitacao.status == 'Aguardando'" 
+                            ng-click="finalizar()">
+                            <i class="glyphicon glyphicon-ok-circle"></i>
+                            Finalizar solicitação
+                    </button>
+                
+                    <p></p><!-- clearfixed -->
+                    <p></p><!-- clearfixed -->
+                    
+                </div>
 
-                                        <span ng-show="solprod.status == 'Indeferido'" 
-                                                class="label label-danger">Indeferido</span>
-                                    </td>
-                                    <td>
-                                        <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success btn-sm" ng-show="solprod.status == 'Aguardando'" href="javascript:;" ng-click="deferirconfirm(solprod)"><i class="glyphicon glyphicon-ok"></i> Deferir</a>
-                                        <a class="btn btn-danger btn-sm" ng-show="solprod.status == 'Aguardando'" href="javascript:;" ng-click="indeferirconfirm(solprod)"><i class="glyphicon glyphicon-trash"></i> Indeferir</a>
-                                        </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <!--<button class="btn btn-success" ng-show="solicitacao.deferido == 'Aguardando'" ng-click="deferir()">Deferir</button>-->
-        <button class="btn btn-sm btn-danger" ng-show="solicitacao.status == 'Aguardando'" ng-click="finalizar()">Finalizar Solicitação</button>
-        <!--<button class="btn btn-warning" ng-click="cancel()">Fechar</button>-->
-    </div>
+
 
             </div><!-- end col-sm-12 -->
         </div><!-- end row -->
