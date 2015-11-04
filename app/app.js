@@ -381,6 +381,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/contrato/empenhoaditivo/:idaditivo',
+			{ 
+				templateUrl: 'views/contrato/empenhoaditivo.html',
+				controller: 'contratoAditivoEmpenhoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/contrato/contratoAditivoEmpenhoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/contrato/add',
 			{ 
 				templateUrl: 'views/contrato/formulario.html',
