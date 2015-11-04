@@ -17,7 +17,7 @@ app
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
 			    $scope.itenscadastrados 	= [];
-			    $scope.mostraBotao			= false;
+			    $scope.mostraBotao			= true;
 			    $scope.idcontrato			= 0;			
 
 			    $scope.handleClick = function(msg) {
@@ -97,6 +97,7 @@ app
 				};
 
 				$scope.editar = function(itemid){
+					//$scope.mostraBotao = false;
 					
 					/*$http.get('/controller/contrato/contraofornecedores' )
 						.success(function(data){
@@ -109,7 +110,7 @@ app
 					}).success(function(data){
 						//console.log(data);
 						// $scope.contratoItens 		= null;
-						$scope.aditivoItens = data;
+						$scope.aditivoItens = data[0];
 						// console.log(data);
 						// $scope.contratoItens.descricao = data.descricao;
 						// console.log($scope.contratoItens);
@@ -117,13 +118,18 @@ app
 
 				};
 
-
 				$scope.mudaBotao = function(){
-					if($scope.mostraBotao == true){
-						$scope.mostraBotao = false;
-					}else{
+					console.log("OI");
+					if($scope.aditivoItens.idempenho_aditivo == 0){
 						$scope.mostraBotao = true;
+					}else{
+						$scope.mostraBotao = false;
 					}
+					// if($scope.mostraBotao == true){
+					// 	$scope.mostraBotao = false;
+					// }else{
+					// 	$scope.mostraBotao = true;
+					// }
 				}
 
 				$scope.loadunidademedida = function(){
@@ -140,7 +146,7 @@ app
 					$scope.totalgeral 			= 0; 
 					angular.forEach($scope.itenscadastrados, function(item) {
 						//console.log(item.total);
-						$scope.totalgeral += parseFloat(item.total);
+						$scope.totalgeral += parseFloat(item.valor);
 					});
 				}
 
@@ -150,14 +156,14 @@ app
 					angular.forEach($scope.itenscadastrados, function(item) {
 						//console.log(item.total);
 						if(id != item.idempenho_aditivo)
-							totalEdicao += parseFloat(item.total);
+							totalEdicao += parseFloat(item.valor);
 					});
 					return totalEdicao;
 				}
 
 
 				$scope.additens = function(){
-						$scope.mostraBotao = false;
+						$scope.mostraBotao = true;
 						//saving set true
 						$scope.submitting = true;
 						//show loading
@@ -170,7 +176,7 @@ app
 						$scope.aditivoItens.idaditivo = itemid;
 						//verifica se o total de itens e igual ou inferior ao total do contrato
 						if($scope.aditivoItens.idempenho_aditivo > 0)
-							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.aditivoItens.idempenho_aditivo) + $scope.aditivoItens.valor;
+							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.aditivoItens.idempenho_aditivo) + parseFloat($scope.aditivoItens.valor);
 						else
 							totalTMP = $scope.totalgeral + $scope.aditivoItens.valor;
 						//console.log(totalTMP);
@@ -190,6 +196,7 @@ app
 									//show message
 									appMessages.addMessage(data.msg_success, true, 'success');
 									$scope.aditivoItens 				= {};
+									$scope.aditivoItens.idempenho_aditivo = 0;
 								}else if(data.msg == 'error_existe'){
 									appMessages.addMessage(data.msg_success, true, 'danger');
 								}else{
@@ -210,6 +217,7 @@ app
 							//hide loading
 							$scope.isloading = false;
 							$scope.aditivoItens = {};
+							$scope.aditivoItens.idempenho_aditivo = 0;
 							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){

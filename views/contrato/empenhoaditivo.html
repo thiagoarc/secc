@@ -82,11 +82,11 @@
 						</div><!-- END INPUT -->
 						<div class="row form-group">
 							<div class="col-sm-12">
-								<button type="submit" ng-show="!mostraBotao" ng-hide="mostraBotao" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
+								<button type="submit" ng-show="aditivoItens.idempenho_aditivo == 0" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
 									<span ng-switch-default>Adicionar</span>
 				    				<span ng-switch-when="true">Adicionando...</span>
 								</button>
-								<button type="submit" ng-show="mostraBotao" ng-hide="!mostraBotao" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
+								<button type="submit" ng-show="aditivoItens.idempenho_aditivo != 0" ng-click="additens()" class="btn btn-sm btn-primary" ng-class="{disabled: createForm.$invalid}" ng-disabled="submitting" ng-switch="submitting">
 									<span ng-switch-default>Editar</span>
 				    				<span ng-switch-when="true">Editando...</span>
 								</button>
@@ -115,7 +115,7 @@
 												<td>{{item.valor  | finance:true:2}}</td>
 												<td>
 													<a class="btn btn-info btn-sm"  href="javascript:;" 
-														ng-click="editar(item);mudaBotao()"
+														ng-click="mudaBotao();editar(item);"
 														tooltips tooltip-title="tip" tooltip-side="top"
 														title="Editar">
 														<i class="glyphicon glyphicon-pencil"></i>

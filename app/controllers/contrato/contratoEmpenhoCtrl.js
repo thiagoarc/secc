@@ -140,7 +140,7 @@ app
 					//for(var i = 0; i < $scope.itenscadastrados.length; i++){
 					$scope.totalgeral 			= 0; 
 					angular.forEach($scope.itenscadastrados, function(item) {
-						console.log(item.valor);
+						//console.log(item.valor);
 						$scope.totalgeral += parseFloat(item.valor);
 					});
 				}
@@ -169,7 +169,7 @@ app
 						var totalTMP = 0;
 						//verifica se o total de itens e igual ou inferior ao total do contrato
 						if($scope.contratoItens.idempenho_contrato > 0)
-							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.contratoItens.idempenho_contrato) + $scope.contratoItens.valor;
+							totalTMP = $scope.calculaTotalGeralParaEdicao($scope.contratoItens.idempenho_contrato) + parseFloat($scope.contratoItens.valor);
 						else{
 							console.log("GERAL: "+$scope.totalgeral);
 							console.log("VALOR: "+$scope.contratoItens.valor);
@@ -215,6 +215,7 @@ app
 							//hide loading
 							$scope.isloading = false;
 							$scope.contratoItens = {};
+							$scope.contratoItens.idempenho_contrato 		= 0;
 							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){

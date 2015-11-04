@@ -190,6 +190,7 @@ app
 									//show message
 									appMessages.addMessage(data.msg_success, true, 'success');
 									$scope.aditivoItens 				= {};
+									$scope.aditivoItens.iditens_aditivo 		= 0;
 								}else if(data.msg == 'error_existe'){
 									appMessages.addMessage(data.msg_success, true, 'danger');
 								}else{
@@ -210,6 +211,7 @@ app
 							//hide loading
 							$scope.isloading = false;
 							$scope.aditivoItens = {};
+							$scope.aditivoItens.iditens_aditivo 		= 0;
 							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){

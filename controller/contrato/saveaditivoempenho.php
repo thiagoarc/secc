@@ -8,7 +8,7 @@ $params = json_decode(file_get_contents('php://input'));
 sleep(1);
 
 try{
-		if( $params->idempenho_contrato != '0' ){
+		if( $params->idempenho_aditivo != '0' ){
 			$stmt = $oConexao->prepare("UPDATE empenho_aditivo SET  idaditivo = :idaditivo, idfornecedor = :idfornecedor, numero = :numero, valor = :valor WHERE idempenho_aditivo = :idempenho_aditivo");  
 			$stmt->bindParam('idaditivo', $params->idaditivo);
 			$stmt->bindParam('idfornecedor', $params->idfornecedor);

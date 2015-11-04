@@ -211,6 +211,7 @@ app
 							//hide loading
 							$scope.isloading = false;
 							$scope.contratoItens = {};
+							$scope.contratoItens.iditens_contrato 		= 0;
 							//$scope.mudaBotao();
 							//show message in 5 seconds
 							$timeout(function(){
