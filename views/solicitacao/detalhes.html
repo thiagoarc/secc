@@ -43,32 +43,45 @@
                 <p></p><!-- clearfixed -->
 
                 <div class="block-content">
-            <h3 class="block-title">Detalhes da Solicitação</h3>
-            <div class="form-group">
-                <label for="nome" class="control-label">Número da Solicitação:</label>
-                {{solicitacao.idsolicitacao}}
-            </div><!-- END INPUT -->
-            <div class="form-group">
-                <label for="nome" class="control-label">Usuário Solicitante:</label>
-                {{solicitacao.nome}}
-            </div><!-- END INPUT -->
-            <div class="form-group">
-                <label for="nome" class="control-label">Setor:</label>
-                {{solicitacao.sigla}}
-            </div><!-- END INPUT -->
-            <div class="form-group">
-                <label for="nome" class="control-label">Data Solicitação:</label>
-                {{solicitacao.datasolicitacao}}
-            </div><!-- END INPUT -->
-            <div class="form-group">
-                <label for="descricao" class="control-label">Status:</label>
-                <a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-                <a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-                <a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-            </div><!-- END INPUT -->
+
+                <div class="form-group">
+                    <a href="#!/solicitacao"
+                                    class="link pull-right fc-mg-right-default-1x fc-mg-top-default-1x">
+                                    <i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
+                    <h3 class="block-title border-h3">Detalhes da Solicitação</h3>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for="nome" class="control-label">Número da Solicitação:</label>
+                            {{solicitacao.idsolicitacao}}
+                        </div><!-- END INPUT -->
+                        <div class="form-group col-sm-6">
+                            <label for="nome" class="control-label">Usuário Solicitante:</label>
+                            {{solicitacao.nome}}
+                        </div><!-- END INPUT -->
+                        <div class="form-group col-sm-6">
+                            <label for="nome" class="control-label">Setor:</label>
+                            {{solicitacao.sigla}}
+                        </div><!-- END INPUT -->
+                        <div class="form-group col-sm-6">
+                            <label for="nome" class="control-label">Data Solicitação:</label>
+                            {{solicitacao.datasolicitacao}}
+                        </div><!-- END INPUT -->
+                        <div class="form-group col-sm-6">
+                            <label for="descricao" class="control-label">Status:</label>
+
+                            <span ng-show="solicitacao.status == 'Finalizado'" 
+                                        class="label label-success">{{solicitacao.status}}</span>
+
+                            <span ng-show="solicitacao.status == 'Aguardando'" 
+                                        class="label label-warning">{{solicitacao.status}}</span>
+
+                            <span ng-show="solicitacao.status == 'Cancelado'" 
+                                        class="label label-danger">{{solicitacao.status}}</span>
+                        </div><!-- END INPUT -->
+                    </div>
+                </div>
             <div class="form-group" ng-show="totalItemsP > 0">
-                <fieldset >
-                    <legend>Produtos da Solicitação</legend>
+                <h3 class="block-title border-h3">Produtos da Solicitação</h3>
                     <div class="table-responsive" >
                         <table class="table table-striped">
                             <thead>
@@ -87,9 +100,14 @@
                                     <td>{{solprod.qtd}}</td>
                                     <td>{{solprod.qtdatual}}</td>
                                     <td>
-                                        <a ng-show="solprod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">Aguardando</a>
-                                        <a ng-show="solprod.status == 'Deferido'" class="btn btn-success btn-sm" href="javascript:;">Deferido</a>
-                                        <a ng-show="solprod.status == 'Indeferido'" class="btn btn-danger btn-sm" href="javascript:;">Indeferido</a>
+                                        <span ng-show="solprod.status == 'Aguardando'" 
+                                                class="label label-warning">Aguardando</span>
+
+                                        <span ng-show="solprod.status == 'Deferido'" 
+                                                class="label label-success">Deferido</span>
+
+                                        <span ng-show="solprod.status == 'Indeferido'" 
+                                                class="label label-danger">Indeferido</span>
                                     </td>
                                     <td>
                                         <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
@@ -102,14 +120,12 @@
                             </tbody>
                         </table>
                     </div>
-                </fieldset>
             </div>
         </div>
     </div>
     <div class="modal-footer">
         <!--<button class="btn btn-success" ng-show="solicitacao.deferido == 'Aguardando'" ng-click="deferir()">Deferir</button>-->
-        <button class="btn btn-danger" ng-show="solicitacao.status == 'Aguardando'" ng-click="finalizar()">Finalizar Solicitação</button>
-        <a class="btn btn-warning" href="#!/solicitacao">Voltar</a>
+        <button class="btn btn-sm btn-danger" ng-show="solicitacao.status == 'Aguardando'" ng-click="finalizar()">Finalizar Solicitação</button>
         <!--<button class="btn btn-warning" ng-click="cancel()">Fechar</button>-->
     </div>
 

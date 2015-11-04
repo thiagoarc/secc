@@ -71,17 +71,22 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="39%" >Número Solicitação de Saída</th>
+								<th width="39%" >Número solicitação de saída</th>
 								<th width="30%" >Data</th>
 								<th width="30%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="solicitacao in solicitacoes | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td>{{solicitacao.idsaida}}</td>
+									<td><span class="label label-info">{{solicitacao.idsaida}}</span></td>
 									<td>{{solicitacao.datasaida  | date:'dd/MM/yyyy'}}</td>
 									<td>
-										<a class="btn btn-default btn-sm" href="javascript:;" ng-click="detalhes(solicitacao)"><i class="glyphicon glyphicon-trash"></i> Detalhes</a> 
+										<a class="btn btn-default btn-sm" href="javascript:void(0);"
+									 		ng-click="detalhes(solicitacao)"
+									 		tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
 									</td>
 								</tr>
 							</tbody>

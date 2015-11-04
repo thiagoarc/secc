@@ -86,12 +86,24 @@
 									<td>{{solicitacao.sigla}}</td>
 									<td>{{solicitacao.datasolicitacao  | date:'dd/MM/yyyy'}}</td>
 									<td>
-										<a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-										<a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+
+										<span ng-show="solicitacao.status == 'Finalizado'" 
+													class="label label-success">{{solicitacao.status}}</span>
+
+										<span ng-show="solicitacao.status == 'Aguardando'" 
+													class="label label-warning">{{solicitacao.status}}</span>
+
+										<span ng-show="solicitacao.status == 'Cancelado'" 
+													class="label label-danger">{{solicitacao.status}}</span>
+
 									</td>
 									<td>
-										<a class="btn btn-default btn-sm" href="javascript:;" ng-click="detalhes(solicitacao)"><i class="glyphicon glyphicon-trash"></i> Detalhes</a> 
+										<a class="btn btn-default btn-sm" href="javascript:void(0);"
+									 		ng-click="detalhes(solicitacao)"
+									 		tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
 									</td>
 								</tr>
 							</tbody>
