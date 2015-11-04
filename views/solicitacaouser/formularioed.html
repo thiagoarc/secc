@@ -79,43 +79,47 @@
 
 					<p></p><!-- clearfixed -->
 
-					<div class="col-sm-12">
+					<div class="row form-group">
+					<div class="col-md-12">
 
 						<div class="table-responsive" ng-show="totalItemsP > 0">
-							<table class="table table-striped">
-								<thead>
-									<th width="1%" >#</th>
-									<th width="50%" >Produto</th>
-									<th width="15%" >QTD</th>
-									<th width="15%" >Status</th>
-									<th width="19%"></th>
-							</thead>
-							<tbody>
-								<tr ng-repeat="prod in produtossolicitacao">
-									<td>{{$index+1}}</td>
-									<td>{{prod.produto}}</td>
-									<td>{{prod.qtd}}</td>
-									<td>
-                                        <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
-                                        <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
-                                        <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
-                                    </td>
-									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
-										ng-click="removeRowEd(prod.idsolicitacao_produto)">
-										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+								<table class="table table-striped">
+									<thead>
+										<th width="1%" >#</th>
+										<th width="50%" >Produto</th>
+										<th width="15%" >QTD</th>
+										<th width="15%" >Status</th>
+										<th width="19%"></th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="prod in produtossolicitacao">
+										<td>{{$index+1}}</td>
+										<td>{{prod.produto}}</td>
+										<td>{{prod.qtd}}</td>
+										<td>
+	                                        <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
+	                                        <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
+	                                        <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
+	                                    </td>
+										<td><a class="btn btn-danger btn-sm" href="javascript:;" 
+											ng-click="removeRowEd(prod.idsolicitacao_produto)">
+											<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
-					<div class="col-md-12" ng-show="!totalItemsP">
-				        <table class="table">
-				        	<tr>
-				        		<td colspan="7">Nenhum produto adicionado.</td>
-				        	</tr>
-				        </table>
-				        </div>
-				    </div>
+						<div class="col-md-12" ng-show="!totalItemsP">
+					        <table class="table">
+					        	<tr>
+					        		<td colspan="7">Nenhum produto adicionado.</td>
+					        	</tr>
+					        </table>
+					        </div>
+					    </div>
+
+					</div>
+					</div><!-- row -->
 
 				    <div ng-show="totalItemsP > 0">
 				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">

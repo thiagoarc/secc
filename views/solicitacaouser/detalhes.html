@@ -12,7 +12,9 @@
 
         <div class="form-group">
                         <label for="nome" class="control-label">Número da Solicitação:</label>
+                        <span class="label label-info">
                         {{solicitacao.idsolicitacao}}
+                        </span>
                     </div><!-- END INPUT -->
            <div class="form-group">
                         <label for="nome" class="control-label">Data Solicitação:</label>
@@ -21,9 +23,16 @@
 
                     <div class="form-group">
                         <label for="descricao" class="control-label">Status:</label>
-                        <a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-                        <a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-                        <a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+
+                        <span ng-show="solicitacao.status == 'Cancelado'" 
+                                class="label label-danger">{{solicitacao.status}}</span>
+
+                        <span ng-show="solicitacao.status == 'Aguardando'" 
+                                class="label label-warning">{{solicitacao.status}}</span>
+
+                        <span ng-show="solicitacao.status == 'Finalizado'" 
+                                class="label label-success">{{solicitacao.status}}</span>
+
                     </div><!-- END INPUT -->
 
                     <div class="form-group" ng-show="totalItemsP > 0">
@@ -61,7 +70,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Fechar</button>
+        <button class="btn btn-sm btn-warning" ng-click="cancel()">Fechar</button>
     </div>
 </section>
 <!-- end modal -->

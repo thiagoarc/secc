@@ -70,16 +70,16 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="40%" >
+								<th width="35%" >
 									<a href="#!/fornecedor" ng-click="sortType = 'nome'; sortReverse = !sortReverse">
 										Razão Social
 										<span ng-show="sortType == 'nome' && !sortReverse" class="fa fa-caret-down"></span>
 			            				<span ng-show="sortType == 'nome' && sortReverse" class="fa fa-caret-up"></span>
 									</a>
 								</th>
-								<th width="10%" >CNPJ</th>
+								<th width="20%" >CNPJ</th>
 								<th width="10%" >Responsável</th>
-								<th width="19%" >Celular</th>
+								<th width="14%" >Celular</th>
 								<th width="5%"></th>
 								<th width="5%"></th>
 								<th width="5%"></th>
@@ -104,7 +104,7 @@
 											href="#!/fornecedor/edit/{{fornecedor.idfornecedor}}"
 											tooltips tooltip-title="tip" tooltip-side="top"
 											title="Editar">
-											<i class="fa fa-truck"></i>
+											<i class="glyphicon glyphicon-pencil"></i>
 										</a>
 									</td>
 									<td>

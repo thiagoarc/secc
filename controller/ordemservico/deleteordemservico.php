@@ -37,7 +37,27 @@ try{
 				echo '{ "message": "success", "msg_success": "Ordem de serviço cancelado com sucesso." }';
 
 			}else if( $params->tipo == 2 ){ //aditivo
-				echo "CHEGOU AQUI é ADITIVO!";
+				
+				//devolução da quantidade os itens do contrato
+				while ( $l = $stmtOS->fetch(PDO::FETCH_OBJ) ) {
+					$stmt = $oConexao->prepare("UPDATE itens_aditivo SET qtdordem = (qtdordem - ?) WHERE iditens_aditivo = ?");
+					$stmt->bindValue(1, $l->qtd);
+					$stmt->bindValue(2, $l->iditem);
+					$stmt->execute();
+				}
+
+				//exclusão do itens da ordem de serviço
+				$stmt = $oConexao->prepare("DELETE FROM itens_ordem_servico WHERE idordem_servico = ?");
+				$stmt->bindValue(1, $params->idos);
+				$stmt->execute();
+
+				//exclusão
+				$stmt = $oConexao->prepare("DELETE FROM ordem_servico WHERE idordem_servico = ?");
+				$stmt->bindValue(1, $params->idos);
+				$stmt->execute();
+
+				echo '{ "message": "success", "msg_success": "Ordem de serviço cancelado com sucesso." }';
+
 			}
 		}else{
 			echo '{ "message": "noresults" }';

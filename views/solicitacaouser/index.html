@@ -76,25 +76,43 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="20%" >Número Solicitação</th>
+								<th width="40%" >Número solicitação</th>
 								<th width="20%" >Data</th>
 								<th width="20%" >Situação</th>
-								<th width="39%"></th>
+								<th width="19%"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="solicitacao in solicitacoes | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td>{{solicitacao.idsolicitacao}}</td>
+									<td><span class="label label-info">Solicitação: {{solicitacao.idsolicitacao}}</span></td>
 									<td>{{solicitacao.datasolicitacao  | date:'dd/MM/yyyy'}}</td>
 									<td>
-										<a ng-show="solicitacao.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{solicitacao.status}}</a>
-										<a ng-show="solicitacao.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{solicitacao.status}}</a>
+										<span ng-show="solicitacao.status == 'Cancelado'" 
+												class="label label-danger">{{solicitacao.status}}</span>
+
+										<span ng-show="solicitacao.status == 'Aguardando'" 
+												class="label label-warning">{{solicitacao.status}}</span>
+
+										<span ng-show="solicitacao.status == 'Finalizado'" 
+												class="label label-success">{{solicitacao.status}}</span>
+
 									</td>
 									<td>
-										<a class="btn btn-default btn-sm" href="javascript:;" ng-click="detalhes(solicitacao)"><i class="glyphicon glyphicon-trash"></i> Detalhes</a> 
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-info btn-sm" href="#!/solicitacaouser/edit/{{solicitacao.idsolicitacao}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a> 
-										<a ng-show="solicitacao.status == 'Aguardando'" class="btn btn-danger btn-sm" href="javascript:;" ng-click="cancelar(solicitacao.idsolicitacao)"><i class="glyphicon glyphicon-trash"></i> Cancelar</a>
+										<a class="btn btn-default btn-sm" href="javascript:void(0);"
+									 		ng-click="detalhes(solicitacao)"
+									 		tooltips tooltip-title="tip" tooltip-side="top"
+											title="Detalhes">
+											<i class="glyphicon glyphicon-list"></i>
+										</a>
+
+										<a class="btn btn-danger btn-sm" href="javascript:void(0);"
+											ng-show="solicitacao.status == 'Aguardando'"
+									 		ng-click="cancelar(solicitacao.idsolicitacao)"
+									 		tooltips tooltip-title="tip" tooltip-side="top"
+											title="Cancelar">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+
 									</td>
 								</tr>
 							</tbody>
