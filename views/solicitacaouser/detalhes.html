@@ -53,14 +53,14 @@
                                     <td>{{solprod.produto}}</td>
                                     <td>{{solprod.qtd}}</td>
                                     <td>
-                                        <span ng-show="solicitacao.status == 'Deferido'" 
-                                            class="label label-success">{{solprod.status}}</span>
+                                        <span ng-show="solprod.status == 'Deferido'" 
+                                            class="label label-success">Deferido</span>
 
-                                        <span ng-show="solicitacao.status == 'Aguardando'" 
-                                            class="label label-warning">{{solprod.status}}</span>
+                                        <span ng-show="solprod.status == 'Aguardando'" 
+                                            class="label label-warning">Aguardando</span>
 
-                                        <span ng-show="solicitacao.status == 'Indeferido'" 
-                                            class="label label-danger">{{solprod.status}}</span>
+                                        <span ng-show="solprod.status == 'Indeferido'" 
+                                            class="label label-danger">Indeferido</span>
                                     </td>
                                     <td>
                                         <div ng-show="solprod.status == 'Indeferido'">{{solprod.motivo}}</div>
