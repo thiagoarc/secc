@@ -5807,7 +5807,8 @@ button.close {
   border: 0;
 }
 .modal-open {
-  overflow: hidden;
+  overflow-x: visible;
+  overflow-y: auto;
 }
 .modal {
   position: fixed;
@@ -5837,7 +5838,7 @@ button.close {
   transform: translate(0, 0);
 }
 .modal-open .modal {
-  overflow-x: auto;
+  overflow-x: visible;
   overflow-y: auto;
 }
 .modal-dialog {
