@@ -7,7 +7,7 @@ $id = $_GET['id'];
 
 try{
 
-		$stmt = $oConexao->prepare("DELETE FROM empenho_contrato WHERE idempenho_contrato = :id");  
+		$stmt = $oConexao->prepare("DELETE FROM empenho_aditivo WHERE idempenho_aditivo = :id");  
 		$stmt->bindParam('id', $id);
 		$stmt->execute();
 		$oConexao = null;

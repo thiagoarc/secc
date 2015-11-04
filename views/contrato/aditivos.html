@@ -96,6 +96,12 @@
 									<td>{{contratoAditivo.valor  | finance:true:2}}</td>
 									<td>{{contratoAditivo.validade | date:'dd/MM/yyyy'}}</td>
 									<td>
+										<a class="btn btn-default btn-sm" 
+											href="#!/contrato/empenhoaditivo/{{contratoAditivo.idaditivo}}"
+											tooltips tooltip-title="tip" tooltip-side="top"
+											title="Empenho">
+											<i class="glyphicon glyphicon-usd"></i>
+										</a> 
 										<a class="btn btn-default btn-sm" href="javascript:void(0);" 
 										   ng-click="aditivaritens(contratoAditivo)"
 										   tooltips tooltip-title="tip" tooltip-side="top"

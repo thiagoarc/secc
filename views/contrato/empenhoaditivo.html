@@ -17,7 +17,7 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Formulário de Vinculação dos Empenho <small>adicione os empenhos ao contrato</small>
+                Formulário de Vinculação dos Empenho <small>adicione os empenhos ao aditivo</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
@@ -43,13 +43,13 @@
 				<p></p><!-- clearfixed -->
 
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
-					<input type="hidden" ng-model="contratoItens.idcontrato" name="idcontrato">
-					<input type="hidden" ng-model="contratoItens.idempenho_contrato" name="idempenho_contrato">
+					<input type="hidden" ng-model="aditivoItens.idaditivo" name="idaditivo">
+					<input type="hidden" ng-model="aditivoItens.idempenho_aditivo" name="idempenho_aditivo">
 						<div class="row form-group">
 							<div class="col-sm-8">
-								<h3 class="block-title pull-left"><small>Número Contrato:</small> {{contrato.numerocontrato}}</h3>
+								<h3 class="block-title pull-left"><small>Número Aditivo:</small> {{aditivo.numero}}</h3>
 								<p></p><!-- clearfixed -->
-								<h3 class="block-title pull-left"><small>Valor:</small> {{contrato.valor | finance:true:2}}</h3>
+								<h3 class="block-title pull-left"><small>Valor:</small> {{aditivo.valor | finance:true:2}}</h3>
 							</div>
 							<div class="col-sm-4">
 								<a href="#!/contrato/"
@@ -61,22 +61,22 @@
 						<div class="row form-group">
 							<div class="col-sm-12">
 								<label for="nome" class="control-label">Fornecedor: <span class="red">*</span></label>
-								<select class="form-control" ng-model="contratoItens.idfornecedor" name="idfornecedor" ng-init="loadfornecedores()" required>
+								<select class="form-control" ng-model="aditivoItens.idfornecedor" name="idfornecedor" ng-init="loadfornecedores()" required>
 									<option value="">Escolha</option>
-									<option ng-repeat="fornecedor in fornecedores" value="{{fornecedor.idfornecedor}}" ng-selected="fornecedor.idfornecedor==contratoItens.idfornecedor">{{fornecedor.cnpj | brCnpj}} - {{fornecedor.razaosocial}}</option>
+									<option ng-repeat="fornecedor in fornecedores" value="{{fornecedor.idfornecedor}}" ng-selected="fornecedor.idfornecedor==aditivoItens.idfornecedor">{{fornecedor.cnpj | brCnpj}} - {{fornecedor.razaosocial}}</option>
 								</select>
-								<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
+								<span class="help-block" ng-show="createForm.idfornecedor.$dirty && createForm.idfornecedor.$error.required">O campo é obrigatório</span>
 							</div>
 						</div><!-- END INPUT -->
 						<div class="row form-group">
 							<div class="col-sm-6">
 								<label for="nome" class="control-label">Número: <span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contratoItens.numero" name="numero" placeholder="Informe número do empenho">
+								<input type="text" class="form-control" ng-model="aditivoItens.numero" name="numero" placeholder="Informe número do empenho">
 								<span class="help-block" ng-show="createForm.numero.$dirty && createForm.numero.$error.required">O campo é obrigatório</span>
 							</div>
 							<div class="col-sm-6">
 								<label for="nome" class="control-label">Valor: <span class="red">*</span></label>
-								<input type="text" class="form-control" ng-model="contratoItens.valor" name="valor" placeholder="Informe o valor do empenho" ui-money-mask="2" required>
+								<input type="text" class="form-control" ng-model="aditivoItens.valor" name="valor" placeholder="Informe o valor do empenho" ui-money-mask="2" required>
 								<span class="help-block" ng-show="createForm.valor.$dirty && createForm.valor.$error.required">O campo é obrigatório</span>
 							</div>
 						</div><!-- END INPUT -->
