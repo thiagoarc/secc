@@ -19,7 +19,7 @@ app
 			    $scope.nome					= '';
 			    $scope.autocomplete			= false; // set autocomplete false;
 			    $scope.isproduto			= false;
-			    $scope.mudastyle 				= 'content-mini content-mini-full bg-muted'; 	
+			    $scope.mudastyle 			= 'content-mini content-mini-full bg-muted'; 	
 
 
 			    /* pesquisar numero de contrato e aditivo */
