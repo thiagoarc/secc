@@ -16,7 +16,39 @@ app
 						sessionSrv.set('ang_secc_uid', data.idusuario);
 						sessionSrv.set('ang_secc_email', data.email);
 						sessionSrv.set('ang_secc_profile', data.perfil);
-						$location.path('/app');
+						switch( parseInt(data.perfil) ){
+							case 1: //administrador
+								$location.path('/app');
+							break;
+							case 2: //gestor de contrato
+								$location.path('/contrato');
+							break;
+							case 3: //gestor de compras
+								$location.path('/ordemservico');
+							break;
+							case 4: //gestor de estoque
+								$location.path('/solicitacao');
+							break;
+							case 5: //gestor de compras/estoque
+								$location.path('/ordemservico');
+							break;
+							case 6: //observador
+								$location.path('/relatorio');
+							break;
+							case 7: //gestor do sistema
+								$location.path('/app');
+							break;
+							case 8: //gestor de contrato/compras
+								$location.path('/contrato');
+							break;
+							case 9: //solicitante de material
+								$location.path('/solicitacaouser');
+							break;
+							default:
+								$location.path('/app');
+							break;
+						}
+						
 					}else if( data.credentials ){
 						scope.msgcredentials = 'Favor verifique os dados, credenciais informada está incorreta.';
 						/* clear model usuarioLogin */

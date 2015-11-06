@@ -143,6 +143,79 @@ try{
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
             $stmtPerfil->execute();
+        }else if( $params->perfil == 7 ){ //gestor do sistema
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
+                                            ("/contrato/fornecedor", :usuario),
+                                            ("/contrato/aditivos", :usuario),
+                                            ("/contrato/aditivo/add", :usuario),
+                                            ("/contrato/aditivo/edit", :usuario),
+                                            ("/contrato/aditivos/itens", :usuario),
+                                            ("/contrato/itens", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/estoque", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 8 ){ //gestor de contrato/compras
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 9 ){ //solicitante de material
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
         }
 
 		$oConexao = null;
@@ -280,6 +353,79 @@ try{
                                         VALUES
                                             ("/app", :usuario),
                                             ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 7 ){ //gestor do sistema
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
+                                            ("/contrato/fornecedor", :usuario),
+                                            ("/contrato/aditivos", :usuario),
+                                            ("/contrato/aditivo/add", :usuario),
+                                            ("/contrato/aditivo/edit", :usuario),
+                                            ("/contrato/aditivos/itens", :usuario),
+                                            ("/contrato/itens", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/estoque", :usuario),
+                                            ("/entrada", :usuario),
+                                            ("/solicitacao", :usuario),
+                                            ("/solicitacao/detalhes", :usuario),
+                                            ("/saida", :usuario),
+                                            ("/saida/add", :usuario),
+                                            ("/saida/detalhes", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/relatorio", :usuario)
+
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 8 ){ //gestor de contrato/compras
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/unidademedida", :usuario),
+                                            ("/unidademedida/add", :usuario),
+                                            ("/unidademedida/edit", :usuario),
+                                            ("/fornecedor", :usuario),
+                                            ("/fornecedor/add", :usuario),
+                                            ("/fornecedor/edit", :usuario),
+                                            ("/produto", :usuario),
+                                            ("/produto/add", :usuario),
+                                            ("/produto/edit", :usuario),
+                                            ("/contrato", :usuario),
+                                            ("/contrato/add", :usuario),
+                                            ("/contrato/edit", :usuario),
+                                            ("/ordemservico", :usuario),
+                                            ("/ordemservico/add", :usuario),
+                                            ("/relatorio", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 9 ){ //solicitante de material
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
                                     ');
             $stmtPerfil->bindParam('usuario', $usuario);
             $stmtPerfil->execute();

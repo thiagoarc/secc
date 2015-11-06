@@ -56,7 +56,7 @@
                         <a class="active" href="#!/app"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                     </li>
                     <li class="nav-main-heading"><span class="sidebar-mini-hide">Atividades</span></li>
-                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-file-text"></i><span class="sidebar-mini-hide">Contratos</span></a>
                         <ul>
                             <li>
@@ -64,7 +64,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-truck"></i><span class="sidebar-mini-hide">Fornecedor</span></a>
                         <ul>
                             <li>
@@ -75,50 +75,47 @@
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="accessProfile == 1 || accessProfile == 2" navsubmenu>
+                    <li ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-th"></i><span class="sidebar-mini-hide">Unidade de Medida</span></a>
                         <ul>
                             <li>
-                                <a href="#!/unidademedida/add">Adicionar Und. de Medida</a>
+                                <a href="#!/unidademedida/add">Adicionar und. de medida</a>
                             </li>
                             <li>
-                                <a href="#!/unidademedida">Lista de Und. de Medida</a>
+                                <a href="#!/unidademedida">Lista de und. de medida</a>
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="accessProfile == 1 || accessProfile == 3 || accessProfile == 5" navsubmenu>
+                    <li ng-if="accessProfile == 1  || accessProfile == 3 || accessProfile == 5 || accessProfile == 7" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-dollar"></i><span class="sidebar-mini-hide">Compras</span></a>
                         <ul>
                             <li>
-                                <a href="#!/ordemservico">Ordem de Serviço</a>
+                                <a href="#!/ordemservico">Ordem de serviço</a>
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="accessProfile >= 1 || accessProfile <= 6" navsubmenu>
+                    <li ng-if="accessProfile >= 1 || accessProfile <= 9" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-cart-arrow-down"></i><span class="sidebar-mini-hide">Minhas Solicitações</span></a>
                         <ul>
-                            <!--<li>
-                                <a href="#!/solicitacaouser/add">Adicionar Solicitação</a>
-                            </li>-->
                             <li>
-                                <a href="#!/solicitacaouser">Lista de Solicitações</a>
+                                <a href="#!/solicitacaouser">Lista de solicitações</a>
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="accessProfile == 1  || accessProfile == 4 || accessProfile == 5" navsubmenu>
+                    <li ng-if="accessProfile == 1 || accessProfile == 7 || accessProfile == 4 || accessProfile == 5" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-database"></i><span class="sidebar-mini-hide">Estoque</span></a>
                         <ul>
                             <li>
-                                <a href="#!/entrada">Entrada de Produtos</a>
+                                <a href="#!/entrada">Entrada de produtos</a>
                             </li>
                             <li>
-                                <a href="#!/saida">Saída de Produtos</a>
+                                <a href="#!/saida">Saída de produtos</a>
                             </li>
                             <!--<li>
                                 <a href="#!/solicitacaouser">Minhas Solicitações</a>
                             </li>-->
                             <li>
-                                <a href="#!/solicitacao">Gerenciar Solicitações</a>
+                                <a href="#!/solicitacao">Gerenciar solicitações</a>
                             </li>
                         </ul>
                     </li>
