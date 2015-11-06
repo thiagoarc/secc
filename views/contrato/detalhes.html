@@ -10,6 +10,11 @@
         </div>
         <div class="block-content">
             <div class="row form-group">
+                <div class="col-sm-12">
+                    <span ng-show="contrato.diasrestantes > 30" class="badge label-success">&nbsp;</span><span ng-show="contrato.diasrestantes <= 30 && contrato.diasrestantes >= 0" class="badge label-warning">&nbsp;</span><span ng-show="contrato.diasrestantes < 0" class="badge label-danger">&nbsp;</span>
+                </div>
+            </div><!-- END INPUT -->
+            <div class="row form-group">
                 <div class="col-sm-6">
                     <label for="nome" class="control-label">Tipo:</label>
                     {{contrato.tipo}}
@@ -199,6 +204,7 @@
         </div>
     </div>
     <div class="modal-footer">
+        <div align="left"><span class="badge label-success">&nbsp;</span> No prazo | <span class="badge label-warning">&nbsp;</span> Menos de 30 dias para o vencimento | <span class="badge label-danger">&nbsp;</span> Vencido</div>
         <button class="btn btn-sm btn-warning" ng-click="cancel()">Fechar</button>
     </div>
 </section>

@@ -16,7 +16,7 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Aditivos <small>vizualize, pesquise na lista dos contratos registrados</small>
+                Aditivos <small>visualize, pesquise na lista dos contratos registrados</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
@@ -69,20 +69,14 @@
 				<p></p><!-- clearfixed -->
 
 				<div class="col-sm-12">
-
+					<span class="badge label-success">&nbsp;</span> No prazo | <span class="badge label-warning">&nbsp;</span> Menos de 30 dias para o vencimento | <span class="badge label-danger">&nbsp;</span> Vencido
 					<div class="table-responsive" ng-show="totalItems > 0">
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<!--<th width="14%" >
-									<a href="#!/contrato" ng-click="sortType = 'tipo'; sortReverse = !sortReverse">
-										Tipo
-										<span ng-show="sortType == 'tipo' && !sortReverse" class="fa fa-caret-down"></span>
-			            				<span ng-show="sortType == 'tipo' && sortReverse" class="fa fa-caret-up"></span>
-									</a>
-								</th>-->
-								<th width="25%" >Número Contrato</th>
-								<th width="25%" >Número Aditivo</th>
+								<th width="15"></th>
+								<th width="18%" >Número Contrato</th>
+								<th width="17%" >Número Aditivo</th>
 								<th width="15%" >Valor</th>
 								<th width="10%" >Validade</th>
 								<th width="30%"></th>
@@ -90,7 +84,7 @@
 							<tbody>
 								<tr ng-repeat="contratoAditivo in contratoAditivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<!--<td>{{contrato.tipo}}</td>-->
+									<td><span ng-show="contratoAditivo.diasrestantes > 30" class="badge label-success">&nbsp;</span><span ng-show="contratoAditivo.diasrestantes <= 30 && contratoAditivo.diasrestantes >= 0" class="badge label-warning">&nbsp;</span><span ng-show="contratoAditivo.diasrestantes < 0" class="badge label-danger">&nbsp;</span></td>
 									<td>{{contrato.numerocontrato}}</td>
 									<td>{{contratoAditivo.numero}}</td>
 									<td>{{contratoAditivo.valor  | finance:true:2}}</td>
