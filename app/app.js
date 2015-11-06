@@ -546,6 +546,51 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/relatorio/contratoativos',
+			{ 
+				templateUrl: 'views/relatorio/contratoativos.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/relatorio/contratoproximovencimento',
+			{ 
+				templateUrl: 'views/relatorio/contratoproximovencimento.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/relatorio/contratovencidos',
+			{ 
+				templateUrl: 'views/relatorio/contratovencidos.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/usuario',
 			{ 
 				templateUrl: 'views/usuario/index.html',
