@@ -36,8 +36,8 @@
         <div class="content" ng-init="getAccessProfilePermission()">
 
             <!-- Icon Tiles -->
-            <h2 class="content-heading" ng-if="accessProfile == 1">Atividades</h2>
-            <div class="content-grid push-50" ng-if="accessProfile == 1">
+            <h2 class="content-heading" ng-if="accessProfile == 1 || accessProfile == 7">Atividades</h2>
+            <div class="content-grid push-50" ng-if="accessProfile == 1 || accessProfile == 7">
                 <div class="row">
                     <div class="col-xs-6 col-sm-4 col-lg-2">
                         <a class="block block-link-hover3 text-center" href="#!/contrato" >
@@ -93,10 +93,10 @@
             <!-- END Icon Tiles -->
 
             <!-- Vertical Tiles -->
-            <h2 class="content-heading" ng-if="accessProfile == 1 || accessProfile == 2">Desempenho rápido</h2>
+            <h2 class="content-heading" ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7">Desempenho rápido</h2>
 
             <!-- Background Colored Text Tiles -->
-            <div class="row" ng-if="accessProfile == 1 || accessProfile == 2">
+            <div class="row" ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7">
                 <div class="col-sm-6 col-lg-3">
                     <a class="block block-rounded block-link-hover3 text-center" href="javascript:void(0)">
                         <div class="block-content block-content-full">
@@ -145,7 +145,7 @@
             <!-- END Background Colored Text Tiles -->
             <!-- END Texts Tiles -->
 
-            <div class="block" ng-if="accessProfile == 1 || accessProfile == 2">
+            <div class="block" ng-if="accessProfile == 1 || accessProfile == 2 || accessProfile == 7">
                 <div class="block-header">
                     <h3 class="block-title">PRODUTOS ABAIXO DO ESTOQUE MÍNIMO</h3>
                 </div>
