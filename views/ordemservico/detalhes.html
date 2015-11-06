@@ -96,7 +96,7 @@
                                     <td>
                                         {{prod.sigla}}
                                     </td>
-                                    <td class="hidden-xs">
+                                    <td>
                                         <span class="label label-info">{{prod.qtd}}</span>
                                     </td>
                                     <td>
@@ -109,18 +109,21 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="table-responsive" ng-show="itensOSTotal == 0">
-                        <div class="col-sm-12">
-                            <table class="table table-striped">
-                                <tr>
-                                    <td colspan="5">Nenhum item encontrado.</td>
-                                </tr>
-                            </table>       
-                        </div>    
-                    </div>    
                 </div><!-- END INPUT -->
 
             </div><!-- END BLOCO PRINT -->
+
+            <div class="row form-group">
+                <div class="table-responsive" ng-show="itensOSTotal == 0">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td colspan="5">Nenhum item encontrado.</td>
+                            </tr>
+                        </table>       
+                    </div>    
+                </div>    
+            </div><!-- END INPUT -->
            
         </div>
     </div>

@@ -135,6 +135,7 @@ app
 				        popupWin.window.focus();
 				        popupWin.document.write('<!DOCTYPE html><html><head>' +
 				            '<link rel="stylesheet" type="text/css" href="assets/css/oneui.css" />' +
+				            '<style>body{padding:20px 30px}</style>' +
 				            '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
 				        popupWin.onbeforeunload = function (event) {
 				            popupWin.close();
