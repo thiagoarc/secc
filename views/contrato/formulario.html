@@ -130,19 +130,19 @@
 						</div>
 					<div class="form-group">
 					<fieldset>
-					<legend>Informações do contrato/empenho</legend>
+					<legend>Informações do contrato</legend>
 						<div class="row">
-							<div class="col-sm-4 form-group">
+							<div class="col-sm-6 form-group">
 									<label for="telefone" class="control-label">Número Contrato:<span class="red">*</span></label>
 									<input type="text" class="form-control" ng-model="contrato.numerocontrato" name="numerocontrato" placeholder="Informe o número" required>
 									<span class="help-block" ng-show="createForm.numerocontrato.$dirty && createForm.numerocontrato.$error.required">O campo é obrigatório</span>
 							</div>
-							<div class="col-sm-4 form-group">
+							<div class="col-sm-6 form-group">
 								<label for="email" class="control-label">Valor: <span class="red">*</span></label>
 								<input type="text" class="form-control" ng-model="contrato.valor" name="valor" placeholder="Informe o valor" ui-money-mask="2" required>
 								<span class="help-block" ng-show="createForm.valor.$dirty && createForm.valor.$error.required">O campo é obrigatório</span>
 							</div>
-							<div class="col-sm-4 form-group">
+							<div class="col-sm-6 form-group">
 								<label for="celular" class="control-label">Data Assinatura: <span class="red">*</span></label>
               					<input type="text" class="form-control" ng-model="contrato.dataassinatura" name="dataassinatura" ui-mask="99/99/9999" required>
               					<span class="help-block" ng-show="createForm.dataassinatura.$dirty && createForm.dataassinatura.$error.required">O campo é obrigatório</span>
@@ -152,11 +152,11 @@
 								<input type="text" class="form-control" ng-model="contrato.validade" name="validade" ui-mask="99/99/9999" required>
 								<span class="help-block" ng-show="createForm.validade.$dirty && createForm.validade.$error.required">O campo é obrigatório</span>
 							</div>
-							<div class="col-sm-6 form-group">
+							<!--div class="col-sm-6 form-group">
 								<label for="telefone" class="control-label">Número Empenho: <span class="red">*</span></label>
 								<input type="text" class="form-control" ng-model="contrato.numeroempenho" name="numeroempenho" placeholder="Informe o número do empenho" required>
 								<span class="help-block" ng-show="createForm.numeroempenho.$dirty && createForm.numeroempenho.$error.required">O campo é obrigatório</span>
-							</div>
+							</div-->
 							<div class="col-sm-12 form-group">
 								<label for="email" class="control-label">Objeto:</label>
 								<textarea class="form-control" ng-model="contrato.objeto" name="objeto" placeholder="Informe o objeto"></textarea>

@@ -23,6 +23,8 @@ app
 			    $scope.totalItemsD			= 0;
 			    $scope.totalItemsE			= 0;
 			    $scope.qtdAditivos			= 0;
+			    $scope.hoje					= (new Date()).getDate();
+			    $scope.mostraAditivo 		= false;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -245,7 +247,9 @@ app
 							$scope.totalItems = $scope.contratos.length;
   							$scope.numPerPage = 5;
 						});
-
+					// angular.forEach($scope.contratos, function(item) {
+					// 	$scope.totalgeral += parseFloat(item.total);
+					// });
 				};
 
 				$scope.loadorgaos = function(){
