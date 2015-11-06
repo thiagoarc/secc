@@ -212,7 +212,7 @@ try{
                                             ("/solicitacaouser", :usuario),
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
-                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario)
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
             $stmtPerfil->execute();
@@ -425,7 +425,7 @@ try{
                                             ("/solicitacaouser", :usuario),
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
-                                            ("/solicitacaouser/detalhes", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario)
                                     ');
             $stmtPerfil->bindParam('usuario', $usuario);
             $stmtPerfil->execute();
