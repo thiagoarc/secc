@@ -4,7 +4,7 @@ $oConexao = Conexao::getInstance();
 
 try{
 
-	$stmt = $oConexao->prepare("SELECT idsetor as id, nome, sigla FROM setor");  
+	$stmt = $oConexao->prepare("SELECT idsetor as id, nome, sigla FROM setor ORDER BY nome");  
 	$stmt->execute();
 	$setor = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
