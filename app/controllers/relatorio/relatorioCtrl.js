@@ -8,6 +8,8 @@ app
 				$scope.contratoativos 		= [];
 				$scope.contratoproximovencimento 		= [];
 				$scope.contratovencidos 	= [];
+				$scope.aditivoativo 		= [];
+				$scope.aditivoproximovencimento 		= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -49,6 +51,26 @@ app
 						url: '/controller/relatorio/getcontratovencidos'
 					}).success(function(data){
 						$scope.contratovencidos = data;
+					});
+				};
+
+				$scope.getAditivoAtivo = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getaditivoativos'
+					}).success(function(data){
+						$scope.aditivoativo = data;
+					});
+				};
+
+				$scope.getAditivoProximoVencimento = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getaditivoativos'
+					}).success(function(data){
+						$scope.aditivoproximovencimento = data;
 					});
 				};
 

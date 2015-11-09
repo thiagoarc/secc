@@ -591,6 +591,36 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/relatorio/aditivoativos',
+			{ 
+				templateUrl: 'views/relatorio/aditivoativos.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/relatorio/aditivoproximovencimento',
+			{ 
+				templateUrl: 'views/relatorio/aditivoproximovencimento.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/usuario',
 			{ 
 				templateUrl: 'views/usuario/index.html',

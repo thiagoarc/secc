@@ -96,7 +96,7 @@
 									<td ng-if="contrato.tipo == 2"><span class="label label-info">Licitação</span></td>
 									<td ng-if="contrato.tipo == 3"><span class="label label-info">Compra direta</span></td>
 									<td>{{contrato.validade | datebr }}</td>
-									<td>{{contrato.validade | finance:true:2 }}</td>
+									<td>{{contrato.valor | finance:true:2 }}</td>
 									<td>{{contrato.objeto}}</td>
 								</tr>
 							</tbody>

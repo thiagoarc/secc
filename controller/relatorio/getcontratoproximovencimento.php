@@ -14,9 +14,9 @@ try{
 					ORDER BY 
 					a.validade asc";
 	$stmt = $oConexao->query($sql);  
-	$contratoativos = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$contratopv = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
-	echo json_encode($contratoativos);
+	echo json_encode($contratopv);
 
 }catch (PDOException $e){
     $oConexao->rollBack();

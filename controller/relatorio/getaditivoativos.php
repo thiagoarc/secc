@@ -4,17 +4,16 @@ $oConexao = Conexao::getInstance();
 
 try{
 
-	$sql = "SELECT a.numerocontrato, a.tipo, a.objeto, DATE_FORMAT(a.validade, '%d%m%Y') as validade, a.valor, b.nome as orgao
-				FROM contrato a
-				LEFT JOIN orgao b ON(a.idorgao = b.idorgao)
+	$sql = "SELECT a.numero, DATE_FORMAT(a.validade, '%d%m%Y') as validade, a.valor, a.obs
+				FROM aditivo a
 					WHERE 
-					a.validade <= now() 
+					a.validade >= now() 
 					ORDER BY 
 					a.validade asc";
 	$stmt = $oConexao->query($sql);  
-	$contratov = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$aditivoativos = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
-	echo json_encode($contratov);
+	echo json_encode($aditivoativos);
 
 }catch (PDOException $e){
     $oConexao->rollBack();
