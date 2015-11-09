@@ -1,0 +1,126 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Relatório <small>vizualize o desempenho geral os produtos em estoque</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/relatorio/produtoestoqueminimo">Produto abaixo do estoque minimo</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow" ng-init="getProdutoEstoqueMinimo()">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4">
+							<form ng-show="produtoestoqueminimo.length">
+						    	<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
+							      </div>      
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-8">
+							<a href="javascript:void(0);" 
+								ng-show="produtoestoqueminimo.length"
+								ng-click="imprimir('print-result');" class="btn btn-info btn-sm pull-right">
+								<i class="glyphicon glyphicon-print"></i> Imprimir
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div id="print-result" class="table-responsive" ng-show="produtoestoqueminimo.length > 0">
+
+						<div class="hidden">
+							<h1 class="block-title border-h3">Relatório - Produtos abaixo do estoque minimo</h1>
+						</div><!-- div show in print -->
+
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="20%">
+									<a href="#!/relatorio/produtoestoqueminimo" 
+									ng-click="sortType = 'descricao'; sortReverse = !sortReverse">Nome
+									</a>
+								</th>
+								<th width="10%">Qtd. atual</th>
+								<th width="10%">Unid. Medida</th>
+								<th width="10%">Valor</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="prod in produtoestoqueminimo | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td>{{prod.descricao}}</td>
+									<td>{{prod.qtdatual}}</td>
+									<td>{{prod.sigla}}</td>
+									<td>{{prod.valorunitario | finance:true:2 }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-12" ng-show="!produtoestoqueminimo.length">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum registro encontrado.</td>
+				        	</tr>
+				        </table>
+				    </div>
+
+				</div><!-- end col-sm-12 -->
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

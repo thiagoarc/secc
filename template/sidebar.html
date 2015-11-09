@@ -119,6 +119,38 @@
                             </li>
                         </ul>
                     </li>
+                    <li ng-if="accessProfile >= 1 && accessProfile <= 8" navsubmenu>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-area-chart"></i><span class="sidebar-mini-hide">Relatórios</span></a>
+                        <ul>
+                            <li>
+                                <a href="#!/relatorio/contratoativos">Contratos ativos</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/contratoproximovencimento">Contratos próximo do vencimento</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/contratovencidos">Contratos vencidos</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/aditivoativos">Aditivos ativos</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/aditivoproximovencimento">Aditivos próximo do vencimento</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/aditivovencidos">Aditivos vencidos</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/ordemservico">Ordem de serviços</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/produtoestoque">Produtos no estoque</a>
+                            </li>
+                            <li>
+                                <a href="#!/relatorio/produtoestoqueminimo">Produtos abaixo do estoque minimo</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li ng-if="accessProfile == 1"
                      class="nav-main-heading"><span class="sidebar-mini-hide">Administrativo</span></li>
                     <li ng-if="accessProfile == 1" navsubmenu>

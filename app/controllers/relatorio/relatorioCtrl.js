@@ -14,6 +14,8 @@ app
 				$scope.osinicio				= undefined;
 				$scope.osfinal				= undefined;
 				$scope.ordemservico			= [];
+				$scope.produtoestoque		= [];
+				$scope.produtoestoqueminimo		= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -117,6 +119,26 @@ app
 							appMessages.show = false;
 						}, 3000);
 					}
+				};
+
+				$scope.getProdutoEstoque = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getprodutoestoque'
+					}).success(function(data){
+						$scope.produtoestoque = data;
+					});
+				};
+
+				$scope.getProdutoEstoqueMinimo = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getprodutoestoqueminimo'
+					}).success(function(data){
+						$scope.produtoestoqueminimo = data;
+					});
 				};
 
 				/* imprimir bloco */
