@@ -36,6 +36,14 @@
                             <label for="responsavel" class="control-label">Validade:</label>
                             {{itensOS.validadecontrato | datebr}}
                         </div>
+                        <div class="col-sm-6" ng-if="itensOS.numeroata != undefined">
+                            <label for="cnpj" class="control-label">Número Ata:</label>
+                            {{itensOS.numeroata}}
+                        </div>
+                        <div class="col-sm-6" ng-if="itensOS.numeropregao != undefined">
+                            <label for="responsavel" class="control-label">Número pregão:</label>
+                            {{itensOS.numeropregao}}
+                        </div>
                     </div><!-- END INPUT -->
                 </fieldset>
 

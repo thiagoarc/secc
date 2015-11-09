@@ -12,7 +12,7 @@ try{
 		//return JSON
 		$ordem = array();
 
-		$stmt = $oConexao->prepare("SELECT os.idordem_servico, os.idcontratoaditivo, os.tipo, c.numerocontrato, c.valor as valorcontrato, DATE_FORMAT(c.validade, '%d%m%Y') as validadecontrato, a.numero as numeroaditivo, a.valor as valoraditivo, DATE_FORMAT(a.validade, '%d%m%Y') as validadeaditivo
+		$stmt = $oConexao->prepare("SELECT os.idordem_servico, os.idcontratoaditivo, os.tipo, c.numerocontrato, c.valor as valorcontrato, c.numeroata, c.numeropregao, DATE_FORMAT(c.validade, '%d%m%Y') as validadecontrato, a.numero as numeroaditivo, a.valor as valoraditivo, DATE_FORMAT(a.validade, '%d%m%Y') as validadeaditivo
 										FROM ordem_servico os
 										LEFT JOIN contrato c ON (os.idcontratoaditivo = c.idcontrato)
 										LEFT JOIN aditivo a ON (os.idcontratoaditivo = a.idaditivo)
@@ -35,7 +35,8 @@ try{
 					$ordem[$i]['numerocontrato'] 	= $row['numerocontrato'];
 					$ordem[$i]['valorcontrato'] 	= $row['valorcontrato'];
 					$ordem[$i]['validadecontrato'] 	= $row['validadecontrato'];
-
+					$ordem[$i]['numeroata'] 		= $row['numeroata'];
+					$ordem[$i]['numeropregao'] 		= $row['numeropregao'];
 
 				}else if( $row['tipo'] == 2 ){ //aditivo
 

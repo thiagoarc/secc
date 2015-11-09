@@ -16,6 +16,8 @@ app
 				$scope.ordemservico			= [];
 				$scope.produtoestoque		= [];
 				$scope.produtoestoqueminimo		= [];
+				$scope.solicitacaosetor		= [];
+				$scope.filtrosetor			= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -140,6 +142,37 @@ app
 						$scope.produtoestoqueminimo = data;
 					});
 				};
+
+				$scope.loadsetor = function(){
+					
+					$http.get('/controller/relatorio/getsetor')
+						.success(function(data){
+							$scope.setor = data;
+						});
+
+				};
+
+				$scope.getSolicitacaoSetor = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getsolicitacaosetor'
+					}).success(function(data){
+						$scope.solicitacaosetor = data;
+					});
+				};
+
+				$scope.actSolicitacaoSetor = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getsolicitacaosetor',
+						data: {setor: $scope.filtrosetor.idsetor}
+					}).success(function(data){
+						$scope.solicitacaosetor = [];
+						$scope.solicitacaosetor = data;
+					});
+				}
 
 				/* imprimir bloco */
 				$scope.imprimir = function( divName ){

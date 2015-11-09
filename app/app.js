@@ -697,6 +697,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/relatorio/solicitacaosetor',
+			{ 
+				templateUrl: 'views/relatorio/solicitacaosetor.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/usuario',
 			{ 
 				templateUrl: 'views/usuario/index.html',

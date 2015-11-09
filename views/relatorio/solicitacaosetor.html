@@ -1,0 +1,139 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Relatório <small>vizualize o desempenho geral das Solicitações por setor</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/relatorio/solicitacaosetor">Solicitação por setor</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow" ng-init="getSolicitacaoSetor()">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-6">
+							<form>
+						    	<div class="col-sm-10 form-group">
+						    	  <label class="control-label">Setor: </label>
+							      <select name="setor" id="setor" class="form-control"
+										ng-init="loadsetor()"
+										ng-model="filtrosetor.idsetor" 
+										ng-options="e.id as e.nome for e in setor">
+										<option value="">Filtre por setor</option>
+								</select>    
+						      	</div>
+						      	<div class="col-sm-2 form-group">
+							      <a href="javascript:void(0)" ng-click="actSolicitacaoSetor();" class="btn btn-default fc-mg-top-default-5x"><i class="fa fa-search"> Filtrar</i></a>   
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-6">
+							<a href="javascript:void(0);" 
+								ng-show="solicitacaosetor.length"
+								ng-click="imprimir('print-result');" class="btn btn-info btn-sm pull-right">
+								<i class="glyphicon glyphicon-print"></i> Imprimir
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div id="print-result" class="table-responsive" ng-show="solicitacaosetor.length > 0">
+
+						<div class="hidden">
+							<h1 class="block-title border-h3">Relatório - Solicitação por setor</h1>
+						</div><!-- div show in print -->
+
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="10%">
+									<a href="#!/relatorio/solicitacaosetor" 
+									ng-click="sortType = 'idsolicitacao'; sortReverse = !sortReverse">Nº da solicitação
+									</a>
+								</th>
+								<th width="15%">Dta. solicitação</th>
+								<th width="10%">Status</th>
+								<th width="15%">Solicitante</th>
+								<th width="15%">Motivo</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="solicitacao in solicitacaosetor | orderBy:sortType:sortReverse | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td><span class="label label-info">Solicitação: {{solicitacao.idsolicitacao}}</span></td>
+									<td>{{solicitacao.datasolicitacao | datebr }} {{solicitacao.horasolicitacao}}</td>
+
+									<td ng-if="solicitacao.status == 0"><span class="label label-warning">Aguardando</span></td>
+									<td ng-if="solicitacao.status == 1"><span class="label label-success">Finalizado</span></td>
+									<td ng-if="solicitacao.status == 2"><span class="label label-danger">Cancelado</span></td>
+
+									<td>{{solicitacao.solicitante}}</td>
+									<td>{{solicitacao.motivo}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-12" ng-show="!solicitacaosetor.length">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum registro encontrado.</td>
+				        	</tr>
+				        </table>
+				    </div>
+
+				</div><!-- end col-sm-12 -->
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
