@@ -1,0 +1,128 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Relatório <small>vizualize o desempenho geral dos contratos ativos no sistema</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/relatorio/contratoativos">Contrato ativos</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow" ng-init="getContratoAtivos()">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-4">
+							<form ng-show="contratoativos.length">
+						    	<div class="form-group">
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							        <input type="text" class="form-control" placeholder="Busca" ng-model="searchItem">
+							      </div>      
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-8">
+							<a href="javascript:void(0);" ng-click="imprimir('print-result');" class="btn btn-info btn-sm pull-right">
+								<i class="glyphicon glyphicon-print"></i> Imprimir
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div id="print-result" class="table-responsive" ng-show="contratoativos.length > 0">
+
+						<div class="hidden">
+							<h1 class="block-title border-h3">Relatório - Contrato ativos</h1>
+						</div><!-- div show in print -->
+
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="20%">
+									<a href="#!/relatorio/contratoativos" 
+									ng-click="sortType = 'numerocontrato'; sortReverse = !sortReverse">Nº do contrato
+									</a>
+								</th>
+								<th width="10%">Tipo</th>
+								<th width="10%">Validade</th>
+								<th width="10%">Valor</th>
+								<th width="15%">Objeto</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="contrato in contratoativos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td>{{contrato.numerocontrato}}</td>
+									<td ng-if="contrato.tipo == 1"><span class="label label-info">Termo de adesão</span></td>
+									<td ng-if="contrato.tipo == 2"><span class="label label-info">Licitação</span></td>
+									<td ng-if="contrato.tipo == 3"><span class="label label-info">Compra direta</span></td>
+									<td>{{contrato.validade | datebr }}</td>
+									<td>{{contrato.valor | finance:true:2 }}</td>
+									<td>{{contrato.objeto}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-12" ng-show="!contratoativos.length">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum registro encontrado.</td>
+				        	</tr>
+				        </table>
+				    </div>
+
+				</div><!-- end col-sm-12 -->
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
