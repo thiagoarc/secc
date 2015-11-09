@@ -1,0 +1,151 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de Upload de Arquivos <small>adicione, edite os arquivos do contrato</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/contrato">Contrato</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <!--<div ng-include="'views/messages.html'"></div>-->
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+					<input type="hidden" ng-model="contrato.idcontrato" name="idcontrato">
+
+						<div class="form-group">
+							<label for="nome" class="control-label">Número do Contrato: </label>
+							{{contrato.numerocontrato}}
+						</div><!-- END INPUT -->
+						<div class="form-group">
+							<label for="nome" class="control-label">Validade: </label>
+							{{contrato.validade}}
+						</div><!-- END INPUT -->
+						<div class="form-group">
+							<label for="nome" class="control-label">Valor: </label>
+							{{contrato.valor  | finance:true:2}}
+						</div><!-- END INPUT -->
+						<div class="form-group">
+							<fieldset>
+								<legend>Upload de Arquivos</legend>
+								<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+								<!--<div class="col-md-12" style="margin-bottom: 40px">-->
+	                    			<p>Tamanho da Fila de arquivos: {{ uploader.queue.length }}</p>
+				                    <table class="table">
+				                        <thead>
+				                            <tr>
+				                                <th width="50%">Nome</th>
+				                                <th ng-show="uploader.isHTML5">Tamanho</th>
+				                                <th ng-show="uploader.isHTML5">Progresso</th>
+				                                <th>Status</th>
+				                                <th>Ações</th>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr ng-repeat="item in uploader.queue">
+				                                <td><strong>{{ item.file.name }}</strong></td>
+				                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+				                                <td ng-show="uploader.isHTML5">
+				                                    <div class="progress" style="margin-bottom: 0;">
+				                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+				                                    </div>
+				                                </td>
+				                                <td class="text-center">
+				                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+				                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+				                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+				                                </td>
+				                                <td nowrap>
+				                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+				                                        <span class="glyphicon glyphicon-upload"></span> Upload
+				                                    </button>
+				                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+				                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				                                    </button>
+				                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+				                                        <span class="glyphicon glyphicon-trash"></span> Remove
+				                                    </button>
+				                                </td>
+				                            </tr>
+				                        </tbody>
+				                    </table>
+                    				<div>
+		                        		<div>
+		                            		Queue progress:
+		                            		<div class="progress" style="">
+		                                		<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+		                            		</div>
+		                        		</div>
+				                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+				                            <span class="glyphicon glyphicon-upload"></span> Upload all
+				                        </button>
+				                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+				                        </button>
+				                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+				                            <span class="glyphicon glyphicon-trash"></span> Remove all
+				                        </button>
+                    				</div>
+                				<!--</div>-->
+							</fieldset>
+						</div><!-- END INPUT -->
+						<fieldset>
+							<legend>Arquivos enviados</legend>
+						</fieldset>
+					
+					<!--<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>-->
+					<a href="#!/contrato" class="btn btn-sm btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
