@@ -45,7 +45,7 @@ app
 				//FILE UPLOAD
 
 			    var uploader = $scope.uploader = new FileUploader({
-            		url: '/controller/contrato/uploadarquivoscontrato.php?idcontrato='+itemid
+            		url: '/upload/uploadarquivoscontrato.php?idcontrato='+itemid
         		});
 
         		// FILTERS
@@ -78,6 +78,7 @@ app
         		};
         		uploader.onSuccessItem = function(fileItem, response, status, headers) {
             		console.info('onSuccessItem', fileItem, response, status, headers);
+            		console.log("Sucesso: "+fileItem.name);
         		};
         		uploader.onErrorItem = function(fileItem, response, status, headers) {
             		console.info('onErrorItem', fileItem, response, status, headers);
@@ -89,7 +90,13 @@ app
             		console.info('onCompleteItem', fileItem, response, status, headers);
         		};
         		uploader.onCompleteAll = function() {
-            		console.info('onCompleteAll');
+					appMessages.addMessage("O(s) arquivo(s) foram enviados com sucesso.", true, 'success');
+					//show message in 5 seconds
+					$timeout(function(){
+						appMessages.show = false;
+					}, 5000);
+        			uploader.clearQueue();
+            		//console.info('onCompleteAll');
         		};
         		uploader.onCancelAll = function(fileItem, response, status, headers) {
             		console.info('onCancelAll', fileItem, response, status, headers);
