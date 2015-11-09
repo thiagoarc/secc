@@ -2,14 +2,18 @@
 
 app
 	.controller('relatorioCtrl', 
-		['$scope', '$http', 'appMessages',  
-			function($scope, $http, appMessages) {
+		['$scope', '$http', 'appMessages', '$timeout',
+			function($scope, $http, appMessages, $timeout) {
 
 				$scope.contratoativos 		= [];
 				$scope.contratoproximovencimento 		= [];
 				$scope.contratovencidos 	= [];
 				$scope.aditivoativo 		= [];
 				$scope.aditivoproximovencimento 		= [];
+				$scope.aditivovencidos 		= [];
+				$scope.osinicio				= undefined;
+				$scope.osfinal				= undefined;
+				$scope.ordemservico			= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -68,10 +72,51 @@ app
 					//via http
 					$http({
 						method: 'POST',
-						url: '/controller/relatorio/getaditivoativos'
+						url: '/controller/relatorio/getaditivoproximovencimento'
 					}).success(function(data){
 						$scope.aditivoproximovencimento = data;
 					});
+				};
+
+				$scope.getAditivoVencidos = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getaditivovencidos'
+					}).success(function(data){
+						$scope.aditivovencidos = data;
+					});
+				};
+
+				$scope.getOrdemServico = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getordemservico'
+					}).success(function(data){
+						$scope.ordemservico = data;
+					});
+				};
+
+				$scope.actOrdemServico = function(){
+					if( $scope.osinicio != undefined && $scope.osfinal != undefined ){
+						//via http
+						$http({
+							method: 'POST',
+							url: '/controller/relatorio/getordemservico',
+							data: { osinicio: $scope.osinicio, osfinal: $scope.osfinal }
+						}).success(function(data){
+							$scope.ordemservico = [];
+							$scope.ordemservico = data;
+						});
+					}else{
+						//show message
+						appMessages.addMessage('Favor informe uma data válida para efetuar o filtro', true, 'info');
+						//show message in 5 seconds
+						$timeout(function(){
+							appMessages.show = false;
+						}, 3000);
+					}
 				};
 
 				/* imprimir bloco */

@@ -1,4 +1,12 @@
 <?php
+function formata_data_en_US( $data ) {
+  if( $data == '' ) return ''; 
+  $day = $data{0}.$data{1};
+  $month = $data{2}.$data{3};
+  $year = $data{4}.$data{5}.$data{6}.$data{7};
+  $d = $year.'-'.$month.'-'.$day;
+  return $d;
+}
 function formata_data( $data ) {
 	if( $data == '' ) return ''; 
   $d = explode('/', $data);

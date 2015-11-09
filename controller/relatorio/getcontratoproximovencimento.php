@@ -10,7 +10,7 @@ try{
 					WHERE 
 					a.validade >= now() 
 					AND
-					TIMESTAMPDIFF(DAY, now(), validade) > 30
+					TIMESTAMPDIFF(DAY, now(), validade) < 30
 					ORDER BY 
 					a.validade asc";
 	$stmt = $oConexao->query($sql);  
