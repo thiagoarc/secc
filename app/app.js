@@ -9,7 +9,8 @@ var app = angular.module('app', [
 		    'ui.utils.masks',
 		    'ui.mask',
 		    'idf.br-filters',
-		    '720kb.tooltips'
+		    '720kb.tooltips',
+		    'angularFileUpload'
 		  ]);
 
 
@@ -360,6 +361,21 @@ app.config( function($routeProvider, $locationProvider){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
                         	files: ['app/controllers/contrato/contratoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/contrato/arquivos/:idcontrato',
+			{ 
+				templateUrl: 'views/contrato/arquivos.html',
+				controller: 'contratoArquivosCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['lib/angular-upload-file/es5-shim.min.js', 'lib/angular-upload-file/es5-sham.min.js', 'lib/angular-upload-file/console-sham.min.js', 'app/controllers/contrato/contratoArquivosCtrl.js']
                     	});
 					}]
 				}
