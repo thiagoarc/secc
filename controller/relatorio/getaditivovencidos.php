@@ -7,15 +7,13 @@ try{
 	$sql = "SELECT a.numero, DATE_FORMAT(a.validade, '%d%m%Y') as validade, a.valor, a.obs
 				FROM aditivo a
 					WHERE 
-					a.validade >= now() 
-					AND
-					TIMESTAMPDIFF(DAY, now(), a.validade) < 30
+					a.validade < now() 
 					ORDER BY 
 					a.validade asc";
 	$stmt = $oConexao->query($sql);  
-	$aditivopv = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$aditivov = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
-	echo json_encode($aditivopv);
+	echo json_encode($aditivov);
 
 }catch (PDOException $e){
     $oConexao->rollBack();

@@ -17,13 +17,13 @@
     <div class="row items-push">
         <div class="col-sm-8">
             <h1 class="page-heading">
-                Relatório <small>vizualize o desempenho geral dos contratos vencidos</small>
+                Relatório <small>vizualize o desempenho geral dos aditivos vencidos</small>
             </h1>
         </div>
         <div class="col-sm-4 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>Dashboard</li>
-                <li><a class="link-effect" href="#!/relatorio/contratovencidos">Contratos vencidos</a></li>
+                <li><a class="link-effect" href="#!/relatorio/aditivovencidos">Aditivo vencidos</a></li>
             </ol>
         </div>
     </div>
@@ -31,7 +31,7 @@
 <!-- END Page Header -->
 
 <!-- Page Content -->
-<div class="content content-narrow" ng-init="getContratoVencidos()">
+<div class="content content-narrow" ng-init="getAditivoVencidos()">
 	<div class="block">
 		<div class="row">
 			<div class="col-sm-12">
@@ -45,7 +45,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="col-sm-4">
-							<form ng-show="contratovencidos.length">
+							<form ng-show="aditivovencidos.length">
 						    	<div class="form-group">
 							      <div class="input-group">
 							        <div class="input-group-addon"><i class="fa fa-search"></i></div>
@@ -56,7 +56,7 @@
 						</div><!-- search table -->
 						<div class="col-sm-8">
 							<a href="javascript:void(0);" 
-								ng-show="contratovencidos.length"
+								ng-show="aditivovencidos.length"
 								ng-click="imprimir('print-result');" class="btn btn-info btn-sm pull-right">
 								<i class="glyphicon glyphicon-print"></i> Imprimir
 							</a>
@@ -69,41 +69,37 @@
 
 				<div class="col-sm-12">
 
-					<div id="print-result" class="table-responsive" ng-show="contratovencidos.length > 0">
+					<div id="print-result" class="table-responsive" ng-show="aditivovencidos.length > 0">
 
 						<div class="hidden">
-							<h1 class="block-title border-h3">Relatório - Contrato ativos</h1>
+							<h1 class="block-title border-h3">Relatório - Aditivo vencidos</h1>
 						</div><!-- div show in print -->
 
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
 								<th width="20%">
-									<a href="#!/relatorio/contratovencidos" 
-									ng-click="sortType = 'numerocontrato'; sortReverse = !sortReverse">Nº do contrato
+									<a href="#!/relatorio/aditivovencidos" 
+									ng-click="sortType = 'numero'; sortReverse = !sortReverse">Nº do contrato
 									</a>
 								</th>
-								<th width="10%">Tipo</th>
 								<th width="10%">Validade</th>
 								<th width="10%">Valor</th>
-								<th width="15%">Objeto</th>
+								<th width="20%">Objeto</th>
 							</thead>
 							<tbody>
-								<tr ng-repeat="contrato in contratovencidos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+								<tr ng-repeat="contrato in aditivovencidos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td>{{contrato.numerocontrato}}</td>
-									<td ng-if="contrato.tipo == 1"><span class="label label-info">Termo de adesão</span></td>
-									<td ng-if="contrato.tipo == 2"><span class="label label-info">Licitação</span></td>
-									<td ng-if="contrato.tipo == 3"><span class="label label-info">Compra direta</span></td>
+									<td>{{contrato.numero}}</td>
 									<td>{{contrato.validade | datebr }}</td>
 									<td>{{contrato.valor | finance:true:2 }}</td>
-									<td>{{contrato.objeto}}</td>
+									<td>{{contrato.obs}}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 
-					<div class="col-md-12" ng-show="!contratovencidos.length">
+					<div class="col-md-12" ng-show="!aditivovencidos.length">
 				        <table class="table">
 				        	<tr>
 				        		<td colspan="7">Nenhum registro encontrado.</td>
