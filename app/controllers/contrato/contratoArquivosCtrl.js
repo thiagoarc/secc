@@ -5,8 +5,9 @@ app
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages', 'FileUploader',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages, FileUploader) {
 
-				$scope.contrato 			= {};
-				$scope.contratos 			= [];
+				$scope.contrato 				= {};
+				$scope.arquivo 				= {};
+				$scope.arquivos 			= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -15,6 +16,7 @@ app
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
 			    $scope.totalgeral 			= 0;
+			    $scope.modalItem			= '';
 
 
 			    $scope.handleClick = function(msg) {
@@ -110,100 +112,89 @@ app
 
 				$scope.load = function(){
 					
-					$http.get('/controller/contrato/contratos')
-						.success(function(data){
-							$scope.contratos = data;
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/arquivos',
+						data: { id: itemid } 
+					}).success(function(data){
+							$scope.arquivos = data;
 							$scope.currentPage = 1; //current page
-							$scope.entryLimit = 5; //max no of items to display in a page
-							$scope.filteredItems = $scope.contratos.length; //Initially for no filter
-							$scope.totalItems = $scope.contratos.length;
-  							$scope.numPerPage = 5;
-						});
-					// angular.forEach($scope.contratos, function(item) {
-					// 	$scope.totalgeral += parseFloat(item.total);
-					// });
+							$scope.entryLimit = 50; //max no of items to display in a page
+							$scope.filteredItems = $scope.arquivos.length; //Initially for no filter
+							$scope.totalItems = $scope.arquivos.length;
+  							$scope.numPerPage = 50;
+					});
 				};
 
 				$scope.paginate = function(value) {
     				var begin, end, index;
     				begin = ($scope.currentPage - 1) * $scope.numPerPage;
     				end = begin + $scope.numPerPage;
-    				index = $scope.contratos.indexOf(value);
+    				index = $scope.arquivos.indexOf(value);
     				return (begin <= index && index < end);
   				};
 
-				// $scope.saveitem = function(){
-				// 	if($scope.createForm.$valid){
-				// 		//saving set true
-				// 		$scope.submitting = true;
-				// 		//show loading
-				// 		$scope.isloading = true;
-				// 		// $scope.contrato.dataassinaturatali = $scope.formataData($scope.contrato.dataassinaturatali);
-				// 		// $scope.contrato.validadeata = $scope.formataData($scope.contrato.validadeata);
-				// 		// $scope.contrato.datacompra = $scope.formataData($scope.contrato.datacompra);
-				// 		// $scope.contrato.validade = $scope.formataData($scope.contrato.validade);
-				// 		// $scope.contrato.dataassinatura = $scope.formataData($scope.contrato.dataassinatura);
-				// 		// console.log("DataAssinatura: "+$scope.contrato.dataassinatura);
 
-				// 		//via http
-				// 		$http.post('/controller/contrato/savecontrato', $scope.contrato )
-				// 		.success(function(data){
-				// 			//saving set false
-				// 			$scope.submitting = false;
-				// 			//hide loading
-				// 			$scope.isloading = false;
-				// 			//success
-				// 			$location.path('/contrato');
-				// 			//show message
-				// 			if(data.msg == 'success'){
-				// 				//show message
-				// 				appMessages.addMessage(data.msg_success, true, 'success');
-				// 			}else{
-				// 				appMessages.addMessage(data.msg_success, true, 'danger');
-				// 			}
-				// 			//show message in 5 seconds
-				// 			$timeout(function(){
-				// 				appMessages.show = false;
-				// 			}, 5000);
+				/* confirmação modal para excluir item */
+				$scope.deleteconfirm = function(arquivodelete){
+					var modalInstance = $modal.open({
+				      	templateUrl: 'views/confirm.html',
+				      	controller: function ($scope, $modalInstance, arquivos) {
+				      	
+					      	$scope.arquivo = arquivos;
+					      	$scope.modalItem =  arquivos.nome;
+					      	
+					      	$scope.ok = function () {
+							    $modalInstance.close($scope.arquivo);
+							};
 
-				// 		})
-				// 		.error(function(error){
-				// 			console.log(error);
-				// 			$scope.submitting = false;
-				// 			//hide loading
-				// 			$scope.isloading = false;
-				// 		});
+							$scope.cancel = function () {
+							    $modalInstance.dismiss('cancel');
+							};
 
-				// 	}
-				// };
+				      	},
+				      	resolve: {
+				        	arquivos: function () {
+				          		return arquivodelete;
+				        	}
+				      	}
+				  	});
+
+				  	modalInstance.result.then(function (arquivo) {
+				      $scope.deleteitem( arquivo.idarquivos_contrato );
+				    }, function () {
+				    	/* funcao ao cancelar ou fechar o modal */
+				    });
+
+				};
 
 
-				// $scope.deleteitem = function(itemid){
-				// 	var itemcontrato = $resource('/controller/contrato/deletecontrato' , {id: itemid});
-				// 	itemcontrato.delete(
-				// 		function(data){
-				// 			//success
-				// 			$scope.load();
-				// 			if(data.msg == 'success'){
-				// 				//show message
-				// 				appMessages.addMessage(data.msg_success, true, 'success');
-				// 			}else if(data.msg == 'error1'){
-				// 				appMessages.addMessage(data.msg_success, true, 'danger');
-				// 			}else if(data.msg == 'error2'){
-				// 				appMessages.addMessage(data.msg_success, true, 'danger');
-				// 			}else{
-				// 				appMessages.addMessage(data.msg_success, true, 'danger');
-				// 			}
-				// 			//show message in 5 seconds
-				// 			$timeout(function(){
-				// 				appMessages.show = false;
-				// 			}, 5000);
-				// 		},
-				// 		function(error){
-				// 			console.log(error);
-				// 		}
-				// 	);
-				// };
+				$scope.deleteitem = function(itemid){
+					var itemcontrato = $resource('/controller/contrato/deletearquivo' , {id: itemid});
+					itemcontrato.delete(
+						function(data){
+							//success
+							$scope.load();
+							if(data.msg == 'success'){
+								//show message
+								appMessages.addMessage(data.msg_success, true, 'success');
+							}else if(data.msg == 'error1'){
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}else if(data.msg == 'error2'){
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}else{
+								appMessages.addMessage(data.msg_success, true, 'danger');
+							}
+							//show message in 5 seconds
+							$timeout(function(){
+								appMessages.show = false;
+							}, 5000);
+						},
+						function(error){
+							console.log(error);
+						}
+					);
+				};
 
 			}
 		]
