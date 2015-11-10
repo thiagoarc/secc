@@ -6,6 +6,7 @@ app
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages) {
 
 				$scope.contrato 			= {};
+				$scope.arquivos 			= [];
 				$scope.contratoItens 		= {};
 				$scope.contratoItensE 		= {};
 				$scope.isloading 			= false;
@@ -22,6 +23,7 @@ app
 			    $scope.totalgeralE 			= 0;
 			    $scope.totalItemsD			= 0;
 			    $scope.totalItemsE			= 0;
+			    $scope.totalItemsA			= 0;
 			    $scope.qtdAditivos			= 0;
 			    $scope.hoje					= (new Date()).getDate();
 			    $scope.mostraAditivo 		= false;
@@ -151,6 +153,22 @@ app
 								});
   								//$scope.numPerPage = 20;
 							});
+
+							//pega os arquivos
+							//$scope.loadarquivos($scope.contrato.idcontrato);
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/arquivos',
+								data: { id: $scope.contrato.idcontrato } 
+							}).success(function(data){
+								$scope.arquivos = data;
+								$scope.currentPage = 1; //current page
+								$scope.entryLimit = 50; //max no of items to display in a page
+								$scope.filteredItems = $scope.arquivos.length; //Initially for no filter
+								$scope.totalItemsA = $scope.arquivos.length;
+  								$scope.numPerPage = 50;
+							});
+
 							//pega a qtd de aditivos do contrato
 							$http({
 								method: 'POST',
@@ -192,6 +210,25 @@ app
   						//$scope.numPerPage = 20;
 					});
 					//console.log("OI");
+					
+
+				};
+
+
+				$scope.loadarquivos = function(idcontrato){
+					
+					$http({
+						method: 'POST',
+						url: '/controller/contrato/arquivos',
+						data: { id: idcontrato } 
+					}).success(function(data){
+							$scope.arquivos = data;
+							$scope.currentPage = 1; //current page
+							$scope.entryLimit = 50; //max no of items to display in a page
+							$scope.filteredItems = $scope.arquivos.length; //Initially for no filter
+							$scope.totalItemsA = $scope.arquivos.length;
+  							$scope.numPerPage = 50;
+					});
 					
 
 				};

@@ -7,6 +7,7 @@ app
 
 				$scope.contratoAditivo 		= {};
 				$scope.contrato 			= {};
+				$scope.arquivos 			= [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'tipo'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -20,6 +21,7 @@ app
 			    $scope.totalgeral 			= 0;
 			    $scope.totalItemsD			= 0;
 			    $scope.qtdAditivos			= 0;
+			    $scope.totalItemsA			= 0;
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -171,6 +173,21 @@ app
 								angular.forEach($scope.itenscadastrados, function(item) {
 									$scope.totalgeral += parseFloat(item.total);
 								});
+							});
+
+							//pega os arquivos
+							//$scope.loadarquivos($scope.contrato.idcontrato);
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/arquivosaditivo',
+								data: { id: $scope.contratoAditivo.idaditivo } 
+							}).success(function(data){
+								$scope.arquivos = data;
+								$scope.currentPage = 1; //current page
+								$scope.entryLimit = 50; //max no of items to display in a page
+								$scope.filteredItems = $scope.arquivos.length; //Initially for no filter
+								$scope.totalItemsA = $scope.arquivos.length;
+  								$scope.numPerPage = 50;
 							});
 
 							$scope.cancel = function(){

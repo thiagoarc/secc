@@ -1,11 +1,11 @@
 'use strict';
 
 app
-	.controller('contratoArquivosCtrl', 
+	.controller('aditivoArquivosCtrl', 
 		['$scope', '$timeout', '$resource', '$routeParams', '$location', '$modal', '$http', 'appMessages', 'FileUploader',  
 			function($scope, $timeout, $resource, $routeParams, $location, $modal, $http, appMessages, FileUploader) {
 
-				$scope.contrato 				= {};
+				$scope.aditivo 				= {};
 				$scope.arquivo 				= {};
 				$scope.arquivos 			= [];
 				$scope.isloading 			= false;
@@ -28,26 +28,24 @@ app
 			    });
 
 
-				var itemid = $routeParams.idcontrato || 0;
+				var itemid = $routeParams.idaditivo || 0;
 
 				if( itemid && itemid > 0){
 					//via http
 					$http({
 						method: 'POST',
-						url: '/controller/contrato/getcontrato',
+						url: '/controller/contrato/getaditivo',
 						data: { id: itemid } 
 					}).success(function(data){
-						$scope.contrato = data;
+						$scope.aditivo = data;
 					});
-
-					$scope.tipo = $scope.contrato.tipo;
 				}
 
 
 				//FILE UPLOAD
 
 			    var uploader = $scope.uploader = new FileUploader({
-            		url: '/upload/uploadarquivoscontrato.php?idcontrato='+itemid
+            		url: '/upload/uploadarquivosaditivo.php?idaditivo='+itemid
         		});
 
         		// FILTERS
@@ -115,7 +113,7 @@ app
 					
 					$http({
 						method: 'POST',
-						url: '/controller/contrato/arquivos',
+						url: '/controller/contrato/arquivosaditivo',
 						data: { id: itemid } 
 					}).success(function(data){
 							$scope.arquivos = data;
@@ -162,7 +160,7 @@ app
 				  	});
 
 				  	modalInstance.result.then(function (arquivo) {
-				      $scope.deleteitem( arquivo.idarquivos_contrato );
+				      $scope.deleteitem( arquivo.idarquivos_aditivo );
 				    }, function () {
 				    	/* funcao ao cancelar ou fechar o modal */
 				    });
@@ -171,7 +169,7 @@ app
 
 
 				$scope.deleteitem = function(itemid){
-					var itemcontrato = $resource('/controller/contrato/deletearquivo' , {id: itemid});
+					var itemcontrato = $resource('/controller/contrato/deletearquivoaditivo' , {id: itemid});
 					itemcontrato.delete(
 						function(data){
 							//success

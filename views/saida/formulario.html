@@ -48,7 +48,7 @@
 							<label for="nome" class="control-label">Setor: <span class="red">*</span></label>
 							<select class="form-control" ng-model="setor" name="setor" ng-init="loadsetor()" required>
 								<option value="">Escolha</option>
-								<option ng-repeat="setor in setores" value="{{setor.idsetor}}" ng-selected="setor.idsetor==setor">{{setor.sigla}} - {{setor.nome}}</option>
+								<option ng-repeat="setor in setores" value="{{setor.idsetor}}" ng-selected="setor.idsetor==setor">{{setor.nome}}</option>
 							</select>
 							<span class="help-block" ng-show="createForm.setor.$dirty && createForm.setor.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->

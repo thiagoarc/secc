@@ -51,6 +51,7 @@
 								<option value="1">Termo de Adesão</option>
 								<option value="2">Licitação</option>
 								<option value="3">Compra Direta</option>
+								<option value="4">Dispensa de Licitação</option>
 							</select>
 							<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
@@ -61,12 +62,16 @@
 								<option value="1">Material de Consumo</option>
 								<option value="2">Bens</option>
 								<option value="3">Serviços</option>
+								<option value="4">Locação</option>
 							</select>
 							<span class="help-block" ng-show="createForm.tipoobjetos.$dirty && createForm.tipoobjetos.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
 						<div class="form-group" ng-show="tipo == 1 || tipo == 2 || contrato.tipo == 1 || contrato.tipo == 2">
 							<fieldset>
-							<legend>Informações básicas do termo de adesão/licitação</legend>
+							<legend>
+								<span ng-show="tipo == 1 || contrato.tipo == 1">Informações básicas do termo de adesão</span>
+								<span ng-show="tipo == 2 || contrato.tipo == 2">Informações básicas da licitação</span>
+							</legend>
 							<div class="row">
 								<div class="col-sm-4 form-group">
 									<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
@@ -107,13 +112,16 @@
 							</div>
 							</fieldset>
 						</div>
-						<div class="form-group" ng-show="tipo == 3 || contrato.tipo == 3">
+						<div class="form-group" ng-show="tipo == 3 || contrato.tipo == 3 || tipo == 4 || contrato.tipo == 4">
 							<fieldset>
-							<legend>Informações básicas da compra direta</legend>
+							<legend>
+								<span ng-show="tipo == 3 || contrato.tipo == 3">Informações básicas da compra direta</span>
+								<span ng-show="tipo == 4 || contrato.tipo == 4">Informações básicas da dispensa de licitação</span>
+							</legend>
 							<div class="row">
 								<div class="col-sm-4 form-group">
 									<label for="telefone" class="control-label">Número:<span class="red">*</span></label>
-									<input type="text" class="form-control" ng-model="contrato.numerocd" name="numerocd" placeholder="Informe o número" ng-required="tipo == 3 || contrato.tipo == 3">
+									<input type="text" class="form-control" ng-model="contrato.numerocd" name="numerocd" placeholder="Informe o número" ng-required="tipo == 3 || contrato.tipo == 3 || tipo == 4 || contrato.tipo == 4">
 									<span class="help-block" ng-show="createForm.numerocd.$dirty && createForm.numerocd.$error.required">O campo é obrigatório</span>
 								</div>
 								<div class="col-sm-4 form-group">
@@ -122,7 +130,7 @@
 								</div>
 								<div class="col-sm-4 form-group">
 									<label for="celular" class="control-label">Data Compra: <span class="red">*</span></label>
-	              					<input type="text" class="form-control" name="datacompra" id="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-required="tipo == 3 || contrato.tipo == 3">
+	              					<input type="text" class="form-control" name="datacompra" id="datacompra" ng-model="contrato.datacompra" ui-mask="99/99/9999" ng-required="tipo == 3 || contrato.tipo == 3 || tipo == 4 || contrato.tipo == 4">
 	              					<span class="help-block" ng-show="createForm.datacompra.$dirty && createForm.datacompra.$error.required">O campo é obrigatório</span>
 								</div>
 							</div>

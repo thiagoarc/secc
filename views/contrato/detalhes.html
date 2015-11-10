@@ -27,7 +27,8 @@
             <div class="row form-group" ng-show="contrato.tipo == 'Termo de Adesão' || contrato.tipo == 'Licitação'">
                 <fieldset>
                     <div class="col-sm-12">
-                        <h3 class="block-title border-h3">Informações básicas do termo de adesão/licitação</h3>
+                        <h3 ng-show="contrato.tipo == 'Termo de Adesão'" class="block-title border-h3">Informações básicas do termo de adesão</h3>
+                        <h3 ng-show="contrato.tipo == 'Licitação'" class="block-title border-h3">Informações básicas da licitação</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="telefone" class="control-label">Número:</label>
@@ -61,10 +62,11 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="row form-group" ng-show="contrato.tipo == 'Compra Direta'">
+            <div class="row form-group" ng-show="contrato.tipo == 'Compra Direta' || contrato.tipo == 'Dispensa de Licitação'">
                 <fieldset>
                     <div class="col-sm-12">
-                        <h3 class="block-title border-h3">Informações básicas da compra direta</h3>
+                        <h3 ng-show="contrato.tipo == 'Compra Direta'" class="block-title border-h3">Informações básicas da compra direta</h3>
+                        <h3 ng-show="contrato.tipo == 'Dispensa de Licitação'" class="block-title border-h3">Informações básicas da dispensa de licitação</h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="telefone" class="control-label">Número:</label>
@@ -199,6 +201,29 @@
                         </div>
                     </div><!-- END INPUT -->
                     <h3 ng-show="totalItemsE > 0" class="block-title pull-left"><small>Total geral:</small> {{ totalgeralE | finance:true:2 }}</h3>
+                </fieldset>
+            </div>
+            <div class="form-group" ng-init="loadarquivos(contrato.idcontrato);">
+                <fieldset>
+                    <h3 class="block-title border-h3">Arquivos vinculados do contrato</h3>
+                    <div class="form-group">
+                        <div class="table-responsive" ng-show="totalItemsA > 0">
+                        <table class="table table-striped">
+                            <thead>
+                                <th width="1%" >#</th>
+                                <th width="99%" >Arquivo</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="arquivo in arquivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+                                    <td>{{$index+1}}</td>
+                                    <td><a href="/upload/{{arquivo.arquivo}}" target="_blank">{{arquivo.nome}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+                    </div>
+                    <div class="table-responsive" ng-show="totalItemsA == 0"> Nenhum arquivo vinculado.</div>
+                    </div>
                 </fieldset>
             </div>
         </div>

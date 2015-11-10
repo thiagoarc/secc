@@ -88,6 +88,29 @@
                     </div>
                 </fieldset>
             </div>
+            <div class="form-group" ng-init="loadarquivos(contratoAditivo.idaditivo);">
+                <fieldset>
+                    <h3 class="block-title border-h3">Arquivos vinculados do contrato</h3>
+                    <div class="form-group">
+                        <div class="table-responsive" ng-show="totalItemsA > 0">
+                        <table class="table table-striped">
+                            <thead>
+                                <th width="1%" >#</th>
+                                <th width="99%" >Arquivo</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="arquivo in arquivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+                                    <td>{{$index+1}}</td>
+                                    <td><a href="/upload/{{arquivo.arquivo}}" target="_blank">{{arquivo.nome}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+                    </div>
+                    <div class="table-responsive" ng-show="totalItemsA == 0"> Nenhum arquivo vinculado.</div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
