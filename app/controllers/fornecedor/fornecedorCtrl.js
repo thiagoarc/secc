@@ -13,6 +13,8 @@ app
 			  	$scope.submitting 			= false;	// set label btn for false then save
 			    $scope.notification 		= appMessages; // factory notification feedback application
 			    $scope.modalItem			= '';
+			    $scope.ufs					= [];
+			    $scope.cidades				= [];
 
 			    $scope.handleClick = function(msg) {
 			        appMessages.addMessage(msg);
@@ -33,7 +35,18 @@ app
 						data: { id: itemid } 
 					}).success(function(data){
 						$scope.fornecedor = data;
+
+						$http({
+							method: 'POST',
+							url: '/controller/fornecedor/cidades',
+							data: { iduf: $scope.fornecedor.iduf } 
+						}).success(function(data){
+							$scope.cidades = data;
+						});
+
 					});
+					//console.log($scope.fornecedor.iduf);
+					
 				}
 
 				/* confirmação modal para excluir item */
@@ -104,11 +117,23 @@ app
 
 				};
 
-				$scope.loadcidades = function(){
+				$scope.loadcidades = function(iduf){
 					
-					$http.get('/controller/fornecedor/cidades')
+					$http({
+						method: 'POST',
+						url: '/controller/fornecedor/cidades',
+						data: { iduf: iduf } 
+					}).success(function(data){
+						$scope.cidades = data;
+					});
+
+				};
+
+				$scope.loadufs = function(){
+					
+					$http.get('/controller/fornecedor/ufs')
 						.success(function(data){
-							$scope.cidades = data;
+							$scope.ufs = data;
 						});
 
 				};
