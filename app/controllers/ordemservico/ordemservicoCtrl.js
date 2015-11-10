@@ -37,7 +37,7 @@ app
 							$scope.entryLimit = 5; //max no of items to display in a page
 							$scope.filteredItems = $scope.ordem.length; //Initially for no filter
 							$scope.totalItems = $scope.ordem.length;
-  							$scope.numPerPage = 10;
+  							$scope.numPerPage = 5;
 						});
 
 				};

@@ -8,7 +8,7 @@ try{
 				FROM contrato a
 				LEFT JOIN orgao b ON(a.idorgao = b.idorgao)
 					WHERE 
-					a.validade <= now() 
+					a.validade < now() 
 					ORDER BY 
 					a.validade asc";
 	$stmt = $oConexao->query($sql);  
