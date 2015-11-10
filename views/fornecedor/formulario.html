@@ -99,9 +99,17 @@
 							<input type="text" class="form-control" ng-model="fornecedor.complemento" name="complemento" placeholder="Informe o complemento do endereço">
 						</div><!-- END INPUT -->
 						<div class="row form-group">
-							<div class="col-sm-4">
+						<div class="col-sm-2">
+								<label for="cidade" class="control-label">UF:<span class="red">*</span></label>
+								<select class="form-control" ng-model="fornecedor.iduf" name="iduf" ng-init="loadufs()" ng-change="loadcidades(fornecedor.iduf)" required>
+									<option value="">Escolha</option>
+									<option ng-repeat="uf in ufs" value="{{uf.iduf}}" ng-selected="fornecedor.iduf==uf.iduf">{{uf.uf}}</option>
+								</select>
+								<span class="help-block" ng-show="createForm.iduf.$dirty && createForm.iduf.$error.required">O campo é obrigatório</span>
+							</div>
+							<div class="col-sm-3">
 								<label for="cidade" class="control-label">Cidade:<span class="red">*</span></label>
-								<select class="form-control" ng-model="fornecedor.idcidade" name="idcidade" ng-init="loadcidades()" required>
+								<select class="form-control" ng-model="fornecedor.idcidade" name="idcidade" required>
 									<option value="">Escolha</option>
 									<option ng-repeat="cidade in cidades" value="{{cidade.idcidade}}" ng-selected="fornecedor.idcidade==cidade.idcidade">{{cidade.nome}}</option>
 								</select>
@@ -111,7 +119,7 @@
 								<label for="bairro" class="control-label">Bairro:</label>
 								<input type="text" class="form-control" ng-model="fornecedor.bairro" name="bairro" placeholder="Informe o bairro do fornecedor">
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-3">
 								<label for="cep" class="control-label">Cep:</label>
 								<input type="text" class="form-control" ng-model="fornecedor.cep" name="cep" placeholder="Informe o cep do fornecedor" ui-br-cep-mask>
 							</div>

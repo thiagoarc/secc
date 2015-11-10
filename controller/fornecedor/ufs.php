@@ -4,12 +4,12 @@ $oConexao = Conexao::getInstance();
 
 $params = json_decode(file_get_contents('php://input'));
 
+$limit = $params->limit != '' ?  $params->limit : 10;
+
 try{
 
-	$sql = "SELECT * FROM cidade WHERE iduf = :iduf ORDER BY nome asc";
-	$stmt = $oConexao->prepare($sql);  
-	$stmt->bindParam('iduf', $params->iduf);
-	$stmt->execute();
+	$sql = "SELECT * FROM uf ORDER BY uf asc LIMIT 0, $limit";
+	$stmt = $oConexao->query($sql);  
 	$cidades = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
 	echo json_encode($cidades);

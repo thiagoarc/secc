@@ -8,7 +8,7 @@ $limit = $params->limit != '' ?  $params->limit : 10;
 
 try{
 
-	$sql = "SELECT f.*, c.idcidade, c.nome as cidade FROM fornecedor f, cidade c WHERE f.idcidade = c.idcidade ORDER BY razaosocial asc LIMIT 0, $limit";
+	$sql = "SELECT f.*, c.idcidade, c.nome as cidade, u.iduf, u.uf FROM fornecedor f, cidade c, uf u WHERE f.idcidade = c.idcidade AND u.iduf = c.iduf ORDER BY razaosocial asc LIMIT 0, $limit";
 	$stmt = $oConexao->query($sql);  
 	$fornecedores = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
