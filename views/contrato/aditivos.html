@@ -69,12 +69,16 @@
 				<p></p><!-- clearfixed -->
 
 				<div class="col-sm-12">
-					<span class="badge label-success">&nbsp;</span> No prazo | <span class="badge label-warning">&nbsp;</span> Menos de 30 dias para o vencimento | <span class="badge label-danger">&nbsp;</span> Vencido
+					<div ng-show="totalItems > 0">
+						<i class="fa fa-circle text-success"></i> No prazo <span>|</span>
+						<i class="fa fa-circle text-warning"></i> Menos de 30 dias para o vencimento <span>|</span>
+						<i class="fa fa-circle text-danger"></i> Vencido
+					</div>
 					<div class="table-responsive" ng-show="totalItems > 0">
 						<table class="table table-striped">
 							<thead>
-								<th width="1%" >#</th>
-								<th width="15"></th>
+								<th width="1%">#</th>
+								<th width="2%"></th>
 								<th width="18%" >Número Contrato</th>
 								<th width="17%" >Número Aditivo</th>
 								<th width="15%" >Valor</th>
@@ -84,7 +88,12 @@
 							<tbody>
 								<tr ng-repeat="contratoAditivo in contratoAditivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td><span ng-show="contratoAditivo.diasrestantes > 30" class="badge label-success">&nbsp;</span><span ng-show="contratoAditivo.diasrestantes <= 30 && contratoAditivo.diasrestantes >= 0" class="badge label-warning">&nbsp;</span><span ng-show="contratoAditivo.diasrestantes < 0" class="badge label-danger">&nbsp;</span></td>
+									<td>
+										<i ng-show="contratoAditivo.diasrestantes > 30" class="fa fa-circle text-success"></i>
+										<i ng-show="contratoAditivo.diasrestantes <= 30 && contratoAditivo.diasrestantes >= 0" 
+											class="fa fa-circle text-warning"></i>
+										<i ng-show="contratoAditivo.diasrestantes < 0" class="fa fa-circle text-danger"></i>
+									</td>
 									<td>{{contrato.numerocontrato}}</td>
 									<td>{{contratoAditivo.numero}}</td>
 									<td>{{contratoAditivo.valor  | finance:true:2}}</td>

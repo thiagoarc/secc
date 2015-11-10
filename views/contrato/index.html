@@ -65,9 +65,11 @@
 				<p></p><!-- clearfixed -->
 
 				<div class="col-sm-12">
-				<i class="fa fa-circle text-success"></i> No prazo <span>|</span>
-				<i class="fa fa-circle text-warning"></i> Menos de 30 dias para o vencimento <span>|</span>
-				<i class="fa fa-circle text-danger"></i> Vencido
+					<div ng-show="totalItems > 0">
+						<i class="fa fa-circle text-success"></i> No prazo <span>|</span>
+						<i class="fa fa-circle text-warning"></i> Menos de 30 dias para o vencimento <span>|</span>
+						<i class="fa fa-circle text-danger"></i> Vencido
+					</div>
 					<div class="table-responsive" ng-show="totalItems > 0">
 						<table class="table table-striped">
 							<thead>
@@ -90,7 +92,7 @@
 									<td>{{contrato.numerocontrato}}</td>
 									<td>{{contrato.valor  | finance:true:2}}</td>
 									<td>{{contrato.validade | date:'dd/MM/yyyy'}}</td>
-									<td>
+									<td class="text-right">
 										<a ng-show="contrato.diasrestantes < 30" class="btn btn-default btn-sm" 
 											href="#!/contrato/aditivos/{{contrato.idcontrato}}"
 											tooltips tooltip-title="tip" tooltip-side="top"
