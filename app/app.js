@@ -382,6 +382,21 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/contrato/aditivo/arquivos/:idaditivo',
+			{ 
+				templateUrl: 'views/contrato/arquivosaditivo.html',
+				controller: 'aditivoArquivosCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['lib/angular-upload-file/es5-shim.min.js', 'lib/angular-upload-file/es5-sham.min.js', 'lib/angular-upload-file/console-sham.min.js', 'app/controllers/contrato/aditivoArquivosCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/contrato/empenho/:idcontrato',
 			{ 
 				templateUrl: 'views/contrato/empenho.html',
