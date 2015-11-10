@@ -120,7 +120,7 @@ app
 							$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
 						}else if(data.msg == 'warning'){
 								$location.path('/contrato/aditivo/itens/'+contratoAditivo.idaditivo);
-								appMessages.addMessage("O contrato não possui itens cadastrados", true, 'warning');
+								//appMessages.addMessage("O contrato não possui itens cadastrados", true, 'warning');
 							}else{
 								appMessages.addMessage("Ocorreu um erro: "+data.msg_success, true, 'danger');
 							}

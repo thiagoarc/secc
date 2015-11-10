@@ -45,9 +45,17 @@
 					<input type="hidden" ng-model="contrato.idcontrato" name="idcontrato">
 
 						<div class="form-group">
-							<label for="nome" class="control-label">Arquivos do Aditivo de Número: </label>
-							{{aditivo.numerocontrato}}
+							<div class="col-sm-8">
+								<label for="nome" class="control-label">Arquivos do Aditivo de Número: </label>
+								{{aditivo.numerocontrato}}
+							</div>
+							<div class="col-sm-4">
+								<a href="#!/contrato/aditivos/{{aditivo.idcontrato}}"
+								class="link pull-right fc-mg-right-default-1x fc-mg-top-default">
+								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
+							</div>
 						</div><!-- END INPUT -->
+
 						<!--div class="form-group">
 							<label for="nome" class="control-label">Validade: </label>
 							{{contrato.validade}}
@@ -156,8 +164,8 @@
 					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
-					</button>-->
-					<a href="#!/contrato" class="btn btn-sm btn-danger">Cancelar</a>
+					</button>
+					<a href="#!/contrato" class="btn btn-sm btn-danger">Cancelar</a>-->
 
 					<p></p><!-- clearfixed -->
 
