@@ -18,6 +18,9 @@ app
 					jQuery('body').addClass('bg-image');
 	        		jQuery('body').css('background-image', 'url("/assets/img/photos/photo1@2x.jpg")');
 				}else{
+
+					jQuery(document).ready(function(){
+
 					var $lHtml              = jQuery('html');
 			        var $lBody              = jQuery('body');
 			        var $lPage              = jQuery('#page-container');
@@ -51,29 +54,25 @@ app
 			        // Init form placeholder (for IE9)
 			        jQuery('.form-control').placeholder();
 
-					/* enable menu */
-					// jQuery('[data-toggle="nav-submenu"]').on('click', function(e){
-			  //           // Stop default behaviour
-			  //           e.stopPropagation();
-			  //           // Get link
-			  //           var $link = jQuery(this);
-			  //           // Get link's parent
-			  //           var $parentLi = $link.parent('li');
-			  //           if ($parentLi.hasClass('open')) { // If submenu is open, close it..
-			  //               $parentLi.removeClass('open');
-			  //           } else { // .. else if submenu is closed, close all other (same level) submenus first before open it
-			  //               $link
-			  //                   .closest('ul')
-			  //                   .find('> li')
-			  //                   .removeClass('open');
-			  //               $parentLi
-			  //                   .addClass('open');
-			  //           }
-			  //           // Remove focus from submenu link
-			  //           if ($lHtml.hasClass('no-focus')) {
-			  //               $link.blur();
-			  //           }
-			  //       });
+			        var sidberScrollHandle = function(){
+
+			        	var $windowW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			        	if ($windowW > 991 && $lPage.hasClass('side-scroll')) {
+							if ($lSidebarScroll.length && (!$lSidebarScroll.parent('.slimScrollDiv').length)) {
+							    $lSidebarScroll.slimScroll({
+							        height: $lSidebar.outerHeight(),
+							        color: '#fff',
+							        size: '5px',
+							        opacity : .35,
+							        wheelStep : 15,
+							        distance : '2px',
+							        railVisible: false,
+							        railOpacity: 1
+							    });
+							}
+			        	}
+			        }
+
 			        /* enable menu mobile */
 			        // Call layout API on button click
 			        jQuery('[data-toggle="layout"]').on('click', function(){
@@ -91,6 +90,9 @@ app
 			            }
 			        });
 
+			        sidberScrollHandle();
+
+			    	});/*end document ready*/
 				}
 
 				$scope.login = function( data ){

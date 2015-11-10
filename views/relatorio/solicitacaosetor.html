@@ -1,4 +1,4 @@
-<!-- Page Container -->
+Page Container -->
 <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
 
 <!-- Sidebar -->
@@ -92,7 +92,6 @@
 								<th width="15%">Dta. solicitação</th>
 								<th width="10%">Status</th>
 								<th width="15%">Solicitante</th>
-								<th width="15%">Motivo</th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="solicitacao in solicitacaosetor | orderBy:sortType:sortReverse | filter : paginate">
@@ -105,7 +104,6 @@
 									<td ng-if="solicitacao.status == 2"><span class="label label-danger">Cancelado</span></td>
 
 									<td>{{solicitacao.solicitante}}</td>
-									<td>{{solicitacao.motivo}}</td>
 
 								</tr>
 							</tbody>
@@ -136,4 +134,4 @@
 <!-- end Footer -->
 
 </div>
-<!-- END Page Container -->
+<!-- END Page Container
