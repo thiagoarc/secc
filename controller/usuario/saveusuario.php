@@ -139,6 +139,10 @@ try{
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
                                             ("/relatorio", :usuario)
                                     ');
             $stmtPerfil->bindParam('usuario', $params->idusuario);
@@ -352,6 +356,10 @@ try{
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario),
                                             ("/relatorio", :usuario)
                                     ');
             $stmtPerfil->bindParam('usuario', $usuario);

@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                 </div>
-                <a class="h5 text-white" href="index.html">
+                <a class="h5 text-white" href="#!/">
                     <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">secc</span>
                 </a>
             </div>
@@ -52,7 +52,7 @@
             <!-- Side Content -->
             <div class="side-content" ng-controller="authenticationCtrl">
                 <ul class="nav-main" ng-init="getAccessProfilePermission()">
-                    <li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 7">
                         <a class="active" href="#!/app"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                     </li>
                     <li class="nav-main-heading"><span class="sidebar-mini-hide">Atividades</span></li>

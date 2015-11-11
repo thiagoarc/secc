@@ -33,7 +33,7 @@ app
 								$location.path('/ordemservico');
 							break;
 							case 6: //observador
-								$location.path('/relatorio');
+								$location.path('/relatorio/contratoativos/');
 							break;
 							case 7: //gestor do sistema
 								$location.path('/app');

@@ -4,11 +4,9 @@ $oConexao = Conexao::getInstance();
 
 $params = json_decode(file_get_contents('php://input'));
 
-$limit = $params->limit != '' ?  $params->limit : 10;
-
 try{
 
-	$sql = "SELECT * FROM usuario WHERE liberado = 1 ORDER BY nome asc LIMIT 0, $limit";
+	$sql = "SELECT * FROM usuario WHERE liberado = 1 ORDER BY nome asc";
 	$stmt = $oConexao->query($sql);  
 	$usuarios = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$oConexao = null;
