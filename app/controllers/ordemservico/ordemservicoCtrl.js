@@ -253,10 +253,10 @@ app
 					$scope.ordem.validade = ibusca.validade;
 					$scope.ordem.obs = ibusca.obs;
 					if( ibusca.idaditivo ){
-						$scope.ordem.contratoaditivo = ibusca.idaditivo;
+						$scope.ordem.contratoaditivo = ibusca.contrato;
 						$scope.ordem.tipo	= 2; //aditivo
 					}else{
-						$scope.ordem.contratoaditivo = ibusca.idcontrato;
+						$scope.ordem.contratoaditivo = ibusca.contrato;
 						$scope.ordem.tipo	= 1; //contrato
 					}
 
