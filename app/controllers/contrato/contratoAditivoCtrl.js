@@ -19,6 +19,7 @@ app
 			    $scope.idcontrato			= null;
 			    $scope.itenscadastrados 	= [];
 			    $scope.totalgeral 			= 0;
+			    $scope.totalgeralE 			= 0;
 			    $scope.totalItemsD			= 0;
 			    $scope.qtdAditivos			= 0;
 			    $scope.totalItemsA			= 0;
@@ -188,6 +189,27 @@ app
 								$scope.filteredItems = $scope.arquivos.length; //Initially for no filter
 								$scope.totalItemsA = $scope.arquivos.length;
   								$scope.numPerPage = 50;
+							});
+
+							//pega os empenhos do contrato
+							$http({
+								method: 'POST',
+								url: '/controller/contrato/aditivoempenhos',
+								data: { id: $scope.contratoAditivo.idaditivo } 
+							}).success(function(data){
+								//console.log(data);
+								$scope.itenscadastradosE = data;
+								//$scope.calculaTotalGeralE();
+								//$scope.currentPage = 1; //current page
+								//$scope.entryLimit = 20; //max no of items to display in a page
+								//$scope.filteredItems = $scope.itenscadastrados.length; //Initially for no filter
+								$scope.totalItemsE = $scope.itenscadastradosE.length;
+								$scope.totalgeralE 			= 0; 
+								angular.forEach($scope.itenscadastradosE, function(item) {
+									//console.log(item.total);
+									$scope.totalgeralE += parseFloat(item.valor);
+								});
+  								//$scope.numPerPage = 20;
 							});
 
 							$scope.cancel = function(){

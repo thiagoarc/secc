@@ -88,6 +88,41 @@
                     </div>
                 </fieldset>
             </div>
+            <div class="form-group">
+                <fieldset>
+                    <h3 class="block-title border-h3">Empenhos vinculados ao contrato</h3>
+                    <div class="form-group">
+                        <div class="table-responsive" ng-show="totalItemsE > 0">
+                            <table class="table table-striped">
+                                        <thead>
+                                            <th width="1%" >#</th>
+                                            <th width="49%" >Fornecedor</th>
+                                            <th width="25%" >Número do Empenho</th>
+                                            <th width="25%" >Valor</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in itenscadastradosE | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{item.cnpj | brCnpj}} - {{item.razaosocial}}</td>
+                                                <td>{{item.numero}}</td>
+                                                <td>{{item.valor  | finance:true:2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
+                        </div>
+
+                        <div class="col-md-12" ng-show="!totalItemsE">
+                            <table class="table">
+                                <tr>
+                                    <td colspan="7">Nenhum item vinculado.</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div><!-- END INPUT -->
+                    <h3 ng-show="totalItemsE > 0" class="block-title pull-left"><small>Total geral:</small> {{ totalgeralE | finance:true:2 }}</h3>
+                </fieldset>
+            </div>
             <div class="form-group" ng-init="loadarquivos(contratoAditivo.idaditivo);">
                 <fieldset>
                     <h3 class="block-title border-h3">Arquivos vinculados do contrato</h3>
