@@ -30,7 +30,7 @@ try{
 			$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
 			$stmt->bindParam('descricao', $params->descricao);
 			$stmt->bindParam('qtd', $params->qtd);
-			$stmt->bindParam('qtdordem', $params->qtd);
+			$stmt->bindParam('qtdordem', 0);
 			$stmt->bindParam('valorunitario', $params->valorunitario);
 			$stmt->bindParam('idfornecedor', $params->idfornecedor);
 			$stmt->execute();
