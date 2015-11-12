@@ -30,7 +30,7 @@ try{
 												INNER JOIN unidade_medida und ON(iad.idunidade_medida = und.idunidade_medida)
 												INNER JOIN fornecedor fnc ON(iad.idfornecedor = fnc.idfornecedor)
 												LEFT JOIN aditivo a ON(iad.idaditivo = a.idaditivo)
-												WHERE a.numero = 889988 ORDER by iad.descricao");
+												WHERE a.numero = :numero ORDER by iad.descricao");
 			$stmt->bindParam('numero', $params->numero, PDO::PARAM_STR);
 			$stmt->execute();
 			$aditivo = $stmt->fetchAll(PDO::FETCH_OBJ);
