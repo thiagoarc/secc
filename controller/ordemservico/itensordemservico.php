@@ -12,10 +12,12 @@ try{
 		//return JSON
 		$ordem = array();
 
-		$stmt = $oConexao->prepare("SELECT os.idordem_servico, os.idcontratoaditivo, os.tipo, c.numerocontrato, c.valor as valorcontrato, c.numeroata, c.numeropregao, DATE_FORMAT(c.validade, '%d%m%Y') as validadecontrato, a.numero as numeroaditivo, a.valor as valoraditivo, DATE_FORMAT(a.validade, '%d%m%Y') as validadeaditivo
+		$stmt = $oConexao->prepare("SELECT os.idordem_servico, os.idcontratoaditivo, os.tipo, c.numerocontrato, c.valor as valorcontrato, c.numeroata, c.numeropregao, 
+										   DATE_FORMAT(c.validade, '%d%m%Y') as validadecontrato, 
+										   a.numero as numeroaditivo, a.valor as valoraditivo, DATE_FORMAT(a.validade, '%d%m%Y') as validadeaditivo
 										FROM ordem_servico os
-										LEFT JOIN contrato c ON (os.idcontratoaditivo = c.idcontrato)
-										LEFT JOIN aditivo a ON (os.idcontratoaditivo = a.idaditivo)
+										LEFT JOIN contrato c ON (os.idcontratoaditivo = c.numerocontrato)
+										LEFT JOIN aditivo a ON (os.idcontratoaditivo = a.numero)
 											WHERE os.idordem_servico = :ios");  
 		$stmt->bindParam('ios', $params->idos);
 		$stmt->execute();
