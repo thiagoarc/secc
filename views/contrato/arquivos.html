@@ -44,30 +44,22 @@
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
 					<input type="hidden" ng-model="contrato.idcontrato" name="idcontrato">
 
-						<div class="form-group">
-						<div class="col-sm-8">
-							<label for="nome" class="control-label">Arquivos do Contrato de Número: </label>
-							{{contrato.numerocontrato}}
-						</div>
+						<div class="row form-group">
+							<div class="col-sm-8">
+								<label for="nome" class="control-label">Arquivos do Contrato de Número: </label>
+								{{contrato.numerocontrato}}
+							</div>
 							<div class="col-sm-4">
 								<a href="#!/contrato"
 								class="link pull-right fc-mg-right-default-1x fc-mg-top-default">
 								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
 							</div>
 						</div><!-- END INPUT -->
-						<!--div class="form-group">
-							<label for="nome" class="control-label">Validade: </label>
-							{{contrato.validade}}
-						</div><!-- END INPUT -->
-						<!--div class="form-group">
-							<label for="nome" class="control-label">Valor: </label>
-							{{contrato.valor  | finance:true:2}}
-						</div><!-- END INPUT -->
+						
 						<div class="form-group">
-							<fieldset>
-								<legend>Upload de Arquivos</legend>
+							<h3 class="title border-h3">Upload de Arquivos</h3>
 								<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
-								<!--<div class="col-md-12" style="margin-bottom: 40px">-->
+							
 	                    			<p>Tamanho da Fila de arquivos: {{ uploader.queue.length }}</p>
 				                    <table class="table">
 				                        <thead>
@@ -107,64 +99,58 @@
 				                            </tr>
 				                        </tbody>
 				                    </table>
+
                     				<div>
 		                        		<div>
-		                            		Queue progress:
+		                            		Progresso de envio:
 		                            		<div class="progress" style="">
 		                                		<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
 		                            		</div>
 		                        		</div>
 				                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-				                            <span class="glyphicon glyphicon-upload"></span> Upload all
+				                            <span class="glyphicon glyphicon-upload"></span> Enviar todos arquivos
 				                        </button>
 				                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+				                            <span class="glyphicon glyphicon-ban-circle"></span> Cancelar envio de todos
 				                        </button>
 				                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-				                            <span class="glyphicon glyphicon-trash"></span> Remove all
+				                            <span class="glyphicon glyphicon-trash"></span> Remover todos os arquivos
 				                        </button>
                     				</div>
                 				<!--</div>-->
-							</fieldset>
 						</div><!-- END INPUT -->
+
+
 						<fieldset>
 							<legend>Arquivos enviados</legend>
 							<div class="table-responsive" ng-show="totalItems > 0">
-						<table class="table table-striped" ng-init="load()">
-							<thead>
-								<th width="1%" >#</th>
-								<th width="90%" >Arquivo</th>
-								<th width="9%"></th>
-							</thead>
-							<tbody>
-								<tr ng-repeat="arquivo in arquivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
-									<td>{{$index+1}}</td>
-									<td><a href="/upload/{{arquivo.arquivo}}" target="_blank">{{arquivo.nome}}</a></td>
-									<td>
-										<a class="btn btn-danger btn-sm" 
-											href="javascript:;" 
-											ng-click="deleteconfirm(arquivo)"
-											tooltips tooltip-title="tip" tooltip-side="top"
-											title="Excluir">
-											<i class="glyphicon glyphicon-trash"></i>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>-->
-					</div>
-					<div class="table-responsive" ng-show="totalItems == 0">
-					Nenhum arquivo cadastrado.
-					</div>
+								<table class="table table-striped" ng-init="load()">
+									<thead>
+										<th width="1%" >#</th>
+										<th width="90%" >Arquivo</th>
+										<th width="9%"></th>
+									</thead>
+									<tbody>
+										<tr ng-repeat="arquivo in arquivos | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+											<td>{{$index+1}}</td>
+											<td><a href="/upload/{{arquivo.arquivo}}" target="_blank">{{arquivo.nome}}</a></td>
+											<td>
+												<a class="btn btn-danger btn-sm" 
+													href="javascript:;" 
+													ng-click="deleteconfirm(arquivo)"
+													tooltips tooltip-title="tip" tooltip-side="top"
+													title="Excluir">
+													<i class="glyphicon glyphicon-trash"></i>
+												</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="table-responsive" ng-show="totalItems == 0">Nenhum arquivo cadastrado.</div>
+
 						</fieldset>
-					
-					<!--<img src="assets/img/ajax-loader.gif" ng-show="isloading">
-					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
-						<span ng-switch-default>Salvar</span>
-				    	<span ng-switch-when="true">Salvando...</span>
-					</button>
-					<a href="#!/contrato" class="btn btn-sm btn-danger">Cancelar</a>-->
 
 					<p></p><!-- clearfixed -->
 
