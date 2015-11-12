@@ -83,6 +83,7 @@
 									ng-click="sortType = 'descricao'; sortReverse = !sortReverse">Nome
 									</a>
 								</th>
+								<th width="10%">Qtd. min.</th>
 								<th width="10%">Qtd. atual</th>
 								<th width="10%">Unid. Medida</th>
 								<th width="10%">Valor</th>
@@ -91,6 +92,9 @@
 								<tr ng-repeat="prod in produtoestoqueminimo | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
 									<td>{{prod.descricao}}</td>
+									<td class="hidden-xs">
+	                                    <span class="label label-danger">{{prod.qtdminima}}</span>
+	                                </td>
 									<td>{{prod.qtdatual}}</td>
 									<td>{{prod.sigla}}</td>
 									<td>{{prod.valorunitario | finance:true:2 }}</td>
