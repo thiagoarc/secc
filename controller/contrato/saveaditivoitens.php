@@ -25,12 +25,11 @@ try{
     		$msg['msg_success'] = 'Item alterado com sucesso.';
     		echo json_encode($msg);
 		}else{
-			$stmt = $oConexao->prepare("INSERT INTO itens_aditivo (idaditivo, idunidade_medida, descricao, qtd, qtdordem, valorunitario, idfornecedor) VALUES (:idaditivo, :idunidade_medida, :descricao, :qtd, :qtdordem, :valorunitario, :idfornecedor)");  
+			$stmt = $oConexao->prepare("INSERT INTO itens_aditivo (idaditivo, idunidade_medida, descricao, qtd, valorunitario, idfornecedor) VALUES (:idaditivo, :idunidade_medida, :descricao, :qtd, :valorunitario, :idfornecedor)");  
 			$stmt->bindParam('idaditivo', $params->idaditivo);
 			$stmt->bindParam('idunidade_medida', $params->idunidade_medida);
 			$stmt->bindParam('descricao', $params->descricao);
 			$stmt->bindParam('qtd', $params->qtd);
-			$stmt->bindParam('qtdordem', 0);
 			$stmt->bindParam('valorunitario', $params->valorunitario);
 			$stmt->bindParam('idfornecedor', $params->idfornecedor);
 			$stmt->execute();
