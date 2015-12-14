@@ -1,0 +1,66 @@
+<section>
+    <div class="block block-themed block-transparent remove-margin-b">
+        <div class="block-header bg-primary-dark">
+            <ul class="block-options">
+                <li>
+                    <button type="button" data-dismiss="modal" ng-click="cancel()"><i class="si si-close"></i></button>
+                </li>
+            </ul>
+            <h3 class="block-title">Detalhes do Veículo</h3>
+        </div>
+        <div class="block-content">
+            <fieldset>
+            <legend>Informações Básicas do Veículo</legend>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <label for="nome" class="control-label">Placa:</label>
+                            {{veiculo.placa}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="quantidade" class="control-label">Tipo: </label>
+                            {{veiculo.tipo}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="nome" class="control-label">Modelo: </label>
+                            {{veiculo.modelo}}
+                        </div>
+                    </div><!-- END INPUT -->
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <label for="nome" class="control-label">Ano:</label>
+                            {{veiculo.ano}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="nome" class="control-label">Cor:</label>
+                            {{veiculo.cor}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="quantidade" class="control-label">Tipo de Combustível:</label>
+                            <div ng-show="veiculo.tipocombustivel==1">Gasolina</div>
+                            <div ng-show="veiculo.tipocombustivel==2">Álcool</div>
+                            <div ng-show="veiculo.tipocombustivel==3">Diesel</div>
+                            <div ng-show="veiculo.tipocombustivel==4">Diesel S10</div>
+                        </div>
+                    </div><!-- END INPUT -->
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label for="nome" class="control-label">KM Inicial: </label>
+                            {{veiculo.kminicial}}
+                        </div>
+                        <div class="col-sm-5">
+                            <label for="nome" class="control-label">Motorista:</label>
+                            {{veiculo.motorista}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="quantidade" class="control-label">Setor: </label>
+                            {{veiculo.nome}}
+                        </div>
+                    </div><!-- END INPUT -->
+           </fieldset>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-warning" ng-click="cancel()">Fechar</button>
+    </div>
+</section>
+<!-- end modal -->

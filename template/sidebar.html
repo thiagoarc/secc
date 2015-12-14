@@ -122,6 +122,17 @@
                             </li>
                         </ul>
                     </li>
+                    <li ng-if="accessProfile == 1 || accessProfile == 7 || accessProfile == 4 || accessProfile == 5" navsubmenu>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-car"></i><span class="sidebar-mini-hide">Combustível</span></a>
+                        <ul>
+                            <li>
+                                <a href="#!/veiculo">Veículos</a>
+                            </li>
+                            <li>
+                                <a href="#!/saidacombustivel">Saída de combustível</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li ng-if="accessProfile >= 1 && accessProfile <= 8" navsubmenu>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:;"><i class="fa fa-area-chart"></i><span class="sidebar-mini-hide">Relatórios</span></a>
                         <ul>

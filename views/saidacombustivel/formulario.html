@@ -1,0 +1,164 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de saída de combustível <small>adicione os veículos ao qual você deseja solicitar o combustível</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/saidacombustivel">Minhas solicitações de saída</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <div ng-include="'views/messages.html'"></div>
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+
+					<div class="row form-group">
+						<div class="col-sm-10">
+							<label for="nome" class="control-label">Veículo: <span class="red">*</span></label>
+							<select class="form-control" ng-model="veiculo.idveiculo" name="idveiculo" ng-init="loadveiculos()" required>
+								<option value="">Escolha</option>
+								<option ng-repeat="v in veiculos" value="{{v.idveiculo}}" ng-click="getveiculo()" ng-selected="v.idveiculo==veiculo.idveiculo">{{v.placa}} - {{v.modelo}} - {{v.motorista}} - {{v.combustivel}}</option>
+							</select>
+							<span class="help-block" ng-show="createForm.idveiculo.$dirty && createForm.idveiculo.$error.required">O campo é obrigatório</span>
+						</div><!-- END INPUT -->
+						<div class="col-sm-2">
+							<a class="link pull-right fc-mg-right-default-1x fc-mg-top-default-6x" href="#!/saida">
+								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-sm-6">
+							<label for="numero" class="control-label">Pesquise pelo nome do combustível: <span class="red">*</span></label>
+							<div class="input-group">
+								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-keydown="removeTagOnBackspace($event)" ng-model="nome" name="nome" autocomplete="off">
+								<div class="input-group-btn">
+									<button class="btn btn-default"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+							<div class="autocomplete" ng-show="autocomplete">
+								<ul>
+									<li ng-repeat="busca in resultados"><a href="javascript:void(0);" ng-click="selectedcontratoaditivo(busca)">{{busca.descricao}}</a></li>
+								</ul>
+								<ul ng-show="!totalresultados">
+									<li><p>Nenhum resultado encontrato</p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+							<label for="nome" class="control-label">QTD de litros: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="produto.qtd" name="qtd" placeholder="Informe a qtd do produto" required>
+							<input type="hidden" ng-model="qtdestoque" name="qtdestoque">
+							<span class="help-block" ng-show="createForm.qtd.$dirty && createForm.qtd.$error.required">O campo é obrigatório</span>
+						</div><!-- END INPUT -->
+						<div class="col-sm-3">
+							<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+							<button  style="margin-top: 23px;" type="submit" ng-click="additem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+								<span ng-switch-default>Adicionar</span>
+				    			<span ng-switch-when="true">Adicionando...</span>
+							</button>
+						</div><!-- END INPUT -->
+					</div><!-- END INPUT -->
+
+					<p></p><!-- clearfixed -->
+
+					<div class="row">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="table-responsive col-sm-12" ng-show="totalItemsP > 0">
+										<table class="table table-striped">
+											<thead>
+												<th width="1%" >#</th>
+												<th width="20%" >Produto</th>
+												<th width="20%" >Veículo</th>
+												<th width="20%" >Solicitada</th>
+			                                	<th width="20%" >Em Estoque</th>
+												<th width="14%"></th>
+										</thead>
+										<tbody>
+											<tr ng-repeat="prod in produtossolicitacao">
+												<td>{{$index+1}}</td>
+												<td>{{prod.nome}}</td>
+												<td>{{prod.placa}} - {{prod.modelo}} - {{prod.motorista}}</td>
+												<td>{{prod.qtd}}</td>
+												<td>{{prod.qtdestoque}}</td>
+												<td>
+													<a class="btn btn-danger btn-sm" href="javascript:void(0);"
+												 		ng-click="removeRow(prod.nome)"
+												 		tooltips tooltip-title="tip" tooltip-side="top"
+														title="Excluir">
+														<i class="glyphicon glyphicon-trash"></i>
+													</a>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="col-md-12" ng-show="!totalItemsP">
+							        <table class="table">
+							        	<tr>
+							        		<td colspan="7">Nenhum produto adicionado.</td>
+							        	</tr>
+							        </table>
+							    </div>
+						    </div>
+					    </div>
+				    </div><!-- row -->
+
+				    <div class="row col-sm-12">
+				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+						<button ng-show="totalItemsP > 0" type="submit" ng-click="retirarMaterial()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-success" ng-disabled="submitting" ng-switch="submitting">
+							<span ng-switch-default>Retirar Combustível</span>
+				    		<span ng-switch-when="true">Enviando...</span>
+						</button>
+						<p></p><!-- clearfixed -->
+						<p></p><!-- clearfixed -->
+					</div>
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

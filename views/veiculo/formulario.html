@@ -1,0 +1,139 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de veículo <small>adicione, edite os veículos</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/veiculo">Veículo</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <!-- <div ng-include="'views/messages.html'"></div> -->
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+
+					<input type="hidden" ng-model="veiculo.idveiculo" name="idveiculo">
+
+					<div class="form-group">
+						<div class="col-sm-4">
+							<label for="nome" class="control-label">Placa: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="veiculo.placa" name="placa" placeholder="Informe a placa do veículo" required>
+							<span class="help-block" ng-show="createForm.placa.$dirty && createForm.placa.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-4">
+							<label for="quantidade" class="control-label">Tipo: <span class="red">*</span></label>
+							<select class="form-control" ng-model="veiculo.tipo" name="tipo" required>
+								<option value="">Escolha</option>
+								<option value="Carro">Carro</option>
+								<option value="Caminhonete">Caminhonete</option>
+								<option value="Moto">Moto</option>
+							</select>
+							<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-4">
+							<label for="nome" class="control-label">Modelo: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="veiculo.modelo" name="modelo" placeholder="Informe o modelo do veículo" required>
+							<span class="help-block" ng-show="createForm.modelo.$dirty && createForm.modelo.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+					<div class="form-group">
+						<div class="col-sm-4">
+							<label for="nome" class="control-label">Ano:</label>
+							<input type="text" class="form-control" ng-model="veiculo.ano" name="ano" placeholder="Informe o ano do veículo" required>
+						</div>
+						<div class="col-sm-4">
+							<label for="nome" class="control-label">Cor:</label>
+							<input type="text" class="form-control" ng-model="veiculo.cor" name="cor" placeholder="Informe a cor do veículo" required>
+							<span class="help-block" ng-show="createForm.cor.$dirty && createForm.cor.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-4">
+							<label for="quantidade" class="control-label">Tipo de Combustível: <span class="red">*</span></label>
+							<select class="form-control" ng-model="veiculo.tipocombustivel" name="tipocombustivel" required>
+								<option value="">Escolha</option>
+								<option value="1">Gasolina</option>
+								<option value="2">Álcool</option>
+								<option value="3">Diesel</option>
+								<option value="4">Diesel S10</option>
+							</select>
+							<span class="help-block" ng-show="createForm.tipocombustivel.$dirty && createForm.tipocombustivel.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+					<div class="form-group">
+						<div class="col-sm-3">
+							<label for="nome" class="control-label">KM Inicial: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="veiculo.kminicial" name="kminicial" placeholder="Informe a quilometragem inicial do veículo" required>
+							<span class="help-block" ng-show="createForm.kminicial.$dirty && createForm.kminicial.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-5">
+							<label for="nome" class="control-label">Motorista: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="veiculo.motorista" name="motorista" placeholder="Informe o motorista do veículo" required>
+							<span class="help-block" ng-show="createForm.motorista.$dirty && createForm.motorista.$error.required">O campo é obrigatório</span>
+						</div>
+						<div class="col-sm-4">
+							<label for="quantidade" class="control-label">Setor: <span class="red">*</span></label>
+							<select class="form-control" ng-model="veiculo.idsetor" name="idsetor" ng-init="loadsetores()" required>
+								<option value="">Escolha</option>
+								<option ng-repeat="setor in setores" value="{{setor.idsetor}}" ng-selected="veiculo.idsetor==setor.idsetor">{{setor.nome}}</option>
+							</select>
+							<span class="help-block" ng-show="createForm.idsetor.$dirty && createForm.idsetor.$error.required">O campo é obrigatório</span>
+						</div>
+					</div><!-- END INPUT -->
+
+					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
+						<span ng-switch-default>Salvar</span>
+				    	<span ng-switch-when="true">Salvando...</span>
+					</button>
+					<a href="#!/unidademedida" class="btn btn-sm btn-danger">Cancelar</a>
+
+					<p></p><!-- clearfixed -->
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

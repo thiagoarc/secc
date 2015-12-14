@@ -157,6 +157,51 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/saidacombustivel',
+			{ 
+				templateUrl: 'views/saidacombustivel/index.html',
+				controller: 'saidacombustivelCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saidacombustivel/saidacombustivelCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/saidacombustivel/add',
+			{ 
+				templateUrl: 'views/saidacombustivel/formulario.html',
+				controller: 'saidacombustivelCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saidacombustivel/saidacombustivelCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/saidacombustivel/detalhes/:idsaida',
+			{ 
+				templateUrl: 'views/saidacombustivel/detalhes.html',
+				controller: 'saidacombustivelCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/saidacombustivel/saidacombustivelCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/solicitacaouser',
 			{ 
 				templateUrl: 'views/solicitacaouser/index.html',
@@ -301,6 +346,51 @@ app.config( function($routeProvider, $locationProvider){
 						return $ocLazyLoad.load({
                         	name: 'app', /*name module(YourModuleApp)*/
                         	files: ['app/controllers/unidademedida/unidadeMedidaCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/veiculo',
+			{ 
+				templateUrl: 'views/veiculo/index.html',
+				controller: 'veiculoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/veiculo/veiculoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/veiculo/add',
+			{ 
+				templateUrl: 'views/veiculo/formulario.html',
+				controller: 'veiculoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/veiculo/veiculoCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/veiculo/edit/:id',
+			{ 
+				templateUrl: 'views/veiculo/formulario.html',
+				controller: 'veiculoCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/veiculo/veiculoCtrl.js']
                     	});
 					}]
 				}

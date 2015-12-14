@@ -1,0 +1,144 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Formulário de solicitação de material <small>adicione os materiais à sua solicitação</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/contrato">Contrato</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+		        <div ng-include="'views/messages.html'"></div>
+		        <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<form name="createForm" role="form" class="col-sm-12" novalidate>
+					<div class="row form-group">
+						<div class="col-sm-6">
+							<label for="numero" class="control-label">Pesquise pelo nome do produto: <span class="red">*</span></label>
+							<div class="input-group">
+								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivoed(nome)" ng-keydown="removeTagOnBackspace($event)" ng-model="nome" name="nome" autocomplete="off">
+								<div class="input-group-btn">
+									<button class="btn btn-default"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+							<div class="autocomplete" ng-show="autocomplete">
+								<ul>
+									<li ng-repeat="busca in resultados"><a href="javascript:void(0);" ng-click="selectedcontratoaditivoed(busca)">{{busca.descricao}}</a></li>
+								</ul>
+								<ul ng-show="!totalresultados">
+									<li><p>Nenhum resultado encontrato</p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<input type="hidden" ng-model="produto.idsolicitacao" name="idsolicitacao">
+							<input type="hidden" ng-model="produto.idproduto" name="idproduto">
+							<label for="nome" class="control-label">QTD: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="produto.qtd" name="qtd" placeholder="Informe a qtd do produto" required>
+							<span class="help-block" ng-show="createForm.qtd.$dirty && createForm.qtd.$error.required">O campo é obrigatório</span>
+						</div><!-- END INPUT -->
+						<div class="col-sm-3">
+							<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+							<button  style="margin-top: 23px;" type="submit" ng-click="addeditem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+								<span ng-switch-default>Adicionar</span>
+				    			<span ng-switch-when="true">Adicionando...</span>
+							</button>
+						</div><!-- END INPUT -->
+					</div><!-- END INPUT -->
+
+					<p></p><!-- clearfixed -->
+
+					<div class="col-sm-12">
+
+						<div class="table-responsive" ng-show="totalItemsP > 0">
+							<table class="table table-striped">
+								<thead>
+									<th width="1%" >#</th>
+									<th width="50%" >Produto</th>
+									<th width="15%" >QTD</th>
+									<th width="15%" >Status</th>
+									<th width="19%"></th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="prod in produtossolicitacao">
+									<td>{{$index+1}}</td>
+									<td>{{prod.produto}}</td>
+									<td>{{prod.qtd}}</td>
+									<td>
+                                        <a ng-show="prod.status == 'Finalizado'" class="btn btn-success btn-sm" href="javascript:;">{{prod.status}}</a>
+                                        <a ng-show="prod.status == 'Aguardando'" class="btn btn-warning btn-sm" href="javascript:;">{{prod.status}}</a>
+                                        <a ng-show="prod.status == 'Cancelado'" class="btn btn-danger btn-sm" href="javascript:;">{{prod.status}}</a>
+                                    </td>
+									<td><a class="btn btn-danger btn-sm" href="javascript:;" 
+										ng-click="removeRowEd(prod.idsolicitacao_produto)">
+										<i class="glyphicon glyphicon-trash"></i> Excluir</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-12" ng-show="!totalItemsP">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum produto adicionado.</td>
+				        	</tr>
+				        </table>
+				        </div>
+				    </div>
+
+				    <div ng-show="totalItemsP > 0">
+				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
+						<button type="submit" ng-click="enviarSolicitacaoAlteracao()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-primary" ng-disabled="submitting" ng-switch="submitting">
+							<span ng-switch-default>Alterar Solicitação</span>
+				    		<span ng-switch-when="true">Alterando...</span>
+						</button>
+						<a href="#!/solicitacaouser" class="btn btn-danger">Cancelar</a>
+					</div>
+
+				</form>
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->
