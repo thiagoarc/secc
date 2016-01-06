@@ -44,6 +44,9 @@ app
 							case 9: //solicitante de material
 								$location.path('/solicitacaouser');
 							break;
+							case 10: //gestor de combustivel
+								$location.path('/saidacombustivel');
+							break;
 							default:
 								$location.path('/app');
 							break;

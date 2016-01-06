@@ -71,20 +71,20 @@
 						<table class="table table-striped">
 							<thead>
 								<th width="1%" >#</th>
-								<th width="20%" >Número solicitação de saída</th>
+								<th width="20%" >Nº solicitação de saída</th>
 								<th width="14%" >Data</th>
 								<th width="25%" >Setor</th>
 								<th width="25%">Veículo</th>
-								<th width="15%"></th>
+								<th width="15%" class="text-center"></th>
 							</thead>
 							<tbody>
 								<tr ng-repeat="solicitacao in solicitacoes | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
 									<td>{{$index+1}}</td>
-									<td><span class="label label-info">{{solicitacao.idsaida}}</span></td>
+									<td><span class="label label-info">Saída de combustível:  {{solicitacao.idsaida}}</span></td>
 									<td>{{solicitacao.datasaida  | date:'dd/MM/yyyy'}}</td>
 									<td>{{solicitacao.nome}}</td>
 									<td>{{solicitacao.placa}} - {{solicitacao.modelo}} - {{solicitacao.motorista}}</td>
-									<td>
+									<td class="text-center">
 										<a class="btn btn-default btn-sm" href="javascript:void(0);"
 									 		ng-click="detalhes(solicitacao)"
 									 		tooltips tooltip-title="tip" tooltip-side="top"

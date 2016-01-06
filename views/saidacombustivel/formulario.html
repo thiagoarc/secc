@@ -45,7 +45,7 @@
 				<form name="createForm" role="form" class="col-sm-12" novalidate>
 
 					<div class="row form-group">
-						<div class="col-sm-10">
+						<div class="col-sm-6">
 							<label for="nome" class="control-label">Veículo: <span class="red">*</span></label>
 							<select class="form-control" ng-model="veiculo.idveiculo" name="idveiculo" ng-init="loadveiculos()" required>
 								<option value="">Escolha</option>
@@ -53,13 +53,13 @@
 							</select>
 							<span class="help-block" ng-show="createForm.idveiculo.$dirty && createForm.idveiculo.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
-						<div class="col-sm-2">
-							<a class="link pull-right fc-mg-right-default-1x fc-mg-top-default-6x" href="#!/saida">
+						<div class="col-sm-6">
+							<a class="link pull-right fc-mg-right-default-1x fc-mg-top-default-6x" href="#!/saidacombustivel">
 								<i class="glyphicon glyphicon-menu-left"></i> Voltar</a>
 						</div>
 					</div>
 					<div class="row form-group">
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<label for="numero" class="control-label">Pesquise pelo nome do combustível: <span class="red">*</span></label>
 							<div class="input-group">
 								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-keydown="removeTagOnBackspace($event)" ng-model="nome" name="nome" autocomplete="off">
@@ -72,14 +72,14 @@
 									<li ng-repeat="busca in resultados"><a href="javascript:void(0);" ng-click="selectedcontratoaditivo(busca)">{{busca.descricao}}</a></li>
 								</ul>
 								<ul ng-show="!totalresultados">
-									<li><p>Nenhum resultado encontrato</p></li>
+									<li><p>Nenhum item encontrato</p></li>
 								</ul>
 							</div>
 						</div>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 							<input type="hidden" ng-model="produto.idproduto" name="idproduto">
-							<label for="nome" class="control-label">QTD de litros: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="produto.qtd" name="qtd" placeholder="Informe a qtd do produto" required>
+							<label for="nome" class="control-label">Quantidade de LT: <span class="red">*</span></label>
+							<input type="text" class="form-control" ng-model="produto.qtd" name="qtd" placeholder="ex.: 10" required>
 							<input type="hidden" ng-model="qtdestoque" name="qtdestoque">
 							<span class="help-block" ng-show="createForm.qtd.$dirty && createForm.qtd.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
@@ -129,7 +129,7 @@
 								<div class="col-md-12" ng-show="!totalItemsP">
 							        <table class="table">
 							        	<tr>
-							        		<td colspan="7">Nenhum produto adicionado.</td>
+							        		<td colspan="7">Nenhum item adicionado.</td>
 							        	</tr>
 							        </table>
 							    </div>
@@ -140,7 +140,7 @@
 				    <div class="row col-sm-12">
 				    	<img src="assets/img/ajax-loader.gif" ng-show="isloading">
 						<button ng-show="totalItemsP > 0" type="submit" ng-click="retirarMaterial()" ng-class="{disabled: totalItemsP == 0}" class="btn btn-success" ng-disabled="submitting" ng-switch="submitting">
-							<span ng-switch-default>Retirar Combustível</span>
+							<span ng-switch-default>Concluir saída de combustível</span>
 				    		<span ng-switch-when="true">Enviando...</span>
 						</button>
 						<p></p><!-- clearfixed -->

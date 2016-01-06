@@ -42,17 +42,20 @@
 
 				<p></p><!-- clearfixed -->
 
-				<form name="createForm" role="form" class="col-sm-12" novalidate>
+				<form name="createForm" role="form" class="col-sm-12 form-horizontal" novalidate>
 
 					<input type="hidden" ng-model="veiculo.idveiculo" name="idveiculo">
 
 					<div class="form-group">
-						<div class="col-sm-4">
+						<div class="col-sm-2">
 							<label for="nome" class="control-label">Placa: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="veiculo.placa" name="placa" placeholder="Informe a placa do veículo" required>
+							<input type="text" class="form-control" ng-model="veiculo.placa" name="placa" placeholder="MZX2016" required>
 							<span class="help-block" ng-show="createForm.placa.$dirty && createForm.placa.$error.required">O campo é obrigatório</span>
 						</div>
-						<div class="col-sm-4">
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<div class="col-sm-3">
 							<label for="quantidade" class="control-label">Tipo: <span class="red">*</span></label>
 							<select class="form-control" ng-model="veiculo.tipo" name="tipo" required>
 								<option value="">Escolha</option>
@@ -62,23 +65,27 @@
 							</select>
 							<span class="help-block" ng-show="createForm.tipo.$dirty && createForm.tipo.$error.required">O campo é obrigatório</span>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<label for="nome" class="control-label">Modelo: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="veiculo.modelo" name="modelo" placeholder="Informe o modelo do veículo" required>
+							<input type="text" class="form-control" ng-model="veiculo.modelo" name="modelo" placeholder="modelo do veículo" required>
 							<span class="help-block" ng-show="createForm.modelo.$dirty && createForm.modelo.$error.required">O campo é obrigatório</span>
 						</div>
 					</div><!-- END INPUT -->
+
 					<div class="form-group">
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<label for="nome" class="control-label">Ano:</label>
-							<input type="text" class="form-control" ng-model="veiculo.ano" name="ano" placeholder="Informe o ano do veículo" required>
+							<input type="text" class="form-control" ng-model="veiculo.ano" name="ano" placeholder="ex.: 2016" required>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<label for="nome" class="control-label">Cor:</label>
-							<input type="text" class="form-control" ng-model="veiculo.cor" name="cor" placeholder="Informe a cor do veículo" required>
+							<input type="text" class="form-control" ng-model="veiculo.cor" name="cor" placeholder="ex.: prata, branco e etc..." required>
 							<span class="help-block" ng-show="createForm.cor.$dirty && createForm.cor.$error.required">O campo é obrigatório</span>
 						</div>
-						<div class="col-sm-4">
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<div class="col-sm-3">
 							<label for="quantidade" class="control-label">Tipo de Combustível: <span class="red">*</span></label>
 							<select class="form-control" ng-model="veiculo.tipocombustivel" name="tipocombustivel" required>
 								<option value="">Escolha</option>
@@ -90,18 +97,25 @@
 							<span class="help-block" ng-show="createForm.tipocombustivel.$dirty && createForm.tipocombustivel.$error.required">O campo é obrigatório</span>
 						</div>
 					</div><!-- END INPUT -->
+
 					<div class="form-group">
 						<div class="col-sm-3">
 							<label for="nome" class="control-label">KM Inicial: <span class="red">*</span></label>
-							<input type="text" class="form-control" ng-model="veiculo.kminicial" name="kminicial" placeholder="Informe a quilometragem inicial do veículo" required>
+							<input type="text" class="form-control" ng-model="veiculo.kminicial" name="kminicial" placeholder="ex.: 41980" required>
 							<span class="help-block" ng-show="createForm.kminicial.$dirty && createForm.kminicial.$error.required">O campo é obrigatório</span>
 						</div>
-						<div class="col-sm-5">
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<div class="col-sm-6">
 							<label for="nome" class="control-label">Motorista: <span class="red">*</span></label>
 							<input type="text" class="form-control" ng-model="veiculo.motorista" name="motorista" placeholder="Informe o motorista do veículo" required>
 							<span class="help-block" ng-show="createForm.motorista.$dirty && createForm.motorista.$error.required">O campo é obrigatório</span>
 						</div>
-						<div class="col-sm-4">
+					</div><!-- END INPUT -->
+
+					<div class="form-group">
+						<div class="col-sm-6">
 							<label for="quantidade" class="control-label">Setor: <span class="red">*</span></label>
 							<select class="form-control" ng-model="veiculo.idsetor" name="idsetor" ng-init="loadsetores()" required>
 								<option value="">Escolha</option>
@@ -110,13 +124,13 @@
 							<span class="help-block" ng-show="createForm.idsetor.$dirty && createForm.idsetor.$error.required">O campo é obrigatório</span>
 						</div>
 					</div><!-- END INPUT -->
-
+					
 					<img src="assets/img/ajax-loader.gif" ng-show="isloading">
 					<button type="submit" ng-click="saveitem()" ng-class="{disabled: createForm.$invalid}" class="btn btn-sm btn-primary" ng-disabled="submitting" ng-switch="submitting">
 						<span ng-switch-default>Salvar</span>
 				    	<span ng-switch-when="true">Salvando...</span>
 					</button>
-					<a href="#!/unidademedida" class="btn btn-sm btn-danger">Cancelar</a>
+					<a href="#!/veiculo" class="btn btn-sm btn-danger">Cancelar</a>
 
 					<p></p><!-- clearfixed -->
 

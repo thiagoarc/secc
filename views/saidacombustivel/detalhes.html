@@ -11,7 +11,7 @@
         <div class="block-content">
 
         <div class="form-group">
-                        <label for="nome" class="control-label">Número da Solicitação:</label>
+                        <label for="nome" class="control-label">Saída de combustível:</label>
                         {{solicitacao.idsaida}}
                     </div><!-- END INPUT -->
            <div class="form-group">
@@ -25,7 +25,7 @@
                     </div><!-- END INPUT -->
                     <div class="form-group" ng-show="totalItemsP > 0">
                     <fieldset >
-                        <legend>Produtos da Solicitação</legend>
+                        <legend>Dados da solicitação</legend>
                         <div class="table-responsive" >
                         <table class="table table-striped">
                             <thead>
@@ -39,7 +39,7 @@
                                     <td>{{$index+1}}</td>
                                     <td>{{solprod.produto}}</td>
                                     <td>{{solprod.placa}} - {{solprod.modelo}} - {{solprod.motorista}}</td>
-                                    <td>{{solprod.qtd}}</td>
+                                    <td>{{solprod.qtd}} LT</td>
                                 </tr>
                             </tbody>
                         </table>

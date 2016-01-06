@@ -61,6 +61,9 @@ try{
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
                                             ("/solicitacaouser/detalhes", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/relatorio", :usuario)
 
                                     ');
@@ -182,6 +185,9 @@ try{
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
                                             ("/solicitacaouser/detalhes", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/relatorio", :usuario)
 
                                     ');
@@ -213,6 +219,21 @@ try{
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $params->idusuario);
+            $stmtPerfil->execute();
+
+        }else if( $params->perfil == 10 ){ //gestor de combustível
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/solicitacaouser", :usuario),
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
@@ -278,6 +299,9 @@ try{
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
                                             ("/solicitacaouser/detalhes", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/relatorio", :usuario)
 
                                     ');
@@ -399,6 +423,9 @@ try{
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
                                             ("/solicitacaouser/detalhes", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/relatorio", :usuario)
 
                                     ');
@@ -430,6 +457,20 @@ try{
             $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
                                         VALUES
                                             ("/app", :usuario),
+                                            ("/solicitacaouser", :usuario),
+                                            ("/solicitacaouser/add", :usuario),
+                                            ("/solicitacaouser/edit", :usuario),
+                                            ("/solicitacaouser/detalhes", :usuario)
+                                    ');
+            $stmtPerfil->bindParam('usuario', $usuario);
+            $stmtPerfil->execute();
+        }else if( $params->perfil == 10 ){ //gestor de combustível
+            $stmtPerfil = $oConexao->prepare('INSERT INTO usuario_permissao(roles, idusuario) 
+                                        VALUES
+                                            ("/app", :usuario),
+                                            ("/veiculo", :usuario),
+                                            ("/saidacombustivel/add", :usuario),
+                                            ("/saidacombustivel/detalhes", :usuario),
                                             ("/solicitacaouser", :usuario),
                                             ("/solicitacaouser/add", :usuario),
                                             ("/solicitacaouser/edit", :usuario),
