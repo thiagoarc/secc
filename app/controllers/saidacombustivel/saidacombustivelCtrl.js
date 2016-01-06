@@ -99,43 +99,6 @@ app
     				}
 				};
 
-
-				
-
-				/* confirmação modal para excluir item */
-				// $scope.deleteconfirm = function(contratodelete){
-				// 	var modalInstance = $modal.open({
-				//       	templateUrl: 'views/confirm.html',
-				//       	controller: function ($scope, $modalInstance, contratos) {
-				      	
-				// 	      	$scope.contrato = contratos;
-				// 	      	$scope.modalItem =  "de número de contrato: "+contratos.numerocontrato;
-					      	
-				// 	      	$scope.ok = function () {
-				// 			    $modalInstance.close($scope.contrato);
-				// 			};
-
-				// 			$scope.cancel = function () {
-				// 			    $modalInstance.dismiss('cancel');
-				// 			};
-
-				//       	},
-				//       	resolve: {
-				//         	contratos: function () {
-				//           		return contratodelete;
-				//         	}
-				//       	}
-				//   	});
-
-				//   	modalInstance.result.then(function (contrato) {
-				//       $scope.deleteitem( contrato.idcontrato );
-				//     }, function () {
-				//     	/* funcao ao cancelar ou fechar o modal */
-				//     });
-
-				// };
-
-
 				//modal detahes
 				$scope.detalhes = function(solicitacao){
 
@@ -197,8 +160,8 @@ app
 						data: { id: $scope.veiculo.idveiculo } 
 					}).success(function(data){
 						$scope.veiculo = data;
+						// console.log($scope.veiculo);
 					});
-					console.log($scope.veiculo);
 				}
 
 				$scope.loadveiculos = function(itemid){
@@ -220,17 +183,6 @@ app
 						$scope.totalItemsP = $scope.produtossolicitacao.length;
 						console.log($scope.totalItemsP);
 					});
-					
-					// $http.get('/controller/solicitacaouser/produtossolicitacao')
-					// 	.success(function(data){
-					// 		$scope.solicitacoes = data;
-					// 		console.log($scope.solicitacoes);
-					// 		$scope.currentPage = 1; //current page
-					// 		$scope.entryLimit = 5; //max no of items to display in a page
-					// 		$scope.filteredItems = $scope.solicitacoes.length; //Initially for no filter
-					// 		$scope.totalItems = $scope.solicitacoes.length;
-  			// 				$scope.numPerPage = 5;
-					// 	});
 
 				};
 
@@ -245,6 +197,8 @@ app
 
   				$scope.additem = function(){
   					var ver = true;
+  					console.log($scope.produtossolicitacao);
+  					console.log($scope.veiculo);
   					angular.forEach($scope.produtossolicitacao, function(value, key){
          				if(value.idveiculo == $scope.veiculo.idveiculo){
          					alert("Este veículo já existe na lista de solicitações.");
@@ -257,12 +211,6 @@ app
          				ver = false;
          				return false;
          			}	
-
-         			// if($scope.produtossolicitacao.length > 1){
-         			// 	alert("Só pode ser ");
-         			// 	ver = false;
-         			// 	return false;
-         			// }
 
   					if(ver){
   						if(parseInt($scope.produto.qtd) <= parseInt($scope.qtdestoque)){

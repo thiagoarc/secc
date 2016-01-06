@@ -47,9 +47,15 @@
 					<div class="row form-group">
 						<div class="col-sm-6">
 							<label for="nome" class="control-label">Veículo: <span class="red">*</span></label>
-							<select class="form-control" ng-model="veiculo.idveiculo" name="idveiculo" ng-init="loadveiculos()" required>
+							<select class="form-control" 
+									ng-model="veiculo.idveiculo" 
+									name="idveiculo" 
+									ng-init="loadveiculos()"
+									ng-change="getveiculo()" required>
 								<option value="">Escolha</option>
-								<option ng-repeat="v in veiculos" value="{{v.idveiculo}}" ng-click="getveiculo()" ng-selected="v.idveiculo==veiculo.idveiculo">{{v.placa}} - {{v.modelo}} - {{v.motorista}} - {{v.combustivel}}</option>
+								<option ng-repeat="v in veiculos" 
+										value="{{v.idveiculo}}" 
+										ng-selected="v.idveiculo==veiculo.idveiculo">{{v.placa}} - {{v.modelo}} - {{v.motorista}} - {{v.combustivel}}</option>
 							</select>
 							<span class="help-block" ng-show="createForm.idveiculo.$dirty && createForm.idveiculo.$error.required">O campo é obrigatório</span>
 						</div><!-- END INPUT -->
@@ -62,7 +68,7 @@
 						<div class="col-sm-4">
 							<label for="numero" class="control-label">Pesquise pelo nome do combustível: <span class="red">*</span></label>
 							<div class="input-group">
-								<input type="text" placeholder="Ex.: Caneta" class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-keydown="removeTagOnBackspace($event)" ng-model="nome" name="nome" autocomplete="off">
+								<input type="text" placeholder="Ex.: Gasolina, Diesel e etc..." class="form-control" ng-keyup="searchcontratoaditivo(nome)" ng-keydown="removeTagOnBackspace($event)" ng-model="nome" name="nome" autocomplete="off">
 								<div class="input-group-btn">
 									<button class="btn btn-default"><i class="fa fa-search"></i></button>
 								</div>
