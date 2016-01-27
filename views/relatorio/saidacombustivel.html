@@ -1,0 +1,142 @@
+<!-- Page Container -->
+<div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+
+<!-- Sidebar -->
+<md-sidebar></md-sidebar>
+<!-- end Sidebar -->    
+
+<!-- Header -->
+<md-header></md-header>
+<!-- end Header -->
+
+<!-- Main Container -->
+<main id="main-container">
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-8">
+            <h1 class="page-heading">
+                Relatório <small>vizualize o desempenho geral da saída de combustível</small>
+            </h1>
+        </div>
+        <div class="col-sm-4 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>Dashboard</li>
+                <li><a class="link-effect" href="#!/relatorio/saidacombustivel">Saída de combustível</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content content-narrow">
+	<div class="block">
+		<div class="row">
+			<div class="col-sm-12">
+
+				<!-- Messages -->
+	            <div ng-include="'views/messages.html'"></div>
+	            <!-- End Messages -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="col-sm-6">
+							<form>
+						    	<div class="col-sm-5 form-group">
+						    	  <label class="control-label">Data de início: </label>
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+							        <input type="text" class="form-control" ng-model="combustivelinicio" ui-mask="99/99/9999">
+							      </div>      
+						      	</div>
+						      	<div class="col-sm-5 form-group">
+						      	  <label class="control-label">Data final: </label>
+							      <div class="input-group">
+							        <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+							        <input type="text" class="form-control" ng-model="combustivelfinal" ui-mask="99/99/9999">
+							      </div>      
+						      	</div>
+						      	<div class="col-sm-2 form-group">
+							      <a href="javascript:void(0)" ng-click="actSaidaCombustivel();" class="btn btn-default fc-mg-top-default-5x"><i class="fa fa-search"> Filtrar</i></a>   
+						      	</div>
+						    </form>
+						</div><!-- search table -->
+						<div class="col-sm-6">
+							<a href="javascript:void(0);" 
+								ng-show="saidacombustivel.length"
+								ng-click="imprimir('print-result');" class="btn btn-info btn-sm pull-right">
+								<i class="glyphicon glyphicon-print"></i> Imprimir
+							</a>
+						</div>
+						<!-- end action add -->
+					</div>
+				</div><!-- end col-sm-12 -->
+
+				<p></p><!-- clearfixed -->
+
+				<div class="col-sm-12">
+
+					<div id="print-result" class="table-responsive" ng-show="saidacombustivel.length > 0">
+
+						<div class="hidden">
+							<h1 class="block-title border-h3">Relatório - Saída de combustível</h1>
+						</div><!-- div show in print -->
+
+						<table class="table table-striped">
+							<thead>
+								<th width="1%" >#</th>
+								<th width="10%">
+									<a href="#!/relatorio/saidacombustivel" 
+									ng-click="sortType = 'idsaida'; sortReverse = !sortReverse">Nº SOLICITAÇÃO DE SAÍDA
+									</a>
+								</th>
+								<th width="15%">Dta. solicitação</th>
+								<th width="20%">Setor</th>
+								<th width="25%">Veículo</th>
+								<th width="10%">QTD</th>
+							</thead>
+							<tbody>
+								<tr ng-repeat="sb in saidacombustivel | orderBy:sortType:sortReverse | filter:searchItem | filter : paginate">
+									<td>{{$index+1}}</td>
+									<td><span class="label label-success">Saída de combustível {{sb.idsaida}}</span></td>
+
+									<td>{{sb.datasaida | datebr }}</td>
+									<td>{{sb.setornome}} {{sb.setorsigla}}</td>
+									<td>{{sb.veiculoplaca}} - {{sb.veiculomodelo}} - {{sb.veiculomotorista}}</td>
+									
+									<td>{{sb.qtdtotal}} LT</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-12" ng-show="!saidacombustivel.length">
+				        <table class="table">
+				        	<tr>
+				        		<td colspan="7">Nenhum registro encontrado.</td>
+				        	</tr>
+				        </table>
+				    </div>
+
+				</div><!-- end col-sm-12 -->
+
+			</div><!-- end col-sm-12 -->
+		</div><!-- end row -->
+	</div><!-- end block -->
+</div>
+<!-- END Page Content -->
+
+</main>
+<!-- END Main Container -->
+
+<!-- Footer -->
+<md-footer></md-footer>
+<!-- end Footer -->
+
+</div>
+<!-- END Page Container -->

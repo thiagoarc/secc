@@ -772,6 +772,36 @@ app.config( function($routeProvider, $locationProvider){
 			}
 		)
 
+		.when('/relatorio/saidacombustivel',
+			{ 
+				templateUrl: 'views/relatorio/saidacombustivel.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
+		.when('/relatorio/saidacombustivelmotorista',
+			{ 
+				templateUrl: 'views/relatorio/saidacombustivelmotorista.html',
+				controller: 'relatorioCtrl',
+				resolve: {
+					lazyTestCtrl: ['$ocLazyLoad', function($ocLazyLoad){
+						return $ocLazyLoad.load({
+                        	name: 'app', /*name module(YourModuleApp)*/
+                        	files: ['app/controllers/relatorio/relatorioCtrl.js']
+                    	});
+					}]
+				}
+			}
+		)
+
 		.when('/relatorio/produtoestoque',
 			{ 
 				templateUrl: 'views/relatorio/produtoestoque.html',

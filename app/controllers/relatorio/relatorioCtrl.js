@@ -13,11 +13,16 @@ app
 				$scope.aditivovencidos 		= [];
 				$scope.osinicio				= undefined;
 				$scope.osfinal				= undefined;
+				$scope.combustivelinicio	= undefined;
+				$scope.combustivelfinal		= undefined;
 				$scope.ordemservico			= [];
+				$scope.saidacombustivel		= [];
+				$scope.saidacombustivelmotorista = [];
 				$scope.produtoestoque		= [];
-				$scope.produtoestoqueminimo		= [];
+				$scope.produtoestoqueminimo	= [];
 				$scope.solicitacaosetor		= [];
 				$scope.filtrosetor			= [];
+				$scope.filtromotorista	    = [];
 				$scope.isloading 			= false;
 				$scope.sortType     		= 'nome'; // set the default sort type
 			  	$scope.sortReverse  		= false;  // set the default sort order
@@ -123,6 +128,62 @@ app
 					}
 				};
 
+				$scope.getSaidaCombustivel = function(){
+					//via http
+					$http({
+						method: 'POST',
+						url: '/controller/relatorio/getsaidacombustivel'
+					}).success(function(data){
+						$scope.saidacombustivel = data;
+					});
+				};
+
+				$scope.actSaidaCombustivel = function(){
+					if( $scope.combustivelinicio != undefined && $scope.combustivelfinal != undefined ){
+						//via http
+						$http({
+							method: 'POST',
+							url: '/controller/relatorio/getsaidacombustivel',
+							data: { osinicio: $scope.combustivelinicio, osfinal: $scope.combustivelfinal }
+						}).success(function(data){
+							$scope.saidacombustivel = [];
+							$scope.saidacombustivel = data;
+						});
+					}else{
+						//show message
+						appMessages.addMessage('Favor informe uma data válida para efetuar o filtro', true, 'info');
+						//show message in 5 seconds
+						$timeout(function(){
+							appMessages.show = false;
+						}, 3000);
+					}
+				};
+
+				$scope.actSaidaCombustivelMotorista = function(){
+					if( $scope.combustivelinicio != undefined && $scope.combustivelfinal != undefined && $scope.filtromotorista.id != undefined ){
+						//via http
+						$http({
+							method: 'POST',
+							url: '/controller/relatorio/getsaidacombustivelmotorista',
+							data: { osinicio: $scope.combustivelinicio, osfinal: $scope.combustivelfinal, motorista: $scope.filtromotorista.id }
+						}).success(function(data){
+							$scope.saidacombustivelmotorista = [];
+							$scope.saidacombustivelmotorista = data;
+							$scope.totalsmt = 0;
+							for(var $i = 0; $i < $scope.saidacombustivelmotorista.length; $i++){
+								$scope.totalsmt += $scope.saidacombustivelmotorista[$i].qtdtotal;
+							}
+						});
+					}else{
+						//show message
+						appMessages.addMessage('Favor informe uma data válida ou motorista para efetuar o filtro', true, 'info');
+						//show message in 5 seconds
+						$timeout(function(){
+							appMessages.show = false;
+						}, 3000);
+					}
+				};
+
 				$scope.getProdutoEstoque = function(){
 					//via http
 					$http({
@@ -148,6 +209,15 @@ app
 					$http.get('/controller/relatorio/getsetor')
 						.success(function(data){
 							$scope.setor = data;
+						});
+
+				};
+
+				$scope.loadmotorista = function(){
+					
+					$http.get('/controller/saidacombustivel/getmotorista')
+						.success(function(data){
+							$scope.motorista = data;
 						});
 
 				};
