@@ -28,7 +28,7 @@ try{
 		$osfinal 	= formata_data_en_US( $params->osfinal );
 
 		$stmt = $oConexao->prepare("SELECT s.idsaida, DATE_FORMAT(s.datasaida, '%d%m%Y') as datasaida, s.idusuario, se.sigla, 
-										   se.nome, v.placa, v.motorista, v.modelo 
+										   se.nome, v.placa, v.motorista, v.modelo, v.tipocombustivel
 										FROM saida s, setor se, veiculo v 
 											WHERE 
 												s.idveiculo = v.idveiculo 
@@ -63,6 +63,21 @@ try{
 			$saida[$i]['veiculoplaca'] 		= $row['placa'];
 			$saida[$i]['veiculomotorista'] 	= $row['motorista'];
 			$saida[$i]['veiculomodelo'] 	= $row['modelo'];
+			switch ( $row['tipocombustivel'] ) {
+				case '1':
+					$tipocombustivel = 'Gasolina';
+					break;
+				case '2':
+					$tipocombustivel = 'Alcool';
+					break;
+				case '3':
+					$tipocombustivel = 'Diesel';
+					break;
+				case '4':
+					$tipocombustivel = 'Diesel S10';
+					break;
+			}
+			$saida[$i]['veiculocombustivel'] 	= $tipocombustivel;
 
 			$stmtca = $oConexao->prepare("SELECT qtd 
 											FROM saida_produto osi
